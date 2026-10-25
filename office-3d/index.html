@@ -5,31 +5,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Layout: full-bleed WebGL office, with a floating top bar, a side dossier panel (bottom sheet on phones) and a building directory. */
+/* Layout: full-bleed WebGL office. Floating top bar, side dossier panel (bottom sheet on phones), captions, minimap and touch joystick. */
 :root {
   --ink: #17152b;
   --muted: #5d5a73;
   --paper: #fbfaf7;
   --card: #ffffff;
+  --glass: rgba(255, 255, 255, 0.82);
   --line: #e4e1ee;
   --accent: #4f46e5;
   --accent-ink: #ffffff;
   --accent-soft: #eceafd;
-  --shade: rgba(23, 21, 43, 0.14);
-  --scrim: rgba(23, 21, 43, 0.32);
+  --shade: rgba(23, 21, 43, 0.16);
+  --scrim: rgba(23, 21, 43, 0.34);
+  --cap-bg: rgba(17, 16, 30, 0.82);
+  --cap-ink: #ffffff;
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --radius: 14px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ink: #f1effa; --muted: #aaa6c2; --paper: #12111d; --card: #1b1a2a; --line: #2e2c42;
+    --ink: #f1effa; --muted: #aaa6c2; --paper: #12111d; --card: #1b1a2a; --glass: rgba(27, 26, 42, 0.86); --line: #2e2c42;
     --accent: #8b85ff; --accent-ink: #12111d; --accent-soft: #26244a;
     --shade: rgba(0, 0, 0, 0.45); --scrim: rgba(0, 0, 0, 0.5); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --ink: #f1effa; --muted: #aaa6c2; --paper: #12111d; --card: #1b1a2a; --line: #2e2c42;
+  --ink: #f1effa; --muted: #aaa6c2; --paper: #12111d; --card: #1b1a2a; --glass: rgba(27, 26, 42, 0.86); --line: #2e2c42;
   --accent: #8b85ff; --accent-ink: #12111d; --accent-soft: #26244a;
   --shade: rgba(0, 0, 0, 0.45); --scrim: rgba(0, 0, 0, 0.5); color-scheme: dark;
 }
@@ -53,44 +56,54 @@ button, a.btn { font: 600 14px/1 var(--font-body); border-radius: 999px; border:
 button:hover, a.btn:hover { border-color: var(--accent); }
 button:active, a.btn:active { transform: translateY(1px); }
 button.primary, a.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+button.icon { width: 40px; height: 40px; padding: 0; justify-content: center; }
+button svg { width: 18px; height: 18px; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-/* top bar */
 #topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px 6px 6px; box-shadow: 0 8px 24px var(--shade); }
+.brand { display: flex; align-items: center; gap: 10px; background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px 6px 6px; box-shadow: 0 8px 24px var(--shade); }
 .mark { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font: 800 13px/1 var(--font-display); letter-spacing: .02em; }
 .brand b { font: 700 15px/1.1 var(--font-display); display: block; }
 .brand small { color: var(--muted); font-size: 12px; display: block; }
-.top-actions { display: flex; gap: 8px; }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .top-actions button { box-shadow: 0 8px 24px var(--shade); }
 
-/* intro */
-#intro { align-self: center; margin-block: auto; width: min(520px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 28px; box-shadow: 0 30px 80px var(--shade); }
+#intro { align-self: center; margin-block: auto; width: min(540px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 28px; box-shadow: 0 30px 80px var(--shade); max-height: calc(100% - 80px); overflow-y: auto; }
 .eyebrow { font: 600 12px/1 var(--font-body); text-transform: uppercase; letter-spacing: .12em; color: var(--accent); }
 #intro h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.02; margin-top: 10px; font-weight: 800; }
-#intro p { color: var(--muted); margin: 12px 0 20px; max-width: 46ch; }
-.row { display: flex; gap: 10px; flex-wrap: wrap; }
-.floorplan { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.floorplan span { font-size: 11.5px; line-height: 1.25; color: var(--muted); background: var(--accent-soft); border-radius: 8px; padding: 7px 8px; min-width: 0; }
-.floorplan span b { display: block; color: var(--ink); font-variant-numeric: tabular-nums; }
+#intro p { color: var(--muted); margin: 12px 0 20px; max-width: 48ch; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.keys { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; font-size: 13px; color: var(--muted); }
+.keys kbd { font: 600 11.5px/1 var(--font-body); background: var(--accent-soft); color: var(--ink); border-radius: 6px; padding: 4px 6px; margin-right: 6px; display: inline-block; min-width: 22px; text-align: center; }
+#loadbar { height: 4px; border-radius: 4px; background: var(--accent-soft); overflow: hidden; margin-top: 16px; }
+#loadbar i { display: block; height: 100%; width: 10%; background: var(--accent); transition: width .3s; }
 
-/* hint + tooltip */
-#hint { align-self: center; font-size: 12.5px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; box-shadow: 0 8px 24px var(--shade); text-align: center; }
+#bottom { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+#caption { max-width: min(720px, 100%); background: var(--cap-bg); color: var(--cap-ink); border-radius: 14px; padding: 10px 16px; font-size: 15.5px; line-height: 1.45; text-align: center; backdrop-filter: blur(6px); }
+#caption b { font-family: var(--font-display); font-weight: 700; margin-right: 6px; color: #b8b4ff; }
+#hint { font-size: 12.5px; color: var(--ink); background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; box-shadow: 0 8px 24px var(--shade); text-align: center; }
+#prompt { box-shadow: 0 12px 30px var(--shade); }
 #tip { position: fixed; pointer-events: none; transform: translate(-50%, calc(-100% - 14px)); background: var(--ink); color: var(--paper); font: 600 12.5px/1 var(--font-body); padding: 8px 11px; border-radius: 8px; white-space: nowrap; }
+#cross { position: fixed; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px rgba(0,0,0,.35); pointer-events: none; }
 
-/* dossier panel */
+#minimap { position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 150px; height: 250px; border-radius: 16px; background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--line); box-shadow: 0 10px 30px var(--shade); cursor: pointer; }
+
+#joy { position: fixed; left: max(22px, calc(env(safe-area-inset-left, 0px) + 22px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.22); border: 2px solid rgba(255,255,255,.55); touch-action: none; backdrop-filter: blur(4px); }
+#joy i { position: absolute; left: 50%; top: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; background: rgba(255,255,255,.85); box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+
 #panel {
   position: fixed; top: calc(70px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   width: min(410px, calc(100% - 32px)); background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 30px 80px var(--shade);
   display: flex; flex-direction: column; overflow: hidden; pointer-events: auto;
-  transform: translateX(0); transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .25s;
+  transform: translateX(0); transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .3s;
 }
-#panel.off { transform: translateX(calc(100% + 40px)); opacity: 0; }
+#panel.off { transform: translateX(calc(100% + 40px)); opacity: 0; pointer-events: none; }
 .p-head { padding: 22px 22px 14px; border-bottom: 1px solid var(--line); position: relative; }
 .p-num { display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1 var(--font-body); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
 .p-num i { width: 10px; height: 10px; border-radius: 3px; background: var(--room, var(--accent)); display: inline-block; }
-.p-head h2 { font-size: 28px; line-height: 1.05; margin-top: 10px; font-weight: 800; }
-.p-who { margin-top: 6px; color: var(--muted); font-size: 13.5px; }
+.p-head h2 { font-size: 28px; line-height: 1.05; margin-top: 10px; font-weight: 800; padding-right: 40px; }
+.p-who { margin-top: 6px; color: var(--muted); font-size: 13.5px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.p-who button { padding: 6px 11px; font-size: 12.5px; }
 #p-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; padding: 0; justify-content: center; }
 .p-body { padding: 18px 22px; overflow-y: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 18px; }
 .p-body p { margin: 0; max-width: 62ch; }
@@ -110,13 +123,12 @@ button.primary, a.btn.primary { background: var(--accent); border-color: var(--a
 .contact-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; flex-wrap: wrap; }
 .contact-row span { font-size: 12px; color: var(--muted); display: block; }
 .contact-row code { font: 600 14px/1.3 var(--font-body); user-select: all; word-break: break-all; }
-.contact-row button { padding: 7px 12px; font-size: 12.5px; }
+.contact-row button, .contact-row a.btn { padding: 7px 12px; font-size: 12.5px; }
 .links { display: flex; flex-wrap: wrap; gap: 8px; }
 .links a.btn { font-size: 13px; padding: 8px 13px; }
 .p-foot { padding: 14px 22px; border-top: 1px solid var(--line); display: flex; gap: 8px; justify-content: space-between; flex-wrap: wrap; }
 
-/* directory */
-#dir { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; pointer-events: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px; }
+.modal { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; pointer-events: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px; }
 .dir-card { width: min(560px, 100%); max-height: 100%; overflow-y: auto; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 24px; box-shadow: 0 30px 80px var(--shade); }
 .dir-card header { display: flex; justify-content: space-between; align-items: start; gap: 12px; margin-bottom: 14px; }
 .dir-card h2 { font-size: 26px; font-weight: 800; margin-top: 8px; }
@@ -126,24 +138,33 @@ button.primary, a.btn.primary { background: var(--accent); border-color: var(--a
 .dir-item .nm { min-width: 0; }
 .dir-item .nm b { display: block; font: 700 15.5px/1.2 var(--font-display); }
 .dir-item .nm span { display: block; font-weight: 400; color: var(--muted); font-size: 13px; line-height: 1.35; margin-top: 3px; }
-.dir-item .go { color: var(--muted); font-size: 13px; font-weight: 500; }
+.dir-item .go { color: var(--muted); font-size: 12px; font-weight: 500; }
 .dir-group { font: 600 11.5px/1 var(--font-body); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 12px 0 4px; }
+.settings { display: grid; gap: 8px; margin-top: 6px; }
+.toggle { display: flex; justify-content: space-between; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.toggle span { font-size: 14px; }
+.toggle small { display: block; color: var(--muted); font-size: 12px; }
+.toggle button { min-width: 74px; justify-content: center; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 
-#fade { position: fixed; inset: 0; background: var(--paper); opacity: 0; pointer-events: none; transition: opacity .35s; }
+#fade { position: fixed; inset: 0; background: #0d0c18; opacity: 0; pointer-events: none; transition: opacity .4s; }
 #fade.on { opacity: 1; }
 #nogl { position: fixed; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
 
 @media (max-width: 720px) {
-  #panel { top: auto; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: auto; max-height: 64%; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  #panel { top: auto; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: auto; max-height: 50%; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
   #panel.off { transform: translateY(calc(100% + 40px)); }
-  .p-head h2 { font-size: 23px; }
-  .p-head { padding: 18px 18px 12px; }
-  .p-body { padding: 14px 18px; }
-  .p-foot { padding: 12px 18px; }
+  .p-head h2 { font-size: 22px; margin-top: 6px; }
+  .p-head { padding: 16px 18px 10px; }
+  .p-body { padding: 12px 18px; }
+  .p-foot { padding: 10px 18px; }
   .brand small { display: none; }
-  .floorplan { grid-template-columns: repeat(2, 1fr); }
   #intro { padding: 22px; }
   .top-actions button { padding: 9px 12px; }
+  .top-actions button.icon { padding: 0; }
+  #minimap { display: none; }
+  #caption { font-size: 14px; margin-bottom: 120px; }
+  .keys { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   #panel, #fade, button { transition: none; }
@@ -156,6 +177,8 @@ button.primary, a.btn.primary { background: var(--accent); border-color: var(--a
   <div id="topbar">
     <div class="brand"><span class="mark" aria-hidden="true">FS</span><div><b>Foysal Solutions</b><small>Md Foysal Hossain Omi · E-commerce growth</small></div></div>
     <div class="top-actions">
+      <button id="btn-sound" type="button" class="icon" aria-label="Turn sound off" aria-pressed="true" hidden></button>
+      <button id="btn-walk" type="button" hidden>Free walk</button>
       <button id="btn-lobby" type="button" hidden>Lobby</button>
       <button id="btn-dir" type="button" class="primary">Directory</button>
     </div>
@@ -164,24 +187,39 @@ button.primary, a.btn.primary { background: var(--accent); border-color: var(--a
   <section id="intro" aria-labelledby="intro-title">
     <div class="eyebrow">Ground floor · Open office</div>
     <h1 id="intro-title">Step inside Foysal Solutions</h1>
-    <p>This is my agency, built as a walk-through office. Every room is one service I deliver for e-commerce brands in the UK, Sweden and Australia. Pick a door and walk in.</p>
+    <p>This is my agency, built as an office you can walk through. Every room is one service for e-commerce brands in the UK, Sweden and Australia. Walk in, and the person at the desk will tell you about it. Sound is on, so turn your volume up.</p>
     <div class="row">
-      <button id="btn-enter" type="button" class="primary">Enter the office</button>
+      <button id="btn-enter" type="button" class="primary" disabled>Loading the office…</button>
       <button id="btn-skip" type="button">See all rooms</button>
     </div>
-    <div class="floorplan" id="floorplan" aria-label="Rooms on this floor"></div>
+    <div id="loadbar" aria-hidden="true"><i></i></div>
+    <div class="keys" aria-label="Controls">
+      <div><kbd>Click</kbd>a door or a person</div>
+      <div><kbd>Drag</kbd>look around</div>
+      <div><kbd>W A S D</kbd>walk, <kbd>Shift</kbd>run</div>
+      <div><kbd>F</kbd>free walk with mouse look</div>
+      <div><kbd>E</kbd>talk to someone nearby</div>
+      <div><kbd>1</kbd>to <kbd>8</kbd> jump to a room</div>
+    </div>
   </section>
 
-  <div id="hint" hidden></div>
+  <div id="bottom">
+    <div id="caption" hidden aria-live="polite"></div>
+    <button id="prompt" type="button" class="primary" hidden></button>
+    <div id="hint" hidden></div>
+  </div>
 </div>
 
 <div id="tip" hidden></div>
+<div id="cross" hidden></div>
+<canvas id="minimap" width="300" height="500" hidden aria-label="Floor plan. Click a room to walk there."></canvas>
+<div id="joy" hidden aria-hidden="true"><i></i></div>
 
-<aside id="panel" class="off" aria-live="polite" aria-labelledby="p-title">
+<aside id="panel" class="off" aria-labelledby="p-title">
   <div class="p-head">
     <div class="p-num"><i></i><span id="p-num"></span></div>
     <h2 id="p-title"></h2>
-    <div class="p-who" id="p-who"></div>
+    <div class="p-who"><span id="p-who"></span><button id="p-listen" type="button">▶ Listen</button></div>
     <button id="p-close" type="button" aria-label="Close panel">✕</button>
   </div>
   <div class="p-body" id="p-body"></div>
@@ -191,26 +229,41 @@ button.primary, a.btn.primary { background: var(--accent); border-color: var(--a
   </div>
 </aside>
 
-<div id="dir" hidden role="dialog" aria-modal="true" aria-labelledby="dir-title">
+<div id="dir" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="dir-title">
   <div class="dir-card">
     <header>
       <div><div class="eyebrow">Building directory</div><h2 id="dir-title">Where do you want to go?</h2></div>
       <button id="dir-close" type="button" aria-label="Close directory">✕</button>
     </header>
     <div id="dir-list" class="dir-list"></div>
+    <div class="dir-group">Settings</div>
+    <div class="settings">
+      <div class="toggle"><span>Voices<small>People speak when you walk in</small></span><button type="button" id="set-voice" aria-pressed="true">On</button></div>
+      <div class="toggle"><span>Sound effects<small>Footsteps, doors and room tone</small></span><button type="button" id="set-sfx" aria-pressed="true">On</button></div>
+      <div class="toggle"><span>Captions<small>Show what people say</small></span><button type="button" id="set-cap" aria-pressed="true">On</button></div>
+      <div class="toggle"><span>Graphics<small>HD adds glow and sharper shadows</small></span><button type="button" id="set-gfx" aria-pressed="true">HD</button></div>
+    </div>
   </div>
 </div>
 
 <div id="fade"></div>
 
 <script type="importmap">
-{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
 </script>
 <script type="module">
 import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 
 /* ------------------------------------------------------------------ */
-/* Content. Edit names, services and results here.                     */
+/* Content. Edit names, services, results and spoken lines here.        */
 /* ------------------------------------------------------------------ */
 const LINKS = {
   linkedin: "https://www.linkedin.com/in/seo-expert-foysal-omi/",
@@ -228,52 +281,64 @@ const CASES = {
   sunrise: { name: "Sunrise Aesthetic", place: "Australia · sunriseaesthetic.com.au", text: "Full SEO and content optimization for a local clinic, with better visibility for competitive local keywords.", metrics: [["3×", "clicks in 3 months"], ["6×", "impressions in 3 months"]] },
   urban: { name: "Urban Outdoors", place: "United Kingdom · urban-outdoors.co.uk", text: "Ongoing e-commerce SEO: product keyword optimization and steady performance work for an outdoor niche store." },
   dakmatter: { name: "Dakmatter", place: "Sweden · dakmatter.com", text: "Full digital marketing for a Swedish haircare brand: Shopify website, social media, Meta ads, and local plus global SEO." },
-  winback: { name: "WinBack Customer CRM", place: "Live on the Shopify App Store", text: "My own Shopify app. It sorts every customer into 12 groups and flags who is about to stop buying, so stores can win them back.", metrics: [["12", "customer groups"], ["$30", "per 30 days, 7-day trial"]] },
+  winback: { name: "WinBack Customer CRM", place: "Live on the Shopify App Store", text: "Our own Shopify app. It sorts every customer into 12 groups and flags who is about to stop buying, so stores can win them back.", metrics: [["12", "customer groups"], ["$30", "per 30 days, 7-day trial"]] },
 };
+
+const OMI_LOOK = { shirt: "#4f46e5", skin: "#a8714a", hair: "#0f0c0a", style: "short", pants: "#1f1d2b", voice: "male", beard: true };
 
 const ROOMS = [
   { id: "seo", no: 101, side: -1, i: 0, title: "SEO & AEO", role: "SEO specialist", color: "#b45309", screen: "seo",
-    look: { shirt: "#b45309", skin: "#8d5a3b", hair: "#1a1411", style: "short" },
-    intro: "Rankings that turn into orders. I fix the technical base, write pages people search for, and make sure AI answers like ChatGPT and Perplexity can find and quote your store.",
+    look: { shirt: "#f2e8da", skin: "#8d5a3b", hair: "#1a1411", style: "short", pants: "#3b3a4a", voice: "male", glasses: true },
+    intro: "Rankings that turn into orders. The technical base gets fixed, product pages are written for what people search, and your store is made easy for AI answers like ChatGPT and Perplexity to find and quote.",
+    say: "Hi, welcome to room one oh one, SEO and AEO. This is where stores get found. We fix the technical base, write product pages people actually search for, and make your store easy for AI answers like ChatGPT to quote. The Sunrise Aesthetic results on the lobby wall came out of this room.",
     does: ["Technical SEO audits and fixes", "On-page and product page optimization", "AEO and GEO for AI search answers", "Local SEO and Google Business Profile", "Search Console and Bing Webmaster setup"],
     cases: ["sunrise", "urban"] },
   { id: "google", no: 102, side: -1, i: 1, title: "Google Ads", role: "Google Ads specialist", color: "#d93025", screen: "google",
-    look: { shirt: "#d93025", skin: "#e0b08a", hair: "#5a3a22", style: "bun" },
+    look: { shirt: "#d93025", skin: "#e0b08a", hair: "#5a3a22", style: "bun", pants: "#26243a", voice: "female" },
     intro: "Search, Shopping and Performance Max campaigns built around margin, not just clicks. Clean tracking first, then budget goes where it pays back.",
+    say: "Hello, this is the Google Ads room. Search, Shopping and Performance Max campaigns get built here, around your margin, not just clicks. Tracking comes first, so every dollar can be measured.",
     does: ["Search, Shopping and Performance Max", "Merchant Center product feeds", "Conversion tracking and GA4", "Microsoft Ads imports", "Weekly budget and bid reviews"], cases: [] },
   { id: "meta", no: 103, side: -1, i: 2, title: "Meta Ads", role: "Meta Ads specialist", color: "#0866ff", screen: "meta",
-    look: { shirt: "#0866ff", skin: "#c68e5f", hair: "#111111", style: "short" },
+    look: { shirt: "#0866ff", skin: "#c68e5f", hair: "#111111", style: "short", pants: "#e8e4dc", voice: "male" },
     intro: "Facebook and Instagram ads with a steady testing rhythm: new creatives, clear audiences and catalog ads that follow what each shopper looked at.",
+    say: "Hey, welcome to Meta Ads. Facebook and Instagram campaigns live here. New creatives get tested every week, catalog ads follow what each shopper looked at, and the pixel and Conversions API are set up properly.",
     does: ["Facebook and Instagram campaigns", "Creative testing and ad copy", "Catalog and dynamic product ads", "Pixel and Conversions API setup", "Reporting in plain English"], cases: ["dakmatter"] },
   { id: "tiktok", no: 104, side: -1, i: 3, title: "TikTok Ads", role: "TikTok Ads specialist", color: "#fe2c55", screen: "tiktok",
-    look: { shirt: "#18181b", skin: "#f1c7a3", hair: "#2b1d16", style: "long" },
+    look: { shirt: "#18181b", skin: "#f1c7a3", hair: "#2b1d16", style: "long", pants: "#3a2f4a", voice: "female" },
     intro: "Short-form ads that look native to the feed. Hooks in the first two seconds, Spark Ads from real posts, and tracking that tells you which video sold.",
+    say: "Hi! This is the TikTok room. Ads made here look native to the feed. Strong hooks in the first two seconds, Spark Ads from real posts, and tracking that tells you which video actually sold.",
     does: ["TikTok Ads Manager campaigns", "Spark Ads and creator content", "Vertical video hooks and edits", "TikTok Pixel and Events API", "Creative refresh plans"], cases: [] },
   { id: "shopify", no: 105, side: 1, i: 0, title: "Shopify Development", role: "Shopify expert", color: "#008060", screen: "shopify",
-    look: { shirt: "#008060", skin: "#a8714a", hair: "#0f0c0a", style: "short" },
+    look: { shirt: "#008060", skin: "#a8714a", hair: "#0f0c0a", style: "short", pants: "#2a2838", voice: "male", beard: true },
     intro: "Stores that load fast and are easy to buy from. Theme work, app setup and integrations, done so your team can still edit everything themselves.",
+    say: "Welcome to Shopify development. Fast themes, clean app setups and integrations, built so your own team can still edit everything without calling a developer.",
     does: ["Store setup and theme customization", "Speed and Core Web Vitals", "App setup and integrations", "Marketplace and inventory sync", "Migrations to Shopify"], cases: ["dakmatter"] },
   { id: "apps", no: 106, side: 1, i: 1, title: "Shopify Apps Lab", role: "App developer", color: "#4f46e5", screen: "apps",
-    look: { shirt: "#4f46e5", skin: "#d9a67e", hair: "#3b2a1e", style: "bun" },
+    look: { shirt: "#2b2840", skin: "#d9a67e", hair: "#3b2a1e", style: "bun", pants: "#4f46e5", voice: "female", glasses: true },
     intro: "Where Foysal Solutions builds its own Shopify apps and custom tools for clients. The first app, WinBack, is live on the Shopify App Store.",
+    say: "Hi, this is the apps lab. Our first Shopify app, WinBack, is live on the App Store. It sorts every customer into twelve groups and shows who is about to stop buying, so you can win them back.",
     does: ["WinBack Customer CRM (live)", "Custom Shopify apps for one store", "Order, shipping and stock sync tools", "Klaviyo and Mailchimp customer groups"], cases: ["winback"],
     extra: [["Open WinBack on the App Store", LINKS.winback], ["foysalsolutions.com", LINKS.studio]] },
   { id: "content", no: 107, side: 1, i: 2, title: "Content & Web Strategy", role: "Content strategist", color: "#0e7490", screen: "content",
-    look: { shirt: "#0e7490", skin: "#7a4a2e", hair: "#151515", style: "long" },
+    look: { shirt: "#0e7490", skin: "#7a4a2e", hair: "#151515", style: "long", pants: "#2a2838", voice: "female" },
     intro: "Clear pages that rank and convert. Site structure, landing pages and blog content written for real buyers, then checked against search data.",
+    say: "Hello, this is content and web strategy. Site structure, landing pages and articles, written for real buyers and then checked against search data.",
     does: ["Site structure and internal links", "Landing pages and product copy", "SEO blog content", "Conversion-focused page reviews"], cases: ["sunrise"] },
-  { id: "meet", no: 108, side: 1, i: 3, title: "Meeting Room", role: "Book a call with Omi", color: "#334155", screen: "meet", look: null,
-    intro: "Tell me about your store and what you want to fix. I reply within one working day, and the first call is free.",
+  { id: "meet", no: 108, side: 1, i: 3, title: "Meeting Room", role: "Book a call with Omi", color: "#334155", screen: "meet", look: null, speaker: "omi",
+    intro: "Tell me about your store and what you want to fix. Email or WhatsApp works best.",
+    say: "This is the meeting room. Tell me about your store and what you want to fix. My email and WhatsApp are on the panel. I look forward to hearing from you.",
     does: [], cases: [], contact: true },
 ];
 
 const LOBBY = [
-  { id: "reception", no: "Lobby", title: "Reception", role: "Md Foysal Hossain Omi · Founder", color: "#4f46e5",
+  { id: "reception", no: "Lobby", title: "Reception", role: "Md Foysal Hossain Omi · Founder", color: "#4f46e5", speaker: "omi",
     intro: "Hi, I'm Omi. I'm a digital marketer and Shopify specialist. I work with e-commerce brands in the UK, Sweden and Australia on SEO, paid ads, Shopify stores and custom apps.",
+    say: "Hi, I'm Omi, founder of Foysal Solutions. Welcome to the office. Every room down the corridor is one service: SEO, Google Ads, Meta Ads, TikTok Ads, Shopify development and our own Shopify apps. Pick a door, or come to the meeting room when you're ready to talk.",
     does: ["SEO, AEO and content", "Google, Meta and TikTok ads", "Shopify stores, apps and integrations", "Long-term projects and one-off audits"],
     cases: [], extra: [["LinkedIn", LINKS.linkedin], ["Upwork", LINKS.upwork], ["PeoplePerHour", LINKS.pph]] },
-  { id: "results", no: "Lobby", title: "Results Wall", role: "Selected client work", color: "#4f46e5",
+  { id: "results", no: "Lobby", title: "Results Wall", role: "Selected client work", color: "#4f46e5", speaker: "omi",
     intro: "A few projects from the past year. Ask in the meeting room and I'll walk you through the details.",
+    say: "This is the results wall. Sunrise Aesthetic in Australia got three times more clicks and six times more impressions in three months. Ask me about the others in the meeting room.",
     does: [], cases: ["sunrise", "urban", "dakmatter", "winback"] },
 ];
 
@@ -281,21 +346,19 @@ const LOBBY = [
 const $ = (s) => document.querySelector(s);
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const coarse = matchMedia("(pointer: coarse)").matches;
-const H = 3.6, EYE = 1.62;
+const H = 3.6, EYE = 1.64;
+const prefs = { voice: true, sfx: true, captions: true, hd: !coarse };
+try { Object.assign(prefs, JSON.parse(localStorage.getItem("fs-office-prefs") || "{}")); } catch (_) {}
+const savePrefs = () => { try { localStorage.setItem("fs-office-prefs", JSON.stringify(prefs)); } catch (_) {} };
+const allStops = () => [...LOBBY, ...ROOMS];
+const setLoad = (p) => { $("#loadbar i").style.width = Math.round(p * 100) + "%"; };
 
-// Intro floor plan chips
-$("#floorplan").innerHTML = ROOMS.map(r => `<span><b>${r.no}</b>${r.title}</span>`).join("");
-
-// Directory list
 function renderDirectory() {
-  const item = (s, no, sub) => `<button type="button" class="dir-item" data-go="${s.id}" style="--room:${s.color}"><span class="no">${no}</span><span class="nm"><b>${s.title}</b><span>${sub}</span></span><span class="go">Walk there</span></button>`;
+  const item = (s, no, sub, key) => `<button type="button" class="dir-item" data-go="${s.id}" style="--room:${s.color}"><span class="no">${no}</span><span class="nm"><b>${s.title}</b><span>${sub}</span></span><span class="go">${key ? `Key ${key}` : "Walk there"}</span></button>`;
   $("#dir-list").innerHTML =
-    `<div class="dir-group">Lobby</div>` +
-    LOBBY.map(s => item(s, "L", s.role)).join("") +
-    `<div class="dir-group">Left corridor</div>` +
-    ROOMS.filter(r => r.side < 0).map(r => item(r, r.no, r.role)).join("") +
-    `<div class="dir-group">Right corridor</div>` +
-    ROOMS.filter(r => r.side > 0).map(r => item(r, r.no, r.role)).join("");
+    `<div class="dir-group">Lobby</div>` + LOBBY.map((s, k) => item(s, "L", s.role, k === 0 ? "0" : "")).join("") +
+    `<div class="dir-group">Left corridor</div>` + ROOMS.filter(r => r.side < 0).map(r => item(r, r.no, r.role, ROOMS.indexOf(r) + 1)).join("") +
+    `<div class="dir-group">Right corridor</div>` + ROOMS.filter(r => r.side > 0).map(r => item(r, r.no, r.role, ROOMS.indexOf(r) + 1)).join("");
 }
 renderDirectory();
 
@@ -303,25 +366,20 @@ renderDirectory();
 /* Renderer                                                             */
 /* ------------------------------------------------------------------ */
 const canvas = $("#scene");
-let renderer;
-try {
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
-} catch (e) {
-  renderer = null;
-}
+let renderer = null;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" }); } catch (e) { renderer = null; }
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(coarse ? 70 : 62, 1, 0.05, 140);
+const camera = new THREE.PerspectiveCamera(coarse ? 70 : 60, 1, 0.05, 220);
 camera.rotation.order = "YXZ";
-
-const state = { pos: new THREE.Vector3(0, EYE, 11.5), yaw: 0, pitch: 0.02, path: null, current: null, entered: false };
+const state = { pos: new THREE.Vector3(0, EYE, 17), yaw: 0, pitch: 0.03, path: null, current: null, entered: false, run: false };
+let composer = null, bloom = null;
 
 if (renderer) {
-  renderer.setPixelRatio(Math.min(devicePixelRatio, coarse ? 1.5 : 1.75));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.08;
+  renderer.toneMappingExposure = 0.82;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 } else {
   $("#stage").innerHTML = `<div id="nogl">3D view is not available in this browser. Use the Directory to visit every room.</div>`;
@@ -332,21 +390,26 @@ if (renderer) {
 /* ------------------------------------------------------------------ */
 const mats = {};
 function mat(color, opts = {}) {
-  const key = color + JSON.stringify(opts);
-  if (!mats[key]) mats[key] = new THREE.MeshStandardMaterial({ color, roughness: 0.75, metalness: 0, ...opts });
+  const key = color + JSON.stringify(Object.keys(opts).map(k => [k, opts[k] && opts[k].uuid ? opts[k].uuid : opts[k]]));
+  if (!mats[key]) mats[key] = new THREE.MeshStandardMaterial({ color, roughness: 0.75, metalness: 0, envMapIntensity: 0.4, ...opts });
   return mats[key];
 }
 function box(w, h, d, m, x, y, z, parent = scene, shadow = true) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
-  mesh.position.set(x, y, z);
-  mesh.castShadow = shadow; mesh.receiveShadow = true;
-  parent.add(mesh);
-  return mesh;
+  mesh.position.set(x, y, z); mesh.castShadow = shadow; mesh.receiveShadow = true; parent.add(mesh); return mesh;
+}
+function rbox(w, h, d, r, m, x, y, z, parent = scene) {
+  // rounded box via extruded rounded rectangle
+  const s = new THREE.Shape(); const hw = w / 2 - r, hh = d / 2 - r;
+  s.moveTo(-hw, -d / 2); s.lineTo(hw, -d / 2); s.quadraticCurveTo(w / 2, -d / 2, w / 2, -hh); s.lineTo(w / 2, hh); s.quadraticCurveTo(w / 2, d / 2, hw, d / 2);
+  s.lineTo(-hw, d / 2); s.quadraticCurveTo(-w / 2, d / 2, -w / 2, hh); s.lineTo(-w / 2, -hh); s.quadraticCurveTo(-w / 2, -d / 2, -hw, -d / 2);
+  const g = new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: true, bevelThickness: Math.min(0.02, h / 4), bevelSize: Math.min(0.02, r / 2), bevelSegments: 3, curveSegments: 6 });
+  g.rotateX(-Math.PI / 2); g.translate(0, -h / 2, 0);
+  const mesh = new THREE.Mesh(g, m); mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
 }
 function cyl(rt, rb, h, m, x, y, z, parent = scene, seg = 24) {
   const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m);
-  mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true;
-  parent.add(mesh); return mesh;
+  mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
 }
 function canvasTex(w, h, draw) {
   const c = document.createElement("canvas"); c.width = w; c.height = h;
@@ -354,138 +417,189 @@ function canvasTex(w, h, draw) {
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = renderer ? Math.min(8, renderer.capabilities.getMaxAnisotropy()) : 1;
+  t.userData.ctx = g;
   return t;
 }
 function plane(w, h, material, x, y, z, ry = 0, parent = scene) {
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), material);
   mesh.position.set(x, y, z); mesh.rotation.y = ry; parent.add(mesh); return mesh;
 }
+function floorPlane(w, d, material, x, y, z) { const p = plane(w, d, material, x, y, z); p.rotation.x = -Math.PI / 2; p.receiveShadow = true; return p; }
 function rr(g, x, y, w, h, r) { g.beginPath(); g.roundRect(x, y, w, h, r); }
 function wrap(g, text, x, y, maxW, lh) {
   const words = text.split(" "); let line = "";
-  for (const w of words) {
-    const test = line ? line + " " + w : w;
-    if (g.measureText(test).width > maxW && line) { g.fillText(line, x, y); line = w; y += lh; } else line = test;
-  }
+  for (const w of words) { const test = line ? line + " " + w : w; if (g.measureText(test).width > maxW && line) { g.fillText(line, x, y); line = w; y += lh; } else line = test; }
   g.fillText(line, x, y); return y;
 }
 const D = (px, w = 700) => `${w} ${px}px "Bricolage Grotesque", "Segoe UI", sans-serif`;
 const B = (px, w = 500) => `${w} ${px}px Inter, "Segoe UI", sans-serif`;
-
 const clickables = [];
-function clickable(mesh, stopId, label) { mesh.userData.stop = stopId; mesh.userData.label = label; clickables.push(mesh); }
+function clickable(obj, stopId, label) { obj.traverse(o => { if (o.isMesh) { o.userData.stop = stopId; o.userData.label = label; clickables.push(o); } }); }
+function shade(hex, mix) { const c = new THREE.Color(hex); return "#" + c.lerp(new THREE.Color("#fbfaf7"), mix).getHexString(); }
+
+let blobTex = null;
+function blob(x, z, w, d, opacity = 0.35, parent = scene) {
+  if (!blobTex) blobTex = canvasTex(128, 128, (g) => { const gr = g.createRadialGradient(64, 64, 4, 64, 64, 62); gr.addColorStop(0, "rgba(0,0,0,1)"); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); });
+  const m = new THREE.MeshBasicMaterial({ map: blobTex, transparent: true, opacity, depthWrite: false });
+  const p = plane(w, d, m, x, 0.006, z, 0, parent); p.rotation.x = -Math.PI / 2; p.renderOrder = 1; return p;
+}
 
 /* ------------------------------------------------------------------ */
 /* Textures                                                             */
 /* ------------------------------------------------------------------ */
 function floorTex(kind) {
-  const t = canvasTex(512, 512, (g, w, h) => {
+  const t = canvasTex(1024, 1024, (g, w, h) => {
     if (kind === "oak") {
-      for (let y = 0; y < h; y += 32) {
-        let x = -((y / 32) % 3) * 90;
+      for (let y = 0; y < h; y += 64) {
+        let x = -((y / 64) % 4) * 140;
         while (x < w) {
-          const len = 160 + Math.random() * 120, l = 72 + Math.random() * 8;
-          g.fillStyle = `hsl(32, 38%, ${l}%)`; g.fillRect(x, y, len, 32);
-          g.fillStyle = "rgba(90,60,30,.18)"; g.fillRect(x, y, 2, 32);
+          const len = 300 + Math.random() * 260, l = 66 + Math.random() * 10;
+          const gr = g.createLinearGradient(x, y, x + len, y + 64);
+          gr.addColorStop(0, `hsl(30, 36%, ${l}%)`); gr.addColorStop(1, `hsl(28, 34%, ${l - 4}%)`);
+          g.fillStyle = gr; g.fillRect(x, y, len, 64);
+          g.strokeStyle = "rgba(110,70,35,.10)"; g.lineWidth = 1.2;
+          for (let k = 0; k < 7; k++) { g.beginPath(); const yy = y + 6 + Math.random() * 52; g.moveTo(x, yy); g.bezierCurveTo(x + len * .3, yy + (Math.random() - .5) * 10, x + len * .7, yy + (Math.random() - .5) * 10, x + len, yy); g.stroke(); }
+          g.fillStyle = "rgba(70,45,20,.35)"; g.fillRect(x, y, 2, 64);
           x += len;
         }
-        g.fillStyle = "rgba(90,60,30,.22)"; g.fillRect(0, y, w, 1.5);
+        g.fillStyle = "rgba(70,45,20,.35)"; g.fillRect(0, y, w, 2);
       }
     } else if (kind === "concrete") {
-      g.fillStyle = "#d9d6dd"; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 2400; i++) { g.fillStyle = `rgba(80,76,96,${Math.random() * 0.06})`; g.fillRect(Math.random() * w, Math.random() * h, 3, 3); }
-      g.strokeStyle = "rgba(80,76,96,.18)"; g.lineWidth = 2; g.strokeRect(0, 0, w, h);
+      g.fillStyle = "#d8d5dc"; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 26000; i++) { g.fillStyle = `rgba(${Math.random() < .5 ? "80,76,96" : "255,255,255"},${Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 2 + Math.random() * 3, 2 + Math.random() * 3); }
+      g.strokeStyle = "rgba(80,76,96,.22)"; g.lineWidth = 3; g.strokeRect(0, 0, w, h);
     } else if (kind === "paving") {
-      g.fillStyle = "#c9c6cf"; g.fillRect(0, 0, w, h);
-      g.strokeStyle = "rgba(60,58,72,.25)"; g.lineWidth = 3;
-      for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i * 128, 0); g.lineTo(i * 128, h); g.stroke(); g.beginPath(); g.moveTo(0, i * 128); g.lineTo(w, i * 128); g.stroke(); }
+      g.fillStyle = "#bdb9c4"; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) { g.fillStyle = `hsl(260, 6%, ${70 + Math.random() * 8}%)`; g.fillRect(i * 128 + 3, j * 128 + 3, 122, 122); }
+    } else if (kind === "ceiling") {
+      g.fillStyle = "#f7f6fa"; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 9000; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * 0.03})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
+      g.strokeStyle = "rgba(60,58,80,.16)"; g.lineWidth = 4; g.strokeRect(0, 0, w, h);
+    } else if (kind === "wall") {
+      g.fillStyle = "#f3f1f6"; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 20000; i++) { g.fillStyle = `rgba(${Math.random() < .5 ? "0,0,0" : "255,255,255"},${Math.random() * 0.025})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
     } else {
       g.fillStyle = kind; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 9000; i++) { g.fillStyle = `rgba(255,255,255,${Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
-      for (let i = 0; i < 9000; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * 0.06})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
+      for (let i = 0; i < 60000; i++) { g.fillStyle = `rgba(${Math.random() < .5 ? "255,255,255" : "0,0,0"},${Math.random() * 0.07})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 1 + Math.random() * 2); }
     }
   });
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
   return t;
 }
-
+function woodTex() {
+  const t = canvasTex(512, 256, (g, w, h) => {
+    g.fillStyle = "#c79a6b"; g.fillRect(0, 0, w, h);
+    for (let k = 0; k < 90; k++) { g.strokeStyle = `rgba(90,55,25,${0.05 + Math.random() * 0.12})`; g.lineWidth = 1 + Math.random() * 2; g.beginPath(); const y = Math.random() * h; g.moveTo(0, y); g.bezierCurveTo(w * .3, y + (Math.random() - .5) * 30, w * .7, y + (Math.random() - .5) * 30, w, y + (Math.random() - .5) * 20); g.stroke(); }
+  });
+  return t;
+}
+function skyTex() {
+  return canvasTex(64, 512, (g, w, h) => {
+    const gr = g.createLinearGradient(0, 0, 0, h);
+    gr.addColorStop(0, "#5f86c9"); gr.addColorStop(0.42, "#a9c6ec"); gr.addColorStop(0.5, "#f3e3cf"); gr.addColorStop(0.52, "#cfc8d4"); gr.addColorStop(1, "#9c97a8");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  });
+}
+function cityTex(seed = 1) {
+  return canvasTex(512, 512, (g, w, h) => {
+    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#8fb4e8"); gr.addColorStop(0.65, "#dfe9f6"); gr.addColorStop(1, "#f6ede2");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    let r = seed * 97;
+    const rnd = () => (r = (r * 9301 + 49297) % 233280) / 233280;
+    for (let layer = 0; layer < 2; layer++) {
+      let x = -20;
+      while (x < w) {
+        const bw = 40 + rnd() * 70, bh = (layer ? 160 : 90) + rnd() * (layer ? 220 : 160);
+        g.fillStyle = layer ? `hsl(225, 14%, ${52 + rnd() * 10}%)` : `hsl(220, 18%, ${72 + rnd() * 6}%)`;
+        g.fillRect(x, h - bh, bw, bh);
+        if (layer) { g.fillStyle = "rgba(255,255,240,.35)"; for (let yy = h - bh + 12; yy < h - 10; yy += 18) for (let xx = x + 6; xx < x + bw - 8; xx += 12) if (rnd() > .45) g.fillRect(xx, yy, 6, 9); }
+        x += bw + 6;
+      }
+    }
+  });
+}
 function signTex(no, title, color) {
   return canvasTex(1024, 220, (g, w, h) => {
     g.fillStyle = "#fbfaf7"; rr(g, 0, 0, w, h, 26); g.fill();
     g.fillStyle = color; rr(g, 26, 30, 180, 160, 20); g.fill();
     g.fillStyle = "#ffffff"; g.font = D(76, 800); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(no, 116, 114);
-    g.textAlign = "left"; g.fillStyle = "#17152b"; g.font = D(title.length > 16 ? 64 : 78, 800); g.fillText(title, 240, 104);
+    g.textAlign = "left"; g.fillStyle = "#17152b"; g.font = D(title.length > 16 ? 62 : 78, 800); g.fillText(title, 240, 104);
     g.fillStyle = "#5d5a73"; g.font = B(30, 500); g.fillText("Foysal Solutions", 242, 168);
   });
 }
 
-function screenTex(room) {
-  return canvasTex(1024, 576, (g, w, h) => {
-    const c = room.color;
-    g.fillStyle = "#14132a"; g.fillRect(0, 0, w, h);
-    g.fillStyle = "rgba(255,255,255,.06)"; g.fillRect(0, 0, w, 64);
-    g.fillStyle = c; g.beginPath(); g.arc(40, 32, 12, 0, 7); g.fill();
-    g.fillStyle = "#ffffff"; g.font = D(30, 700); g.fillText(room.title, 64, 42);
-    g.fillStyle = "rgba(255,255,255,.55)"; g.font = B(20); g.textAlign = "right"; g.fillText(`Room ${room.no}`, w - 28, 41); g.textAlign = "left";
-    const kind = room.screen;
-    const line = (pts, col, width = 6) => { g.strokeStyle = col; g.lineWidth = width; g.lineJoin = "round"; g.beginPath(); pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); };
-    const grid = (x0, y0, x1, y1) => { g.strokeStyle = "rgba(255,255,255,.08)"; g.lineWidth = 1; for (let k = 0; k <= 4; k++) { const y = y0 + (y1 - y0) * k / 4; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); } };
-    const label = (t, x, y) => { g.fillStyle = "rgba(255,255,255,.6)"; g.font = B(20, 500); g.fillText(t, x, y); };
-    if (kind === "seo" || kind === "google" || kind === "content") {
-      grid(48, 130, 640, 500);
-      const a = [], b = [];
-      for (let k = 0; k <= 12; k++) { const x = 48 + k * 49; a.push([x, 480 - Math.pow(k / 12, 1.6) * 300 - Math.sin(k) * 12]); b.push([x, 490 - Math.pow(k / 12, 1.3) * 180 - Math.cos(k * 1.3) * 10]); }
-      line(b, "rgba(255,255,255,.35)", 4); line(a, c, 7);
-      label(kind === "google" ? "Conversions" : "Clicks", 48, 112); label(kind === "google" ? "Cost" : "Impressions", 200, 112);
-      const tiles = kind === "seo" ? ["Top 3 keywords", "Indexed pages", "AI answer mentions"] : kind === "google" ? ["Search", "Shopping", "Performance Max"] : ["Landing pages", "Guides", "Product copy"];
-      tiles.forEach((t, k) => { g.fillStyle = "rgba(255,255,255,.07)"; rr(g, 690, 110 + k * 135, 290, 115, 14); g.fill(); g.fillStyle = c; g.fillRect(712, 140 + k * 135, 50, 8); g.fillStyle = "#fff"; g.font = B(24, 600); g.fillText(t, 712, 190 + k * 135); });
-    } else if (kind === "meta") {
-      for (let k = 0; k < 6; k++) {
-        const x = 48 + (k % 3) * 220, y = 110 + Math.floor(k / 3) * 220;
-        g.fillStyle = `hsl(${215 + k * 18}, 70%, ${38 + k * 4}%)`; rr(g, x, y, 200, 200, 14); g.fill();
-        g.fillStyle = "rgba(255,255,255,.85)"; g.font = B(18, 600); g.fillText(`Creative ${String.fromCharCode(65 + k)}`, x + 14, y + 184);
-      }
-      label("Creative test", 730, 130);
-      [0.82, 0.64, 0.5, 0.36, 0.22].forEach((v, k) => { g.fillStyle = "rgba(255,255,255,.08)"; rr(g, 730, 160 + k * 66, 250, 40, 8); g.fill(); g.fillStyle = k === 0 ? c : "rgba(255,255,255,.4)"; rr(g, 730, 160 + k * 66, 250 * v, 40, 8); g.fill(); });
-    } else if (kind === "tiktok") {
-      for (let k = 0; k < 4; k++) {
-        const x = 60 + k * 170;
-        g.fillStyle = "#000"; rr(g, x, 100, 150, 266 + 60, 18); g.fill();
-        const grd = g.createLinearGradient(x, 110, x + 150, 400); grd.addColorStop(0, k % 2 ? "#25f4ee" : "#fe2c55"); grd.addColorStop(1, "#1d1b33");
-        g.fillStyle = grd; rr(g, x + 8, 108, 134, 310, 12); g.fill();
-        g.fillStyle = "rgba(255,255,255,.9)"; g.font = B(18, 600); g.fillText(`Hook ${k + 1}`, x + 18, 400);
-      }
-      label("Watch time", 760, 130);
-      line([[760, 420], [800, 380], [840, 390], [880, 300], [920, 260], [970, 180]], "#25f4ee", 6);
-      line([[760, 440], [800, 430], [840, 400], [880, 380], [920, 330], [970, 290]], c, 6);
-    } else if (kind === "shopify") {
-      g.fillStyle = "#fbfaf7"; rr(g, 48, 100, 620, 420, 14); g.fill();
-      g.fillStyle = "#e7e4ee"; g.fillRect(48, 100, 620, 50);
-      g.fillStyle = c; g.fillRect(80, 180, 260, 26); g.fillStyle = "#c9c5d6"; g.fillRect(80, 220, 200, 14); g.fillRect(80, 244, 230, 14);
-      g.fillStyle = c; rr(g, 80, 280, 150, 46, 23); g.fill();
-      g.fillStyle = "#d8e9e2"; rr(g, 380, 170, 250, 200, 12); g.fill();
-      for (let k = 0; k < 3; k++) { g.fillStyle = "#e7e4ee"; rr(g, 80 + k * 190, 390, 170, 110, 10); g.fill(); }
-      label("Speed score", 712, 130);
-      g.lineWidth = 22; g.strokeStyle = "rgba(255,255,255,.1)"; g.beginPath(); g.arc(850, 290, 100, Math.PI * 0.75, Math.PI * 2.25); g.stroke();
-      g.strokeStyle = c; g.beginPath(); g.arc(850, 290, 100, Math.PI * 0.75, Math.PI * 2.05); g.stroke();
-    } else if (kind === "apps") {
-      g.fillStyle = "#fff"; g.font = D(56, 800); g.fillText("WinBack", 48, 150);
-      g.fillStyle = "rgba(255,255,255,.6)"; g.font = B(22); g.fillText("Customer CRM for Shopify", 50, 188);
-      const groups = ["Best Customers", "Loyal", "Becoming Loyal", "Going Quiet", "At Risk", "Gone"];
-      const cols = ["#22c55e", "#4ade80", "#a3e635", "#facc15", "#fb923c", "#ef4444"];
-      groups.forEach((t, k) => { g.fillStyle = "rgba(255,255,255,.06)"; rr(g, 48, 220 + k * 50, 440, 40, 8); g.fill(); g.fillStyle = cols[k]; rr(g, 60, 232 + k * 50, 16, 16, 4); g.fill(); g.fillStyle = "#fff"; g.font = B(20, 500); g.fillText(t, 90, 247 + k * 50); });
-      let a0 = -Math.PI / 2; [0.18, 0.22, 0.14, 0.16, 0.17, 0.13].forEach((v, k) => { g.fillStyle = cols[k]; g.beginPath(); g.moveTo(780, 330); g.arc(780, 330, 170, a0, a0 + v * Math.PI * 2); g.fill(); a0 += v * Math.PI * 2; });
-      g.fillStyle = "#14132a"; g.beginPath(); g.arc(780, 330, 95, 0, 7); g.fill();
-      g.fillStyle = "#fff"; g.font = D(30, 700); g.textAlign = "center"; g.fillText("12 groups", 780, 342); g.textAlign = "left";
-    } else if (kind === "meet") {
-      g.fillStyle = "#fff"; g.font = D(88, 800); g.fillText("Let's talk", 60, 220);
-      g.fillStyle = "rgba(255,255,255,.7)"; g.font = B(30, 500); g.fillText("Tell me about your store.", 64, 280);
-      g.fillStyle = "#8b85ff"; g.font = B(30, 600); g.fillText(EMAIL, 64, 380);
-      g.fillStyle = "rgba(255,255,255,.7)"; g.fillText(`WhatsApp ${PHONE}`, 64, 430);
+// Animated wall screens
+function drawScreen(room, g, w, h, t) {
+  const c = room.color;
+  g.fillStyle = "#121126"; g.fillRect(0, 0, w, h);
+  g.fillStyle = "rgba(255,255,255,.05)"; g.fillRect(0, 0, w, 64);
+  g.fillStyle = c; g.beginPath(); g.arc(40, 32, 12, 0, 7); g.fill();
+  g.fillStyle = "#ffffff"; g.font = D(30, 700); g.fillText(room.title, 64, 42);
+  g.fillStyle = (Math.floor(t * 2) % 2) ? "#22c55e" : "rgba(34,197,94,.35)"; g.beginPath(); g.arc(w - 120, 32, 7, 0, 7); g.fill();
+  g.fillStyle = "rgba(255,255,255,.6)"; g.font = B(20); g.textAlign = "right"; g.fillText("Live", w - 28, 39); g.textAlign = "left";
+  const kind = room.screen;
+  const line = (pts, col, width = 6) => { g.strokeStyle = col; g.lineWidth = width; g.lineJoin = "round"; g.lineCap = "round"; g.beginPath(); pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); };
+  const grid = (x0, y0, x1, y1) => { g.strokeStyle = "rgba(255,255,255,.07)"; g.lineWidth = 1; for (let k = 0; k <= 4; k++) { const y = y0 + (y1 - y0) * k / 4; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke(); } };
+  const label = (tx, x, y) => { g.fillStyle = "rgba(255,255,255,.6)"; g.font = B(20, 500); g.fillText(tx, x, y); };
+  if (kind === "seo" || kind === "google" || kind === "content") {
+    grid(48, 130, 640, 500);
+    const a = [], b = [];
+    const n = 24, prog = Math.min(1, (t % 12) / 6);
+    for (let k = 0; k <= n * prog; k++) { const x = 48 + k * (592 / n), q = k / n; a.push([x, 480 - Math.pow(q, 1.6) * 300 - Math.sin(k * .9 + 1) * 10]); b.push([x, 490 - Math.pow(q, 1.25) * 170 - Math.cos(k * 1.3) * 8]); }
+    if (a.length > 1) { line(b, "rgba(255,255,255,.35)", 4); line(a, c, 7); const e = a[a.length - 1]; g.fillStyle = c; g.beginPath(); g.arc(e[0], e[1], 10, 0, 7); g.fill(); }
+    label(kind === "google" ? "Conversions" : "Clicks", 48, 112); label(kind === "google" ? "Cost" : "Impressions", 200, 112);
+    const tiles = kind === "seo" ? ["Top 3 keywords", "Indexed pages", "AI answer mentions"] : kind === "google" ? ["Search", "Shopping", "Performance Max"] : ["Landing pages", "Guides", "Product copy"];
+    tiles.forEach((tx, k) => { g.fillStyle = "rgba(255,255,255,.07)"; rr(g, 690, 110 + k * 135, 290, 115, 14); g.fill(); g.fillStyle = c; rr(g, 712, 140 + k * 135, 50 + 160 * (0.5 + 0.5 * Math.sin(t * 0.8 + k)), 8, 4); g.fill(); g.fillStyle = "#fff"; g.font = B(24, 600); g.fillText(tx, 712, 190 + k * 135); });
+  } else if (kind === "meta") {
+    for (let k = 0; k < 6; k++) {
+      const x = 48 + (k % 3) * 220, y = 110 + Math.floor(k / 3) * 220;
+      g.fillStyle = `hsl(${215 + k * 18}, 70%, ${38 + k * 4}%)`; rr(g, x, y, 200, 200, 14); g.fill();
+      if (k === Math.floor(t / 1.5) % 6) { g.strokeStyle = "#fff"; g.lineWidth = 5; rr(g, x, y, 200, 200, 14); g.stroke(); }
+      g.fillStyle = "rgba(255,255,255,.85)"; g.font = B(18, 600); g.fillText(`Creative ${String.fromCharCode(65 + k)}`, x + 14, y + 184);
     }
-  });
+    label("Creative test", 730, 130);
+    [0.82, 0.64, 0.5, 0.36, 0.22].forEach((v, k) => { const vv = v * (0.92 + 0.08 * Math.sin(t + k)); g.fillStyle = "rgba(255,255,255,.08)"; rr(g, 730, 160 + k * 66, 250, 40, 8); g.fill(); g.fillStyle = k === 0 ? c : "rgba(255,255,255,.4)"; rr(g, 730, 160 + k * 66, 250 * vv, 40, 8); g.fill(); });
+  } else if (kind === "tiktok") {
+    for (let k = 0; k < 4; k++) {
+      const x = 60 + k * 170;
+      g.fillStyle = "#000"; rr(g, x, 100, 150, 326, 18); g.fill();
+      const gr = g.createLinearGradient(x, 110 + Math.sin(t + k) * 60, x + 150, 400); gr.addColorStop(0, k % 2 ? "#25f4ee" : "#fe2c55"); gr.addColorStop(1, "#1d1b33");
+      g.fillStyle = gr; rr(g, x + 8, 108, 134, 310, 12); g.fill();
+      g.fillStyle = "rgba(255,255,255,.9)"; g.font = B(18, 600); g.fillText(`Hook ${k + 1}`, x + 18, 400);
+      g.fillStyle = "rgba(255,255,255,.8)"; rr(g, x + 18, 380 - 0, 114 * ((t * 0.3 + k * 0.25) % 1), 4, 2); g.fill();
+    }
+    label("Watch time", 760, 130);
+    line([[760, 420], [800, 380], [840, 390], [880, 300], [920, 260], [970, 180 + Math.sin(t) * 12]], "#25f4ee", 6);
+    line([[760, 440], [800, 430], [840, 400], [880, 380], [920, 330], [970, 290 + Math.cos(t) * 12]], c, 6);
+  } else if (kind === "shopify") {
+    g.fillStyle = "#fbfaf7"; rr(g, 48, 100, 620, 420, 14); g.fill();
+    g.fillStyle = "#e7e4ee"; g.fillRect(48, 100, 620, 50);
+    g.fillStyle = c; g.fillRect(80, 180, 260, 26); g.fillStyle = "#c9c5d6"; g.fillRect(80, 220, 200, 14); g.fillRect(80, 244, 230, 14);
+    g.fillStyle = c; rr(g, 80, 280, 150, 46, 23); g.fill();
+    g.fillStyle = "#d8e9e2"; rr(g, 380, 170, 250, 200, 12); g.fill();
+    for (let k = 0; k < 3; k++) { g.fillStyle = "#e7e4ee"; rr(g, 80 + k * 190, 390, 170, 110, 10); g.fill(); }
+    label("Speed score", 712, 130);
+    const v = 0.55 + 0.4 * Math.min(1, (t % 10) / 5);
+    g.lineWidth = 22; g.strokeStyle = "rgba(255,255,255,.1)"; g.beginPath(); g.arc(850, 290, 100, Math.PI * 0.75, Math.PI * 2.25); g.stroke();
+    g.strokeStyle = c; g.beginPath(); g.arc(850, 290, 100, Math.PI * 0.75, Math.PI * (0.75 + 1.5 * v)); g.stroke();
+  } else if (kind === "apps") {
+    g.fillStyle = "#fff"; g.font = D(56, 800); g.fillText("WinBack", 48, 150);
+    g.fillStyle = "rgba(255,255,255,.6)"; g.font = B(22); g.fillText("Customer CRM for Shopify", 50, 188);
+    const groups = ["Best Customers", "Loyal", "Becoming Loyal", "Going Quiet", "At Risk", "Gone"];
+    const cols = ["#22c55e", "#4ade80", "#a3e635", "#facc15", "#fb923c", "#ef4444"];
+    const hl = Math.floor(t / 1.2) % 6;
+    groups.forEach((tx, k) => { g.fillStyle = k === hl ? "rgba(255,255,255,.16)" : "rgba(255,255,255,.06)"; rr(g, 48, 220 + k * 50, 440, 40, 8); g.fill(); g.fillStyle = cols[k]; rr(g, 60, 232 + k * 50, 16, 16, 4); g.fill(); g.fillStyle = "#fff"; g.font = B(20, 500); g.fillText(tx, 90, 247 + k * 50); });
+    let a0 = -Math.PI / 2 + t * 0.15; [0.18, 0.22, 0.14, 0.16, 0.17, 0.13].forEach((v, k) => { g.fillStyle = cols[k]; g.beginPath(); g.moveTo(780, 330); g.arc(780, 330, k === hl ? 182 : 170, a0, a0 + v * Math.PI * 2); g.fill(); a0 += v * Math.PI * 2; });
+    g.fillStyle = "#121126"; g.beginPath(); g.arc(780, 330, 95, 0, 7); g.fill();
+    g.fillStyle = "#fff"; g.font = D(30, 700); g.textAlign = "center"; g.fillText("12 groups", 780, 342); g.textAlign = "left";
+  } else if (kind === "meet") {
+    g.fillStyle = "#fff"; g.font = D(88, 800); g.fillText("Let's talk", 60, 220);
+    g.fillStyle = "rgba(255,255,255,.7)"; g.font = B(30, 500); g.fillText("Tell me about your store.", 64, 280);
+    g.fillStyle = "#a5a0ff"; g.font = B(30, 600); g.fillText(EMAIL, 64, 380);
+    g.fillStyle = "rgba(255,255,255,.7)"; g.fillText(`WhatsApp ${PHONE}`, 64, 430);
+    g.fillStyle = "rgba(255,255,255,.08)"; g.beginPath(); g.arc(860, 300, 120 + Math.sin(t * 1.5) * 8, 0, 7); g.fill();
+  }
 }
-
 function caseTex(cs) {
   return canvasTex(768, 560, (g, w, h) => {
     g.fillStyle = "#fbfaf7"; g.fillRect(0, 0, w, h);
@@ -495,9 +609,8 @@ function caseTex(cs) {
     if (cs.metrics) cs.metrics.forEach(([v, l], k) => { g.fillStyle = "#eceafd"; rr(g, 48 + k * 330, 400, 310, 118, 16); g.fill(); g.fillStyle = "#17152b"; g.font = D(54, 800); g.fillText(v, 72 + k * 330, 462); g.fillStyle = "#5d5a73"; g.font = B(22, 500); g.fillText(l, 72 + k * 330, 498); });
   });
 }
-
 function brandTex() {
-  return canvasTex(1400, 520, (g, w, h) => {
+  return canvasTex(1400, 520, (g) => {
     g.fillStyle = "#4f46e5"; g.beginPath(); g.arc(150, 200, 92, 0, 7); g.fill();
     g.fillStyle = "#fff"; g.font = D(86, 800); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("FS", 150, 204);
     g.textAlign = "left"; g.textBaseline = "alphabetic";
@@ -505,10 +618,9 @@ function brandTex() {
     g.fillStyle = "#5d5a73"; g.font = B(40, 500); g.fillText("SEO · Paid ads · Shopify · Apps", 296, 390);
   });
 }
-
 function directoryTex() {
-  return canvasTex(1024, 900, (g, w, h) => {
-    g.fillStyle = "#1b1a2a"; g.fillRect(0, 0, w, h);
+  return canvasTex(1024, 900, (g, w) => {
+    g.fillStyle = "#1b1a2a"; g.fillRect(0, 0, w, 900);
     g.fillStyle = "#fff"; g.font = D(56, 800); g.fillText("Directory", 56, 96);
     g.fillStyle = "rgba(255,255,255,.55)"; g.font = B(24, 500); g.fillText("Ground floor", 60, 136);
     ROOMS.forEach((r, k) => {
@@ -520,44 +632,133 @@ function directoryTex() {
     });
   });
 }
-
-function textPanelTex(lines, opts = {}) {
-  return canvasTex(opts.w || 1024, opts.h || 256, (g, w, h) => {
-    g.fillStyle = opts.bg || "#fbfaf7"; g.fillRect(0, 0, w, h);
-    lines.forEach(([t, font, col, y]) => { g.fillStyle = col; g.font = font; g.fillText(t, 48, y); });
+function labelTex(text, opts = {}) {
+  const w = opts.w || 1024, h = opts.h || 160;
+  return canvasTex(w, h, (g) => { g.fillStyle = opts.bg || "#f4f2f7"; g.fillRect(0, 0, w, h); g.fillStyle = opts.fg || "#17152b"; g.font = opts.font || D(100, 800); g.textBaseline = "middle"; g.fillText(text, opts.x || 30, h / 2 + 6); });
+}
+function artTex(seed, color) {
+  return canvasTex(512, 640, (g, w, h) => {
+    g.fillStyle = "#f6f3ee"; g.fillRect(0, 0, w, h);
+    let r = seed * 31; const rnd = () => (r = (r * 9301 + 49297) % 233280) / 233280;
+    for (let k = 0; k < 6; k++) { g.fillStyle = k % 2 ? color : `hsla(${rnd() * 360}, 40%, 60%, .55)`; g.globalAlpha = 0.85; g.beginPath(); g.arc(80 + rnd() * 350, 80 + rnd() * 480, 40 + rnd() * 120, 0, 7); g.fill(); }
+    g.globalAlpha = 1; g.strokeStyle = "#17152b"; g.lineWidth = 6; g.beginPath(); g.moveTo(60, 520); g.bezierCurveTo(200, 300, 300, 600, 460, 200); g.stroke();
   });
 }
 
 /* ------------------------------------------------------------------ */
-/* People                                                               */
+/* People: articulated, posable avatars                                 */
 /* ------------------------------------------------------------------ */
 const people = [];
-function makePerson({ shirt, skin, hair, style }, pants = "#2a2838") {
-  const g = new THREE.Group();
-  const mShirt = mat(shirt, { roughness: 0.85 }), mSkin = mat(skin, { roughness: 0.6 }), mHair = mat(hair, { roughness: 0.9 }), mPants = mat(pants);
-  for (const sx of [-0.1, 0.1]) {
-    const leg = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.68, 6, 12), mPants); leg.position.set(sx, 0.44, 0); leg.castShadow = true; g.add(leg);
-    const shoe = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.07, 0.24), mat("#1d1b26")); shoe.position.set(sx, 0.035, 0.04); shoe.castShadow = true; g.add(shoe);
-  }
-  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.2, 0.42, 8, 16), mShirt); torso.position.y = 1.13; torso.scale.set(1, 1, 0.68); torso.castShadow = true; g.add(torso);
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.1, 12), mSkin); neck.position.y = 1.44; g.add(neck);
-  const head = new THREE.Group(); head.position.y = 1.6; g.add(head);
-  const skull = new THREE.Mesh(new THREE.SphereGeometry(0.125, 24, 18), mSkin); skull.scale.set(0.95, 1.05, 1); skull.castShadow = true; head.add(skull);
-  const cap = new THREE.Mesh(new THREE.SphereGeometry(0.133, 24, 16, 0, Math.PI * 2, 0, Math.PI * 0.52), mHair); cap.position.set(0, 0.015, -0.01); cap.rotation.x = -0.25; head.add(cap);
-  if (style === "bun") { const bun = new THREE.Mesh(new THREE.SphereGeometry(0.065, 16, 12), mHair); bun.position.set(0, 0.11, -0.1); head.add(bun); }
-  if (style === "long") { const back = new THREE.Mesh(new THREE.CapsuleGeometry(0.11, 0.2, 6, 12), mHair); back.position.set(0, -0.08, -0.07); back.scale.set(1.15, 1, 0.6); head.add(back); }
-  for (const ex of [-0.045, 0.045]) { const eye = new THREE.Mesh(new THREE.SphereGeometry(0.014, 8, 8), mat("#141218")); eye.position.set(ex, 0.01, 0.118); head.add(eye); }
-  const smile = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.006, 6, 12, Math.PI), mat("#6b2f2a")); smile.position.set(0, -0.045, 0.116); smile.rotation.z = Math.PI; head.add(smile);
-  const arms = [];
+const POSE = {
+  stand: { hipsY: 0.98, hipX: 0, kneeX: 0, spineX: 0, shX: 0.05, shZ: 0.1, elX: -0.18 },
+  sit: { hipsY: 0.555, hipX: -1.52, kneeX: 1.5, spineX: 0.1, shX: -0.62, shZ: 0.16, elX: -0.95 },
+};
+function makePerson(look) {
+  const root = new THREE.Group();
+  const M = {
+    shirt: mat(look.shirt, { roughness: 0.85 }), skin: mat(look.skin, { roughness: 0.5 }), hair: mat(look.hair, { roughness: 0.75 }),
+    pants: mat(look.pants || "#2a2838", { roughness: 0.85 }), shoe: mat("#1b1a22", { roughness: 0.35 }),
+    white: mat("#f8f6f2", { roughness: 0.3 }), dark: mat("#16131a", { roughness: 0.3 }), lip: mat("#6e2e2a", { roughness: 0.6 }),
+  };
+  let head = null, eyes = null;
+  const add = (geo, m, parent, x = 0, y = 0, z = 0) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = parent !== head && parent !== eyes; o.receiveShadow = true; parent.add(o); return o; };
+  const hips = new THREE.Group(); hips.position.y = 0.98; root.add(hips);
+  add(new THREE.CapsuleGeometry(0.15, 0.08, 6, 16), M.pants, hips, 0, 0.02, 0).scale.set(1.15, 1, 0.8);
+  const spine = new THREE.Group(); spine.position.y = 0.08; hips.add(spine);
+  const torso = add(new THREE.CapsuleGeometry(0.175, 0.3, 10, 20), M.shirt, spine, 0, 0.25, 0); torso.scale.set(1.14, 1, 0.7);
+  add(new THREE.CapsuleGeometry(0.09, 0.26, 6, 12), M.shirt, spine, 0, 0.43, 0).rotation.z = Math.PI / 2;
+  const collar = add(new THREE.TorusGeometry(0.06, 0.018, 8, 18), M.shirt, spine, 0, 0.51, 0); collar.rotation.x = Math.PI / 2;
+  const neck = new THREE.Group(); neck.position.y = 0.5; spine.add(neck);
+  add(new THREE.CylinderGeometry(0.045, 0.055, 0.11, 14), M.skin, neck, 0, 0.04, 0);
+  head = new THREE.Group(); head.position.y = 0.18; neck.add(head);
+  add(new THREE.SphereGeometry(0.112, 32, 24), M.skin, head).scale.set(0.9, 1.08, 1);
+  add(new THREE.SphereGeometry(0.075, 20, 14), M.skin, head, 0, -0.06, 0.025).scale.set(1, 0.8, 1.05);
+  for (const sx of [-1, 1]) add(new THREE.SphereGeometry(0.024, 10, 8), M.skin, head, sx * 0.1, 0, 0).scale.set(0.5, 1, 0.8);
+  add(new THREE.SphereGeometry(0.017, 10, 8), M.skin, head, 0, -0.01, 0.112).scale.set(0.9, 1.25, 1);
+  eyes = new THREE.Group(); eyes.position.set(0, 0.018, 0.088); head.add(eyes);
   for (const sx of [-1, 1]) {
-    const pivot = new THREE.Group(); pivot.position.set(0.25 * sx, 1.36, 0); g.add(pivot);
-    const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.058, 0.46, 6, 12), mShirt); arm.position.y = -0.27; arm.castShadow = true; pivot.add(arm);
-    const hand = new THREE.Mesh(new THREE.SphereGeometry(0.055, 12, 10), mSkin); hand.position.y = -0.56; pivot.add(hand);
-    pivot.rotation.z = 0.08 * sx; arms.push(pivot);
+    add(new THREE.SphereGeometry(0.018, 14, 10), M.white, eyes, sx * 0.038, 0, 0).scale.set(1.1, 0.8, 0.6);
+    add(new THREE.SphereGeometry(0.0095, 10, 8), M.dark, eyes, sx * 0.038, 0, 0.011);
+    add(new THREE.BoxGeometry(0.042, 0.007, 0.012), M.hair, head, sx * 0.039, 0.058, 0.1).rotation.z = -sx * 0.08;
   }
-  g.userData = { head, torso, armL: arms[0], armR: arms[1], wave: 0, phase: Math.random() * 6 };
-  people.push(g);
-  return g;
+  const mouth = add(new THREE.SphereGeometry(0.022, 14, 10), M.lip, head, 0, -0.058, 0.098); mouth.scale.set(1.25, 0.22, 0.45);
+  // hair
+  const cap = add(new THREE.SphereGeometry(0.12, 28, 18, 0, Math.PI * 2, 0, Math.PI * 0.5), M.hair, head, 0, 0.012, -0.008); cap.scale.set(0.95, 1.06, 1.06); cap.rotation.x = -0.28;
+  add(new THREE.SphereGeometry(0.113, 20, 14), M.hair, head, 0, 0.01, -0.025).scale.set(0.93, 1.02, 0.9);
+  if (look.style === "bun") add(new THREE.SphereGeometry(0.06, 18, 14), M.hair, head, 0, 0.1, -0.11);
+  if (look.style === "long") { const back = add(new THREE.CapsuleGeometry(0.1, 0.22, 8, 16), M.hair, head, 0, -0.11, -0.06); back.scale.set(1.18, 1, 0.55); }
+  if (look.beard) { const b = add(new THREE.SphereGeometry(0.08, 20, 14, 0, Math.PI * 2, Math.PI * 0.5, Math.PI * 0.5), M.hair, head, 0, -0.035, 0.018); b.scale.set(1.02, 0.9, 1.08); }
+  if (look.glasses) {
+    const fr = mat("#141218", { roughness: 0.3, metalness: 0.4 });
+    for (const sx of [-1, 1]) { const ring = add(new THREE.TorusGeometry(0.026, 0.0045, 6, 18), fr, eyes, sx * 0.038, 0, 0.018); }
+    add(new THREE.BoxGeometry(0.025, 0.004, 0.004), fr, eyes, 0, 0.004, 0.018);
+  }
+  const limbs = {};
+  for (const sx of [-1, 1]) {
+    const sh = new THREE.Group(); sh.position.set(0.215 * sx, 0.43, 0); spine.add(sh);
+    add(new THREE.SphereGeometry(0.07, 14, 12), M.shirt, sh);
+    add(new THREE.CapsuleGeometry(0.056, 0.22, 6, 14), M.shirt, sh, 0, -0.15, 0);
+    const el = new THREE.Group(); el.position.y = -0.3; sh.add(el);
+    add(new THREE.CapsuleGeometry(0.046, 0.21, 6, 14), look.sleeves === "long" ? M.shirt : M.skin, el, 0, -0.13, 0);
+    const hand = add(new THREE.SphereGeometry(0.05, 14, 12), M.skin, el, 0, -0.29, 0.01); hand.scale.set(0.75, 1.1, 0.55);
+    const hp = new THREE.Group(); hp.position.set(0.09 * sx, -0.02, 0); hips.add(hp);
+    add(new THREE.CapsuleGeometry(0.072, 0.3, 6, 14), M.pants, hp, 0, -0.22, 0);
+    const kn = new THREE.Group(); kn.position.y = -0.45; hp.add(kn);
+    add(new THREE.CapsuleGeometry(0.058, 0.32, 6, 14), M.pants, kn, 0, -0.22, 0);
+    const foot = add(new THREE.CapsuleGeometry(0.045, 0.14, 4, 10), M.shoe, kn, 0, -0.47, 0.05); foot.rotation.x = Math.PI / 2; foot.scale.set(1.15, 1, 0.85);
+    limbs[sx] = { sh, el, hp, kn };
+  }
+  root.scale.setScalar(0.96);
+  const u = root.userData;
+  Object.assign(u, { hips, spine, neck, head, eyes, mouth, torso, limbs, look,
+    pose: { ...POSE.stand }, target: POSE.stand, wave: 0, talk: 0, typing: false,
+    phase: Math.random() * 6, blinkAt: 1 + Math.random() * 3, headYaw: 0, headPitch: 0, state: "idle" });
+  people.push(root);
+  return root;
+}
+function animatePerson(p, t, dt) {
+  const u = p.userData, P = u.pose, T = u.target, k = Math.min(1, dt * 3.2);
+  for (const key in T) P[key] += (T[key] - P[key]) * k;
+  u.hips.position.y = P.hipsY + (reduceMotion ? 0 : Math.sin(t * 1.7 + u.phase) * 0.004);
+  u.spine.rotation.x = P.spineX + (reduceMotion ? 0 : Math.sin(t * 1.7 + u.phase) * 0.012);
+  for (const sx of [-1, 1]) {
+    const L = u.limbs[sx];
+    L.hp.rotation.x = P.hipX; L.kn.rotation.x = P.kneeX;
+    L.sh.rotation.x = P.shX; L.sh.rotation.z = sx * P.shZ; L.el.rotation.x = P.elX;
+    if (u.typing && P.hipsY < 0.7 && !reduceMotion) { L.el.rotation.x += Math.sin(t * 16 + sx * 1.7 + u.phase) * 0.05; L.sh.rotation.x += Math.sin(t * 2 + sx) * 0.03; }
+  }
+  // talking gestures
+  if (u.talk > 0 && !reduceMotion) {
+    const g = 0.5 + 0.5 * Math.sin(t * 2.3 + u.phase);
+    u.limbs[-1].el.rotation.x += -0.55 * g; u.limbs[-1].sh.rotation.x += -0.25 * g;
+    u.limbs[1].el.rotation.x += -0.45 * (1 - g); u.limbs[1].sh.rotation.x += -0.2 * (1 - g);
+  }
+  if (u.wave > 0) {
+    u.wave -= dt;
+    const L = u.limbs[1], amt = Math.min(1, u.wave * 2, (2.4 - u.wave) * 3);
+    L.sh.rotation.z = THREE.MathUtils.lerp(L.sh.rotation.z, 2.55 + Math.sin(t * 9) * 0.22, amt);
+    L.sh.rotation.x = THREE.MathUtils.lerp(L.sh.rotation.x, -0.15, amt);
+    L.el.rotation.x = THREE.MathUtils.lerp(L.el.rotation.x, -0.35, amt);
+  }
+  // look at the visitor when nearby
+  const wp = new THREE.Vector3(); u.head.getWorldPosition(wp);
+  const dx = camera.position.x - wp.x, dz = camera.position.z - wp.z, dist = Math.hypot(dx, dz);
+  let wantYaw = 0, wantPitch = 0;
+  if (dist < 7) {
+    let rel = Math.atan2(dx, dz) - p.rotation.y;
+    rel = Math.atan2(Math.sin(rel), Math.cos(rel));
+    if (Math.abs(rel) < 1.9) { wantYaw = THREE.MathUtils.clamp(rel, -1.0, 1.0); wantPitch = THREE.MathUtils.clamp(-Math.atan2(camera.position.y - wp.y, dist), -0.4, 0.4); }
+  } else if (!reduceMotion) wantYaw = Math.sin(t * 0.4 + u.phase) * 0.25;
+  if (u.typing && dist >= 7) wantPitch = 0.18;
+  u.headYaw += (wantYaw - u.headYaw) * Math.min(1, dt * 4); u.headPitch += (wantPitch - u.headPitch) * Math.min(1, dt * 4);
+  u.neck.rotation.y = u.headYaw * 0.4; u.head.rotation.y = u.headYaw * 0.6; u.head.rotation.x = u.headPitch;
+  // blink
+  u.blinkAt -= dt;
+  u.eyes.scale.y = u.blinkAt < 0.12 ? 0.1 : 1;
+  if (u.blinkAt < 0) u.blinkAt = 2.2 + Math.random() * 3.5;
+  // mouth
+  if (u.talk > 0) { const m = 0.5 + 0.5 * Math.sin(t * 17 + Math.sin(t * 5.3) * 2); u.mouth.scale.y = 0.25 + m * 0.75 * (0.55 + 0.45 * Math.sin(t * 3.1)); }
+  else u.mouth.scale.y += (0.22 - u.mouth.scale.y) * Math.min(1, dt * 8);
 }
 
 /* ------------------------------------------------------------------ */
@@ -565,293 +766,473 @@ function makePerson({ shirt, skin, hair, style }, pants = "#2a2838") {
 /* ------------------------------------------------------------------ */
 function plant(x, z, s = 1, parent = scene) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(s); parent.add(g);
-  cyl(0.22, 0.17, 0.42, mat("#e8e4dc", { roughness: 0.5 }), 0, 0.21, 0, g);
-  const leaf = mat("#2f6b45", { roughness: 0.8 }), leaf2 = mat("#3f8a57", { roughness: 0.8 });
-  for (let k = 0; k < 9; k++) {
-    const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.2 + Math.random() * 0.1, 0), k % 2 ? leaf : leaf2);
-    m.position.set((Math.random() - 0.5) * 0.4, 0.62 + Math.random() * 0.7, (Math.random() - 0.5) * 0.4); m.castShadow = true; g.add(m);
+  const pts = []; for (let k = 0; k <= 8; k++) pts.push(new THREE.Vector2(0.17 + 0.05 * (k / 8) + 0.01 * Math.sin(k), (k / 8) * 0.46));
+  const pot = new THREE.Mesh(new THREE.LatheGeometry(pts, 28), mat("#ebe6dd", { roughness: 0.55, side: THREE.DoubleSide })); pot.castShadow = true; pot.receiveShadow = true; g.add(pot);
+  cyl(0.2, 0.2, 0.02, mat("#3b2b20"), 0, 0.44, 0, g);
+  const leafM = [mat("#2f6b45", { roughness: 0.55, side: THREE.DoubleSide }), mat("#3f8a57", { roughness: 0.55, side: THREE.DoubleSide }), mat("#24573a", { roughness: 0.55, side: THREE.DoubleSide })];
+  const leafGeo = new THREE.SphereGeometry(0.16, 12, 8); leafGeo.scale(0.45, 0.06, 1); leafGeo.translate(0, 0, 0.15);
+  for (let k = 0; k < 14; k++) {
+    const stem = new THREE.Group(); stem.position.y = 0.45; g.add(stem);
+    const hgt = 0.3 + Math.random() * 0.85;
+    stem.rotation.set((Math.random() - 0.5) * 0.7, Math.random() * Math.PI * 2, (Math.random() - 0.5) * 0.7);
+    const leaf = new THREE.Mesh(leafGeo, leafM[k % 3]); leaf.position.y = hgt; leaf.rotation.set(-0.5 - Math.random() * 0.6, 0, 0); leaf.castShadow = k % 3 === 0; stem.add(leaf);
   }
+  blob(x, z, 0.9 * s, 0.9 * s, 0.3, parent);
   return g;
 }
 function chair(x, z, ry, color = "#2a2838", parent = scene) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; parent.add(g);
-  const m = mat(color, { roughness: 0.6 });
-  box(0.5, 0.08, 0.5, m, 0, 0.48, 0, g); box(0.5, 0.55, 0.07, m, 0, 0.8, -0.22, g);
-  cyl(0.03, 0.03, 0.42, mat("#9a97a8", { metalness: 0.6, roughness: 0.3 }), 0, 0.24, 0, g, 10);
-  cyl(0.25, 0.25, 0.03, mat("#9a97a8", { metalness: 0.6, roughness: 0.3 }), 0, 0.03, 0, g, 5);
+  const m = mat(color, { roughness: 0.65 }), metal = mat("#a19eb0", { metalness: 0.8, roughness: 0.25 });
+  rbox(0.5, 0.08, 0.5, 0.08, m, 0, 0.47, 0, g);
+  rbox(0.48, 0.6, 0.07, 0.03, m, 0, 0.84, -0.24, g).rotation.x = -0.12;
+  cyl(0.028, 0.028, 0.4, metal, 0, 0.24, 0, g, 12);
+  for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2; const leg = box(0.32, 0.03, 0.04, metal, Math.cos(a) * 0.16, 0.05, Math.sin(a) * 0.16, g); leg.rotation.y = -a; const wh = cyl(0.025, 0.025, 0.03, mat("#1b1a22"), Math.cos(a) * 0.3, 0.025, Math.sin(a) * 0.3, g, 10); wh.rotation.z = Math.PI / 2; }
+  for (const sx of [-1, 1]) { box(0.04, 0.2, 0.04, metal, sx * 0.26, 0.6, 0, g); rbox(0.06, 0.03, 0.28, 0.02, m, sx * 0.26, 0.71, 0, g); }
   return g;
 }
-function desk(x, z, ry, parent = scene) {
+const wood = woodTex();
+function workDesk(x, z, ry, accent, parent = scene) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; parent.add(g);
-  box(2.2, 0.06, 0.9, mat("#f3efe8", { roughness: 0.4 }), 0, 0.74, 0, g);
-  const leg = mat("#3a3848", { metalness: 0.4, roughness: 0.4 });
-  for (const sx of [-1.02, 1.02]) box(0.06, 0.72, 0.8, leg, sx, 0.36, 0, g);
-  for (const mx of [-0.42, 0.42]) {
-    box(0.66, 0.4, 0.03, mat("#16151f", { roughness: 0.3 }), mx, 1.08, -0.18, g);
-    const scr = box(0.62, 0.36, 0.005, mat("#2b2a4a", { emissive: "#3b3a7a", emissiveIntensity: 0.6 }), mx, 1.08, -0.162, g, false);
-    scr.rotation.y = 0;
-    box(0.05, 0.2, 0.05, leg, mx, 0.86, -0.2, g);
-  }
-  box(0.5, 0.02, 0.16, mat("#d6d2de"), 0, 0.78, 0.15, g);
-  cyl(0.045, 0.04, 0.1, mat("#ffffff"), 0.8, 0.82, 0.15, g, 12);
+  rbox(2.0, 0.05, 0.9, 0.04, mat("#ffffff", { map: wood, roughness: 0.45 }), 0, 0.745, 0, g);
+  const leg = mat("#2a2838", { metalness: 0.5, roughness: 0.35 });
+  for (const sx of [-0.92, 0.92]) { box(0.05, 0.72, 0.05, leg, sx, 0.36, -0.36, g); box(0.05, 0.72, 0.05, leg, sx, 0.36, 0.36, g); box(0.05, 0.04, 0.76, leg, sx, 0.05, 0, g); }
+  box(1.8, 0.4, 0.02, mat("#f1eef6", { roughness: 0.9 }), 0, 0.5, -0.4, g);
+  // monitor angled at one end, facing the seat (+z)
+  const mon = new THREE.Group(); mon.position.set(0.6, 0.77, -0.2); mon.rotation.y = -0.35; g.add(mon);
+  rbox(0.7, 0.42, 0.03, 0.02, mat("#121118", { roughness: 0.3, metalness: 0.3 }), 0, 0.36, 0, mon);
+  const scr = plane(0.66, 0.38, new THREE.MeshStandardMaterial({ color: "#000", emissive: new THREE.Color(accent).lerp(new THREE.Color("#ffffff"), 0.35), emissiveIntensity: 0.9 }), 0, 0.36, 0.017, 0, mon);
+  box(0.05, 0.2, 0.05, leg, 0, 0.1, -0.03, mon); box(0.24, 0.015, 0.16, leg, 0, 0.007, 0, mon);
+  // laptop, open, screen facing seat
+  const lap = new THREE.Group(); lap.position.set(-0.05, 0.775, 0.12); g.add(lap);
+  const alu = mat("#c9c7d1", { metalness: 0.75, roughness: 0.3 });
+  box(0.36, 0.015, 0.25, alu, 0, 0, 0, lap);
+  const lid = new THREE.Group(); lid.position.set(0, 0, -0.125); lid.rotation.x = -0.28; lap.add(lid);
+  box(0.36, 0.24, 0.01, alu, 0, 0.12, 0, lid);
+  plane(0.33, 0.21, new THREE.MeshStandardMaterial({ color: "#000", emissive: "#9aa4ff", emissiveIntensity: 0.7 }), 0, 0.12, 0.0065, 0, lid);
+  const logo = plane(0.06, 0.06, new THREE.MeshBasicMaterial({ color: "#ffffff" }), 0, 0.12, -0.006, Math.PI, lid);
+  box(0.42, 0.012, 0.13, mat("#e7e4ee"), -0.05, 0.775, 0.32, g);
+  // mug and notebook
+  const mug = cyl(0.04, 0.036, 0.1, mat(accent, { roughness: 0.35 }), -0.75, 0.82, 0.2, g, 18);
+  box(0.2, 0.012, 0.28, mat("#17152b"), -0.6, 0.776, -0.15, g).rotation.y = 0.3;
+  // lamp
+  const lamp = new THREE.Group(); lamp.position.set(-0.82, 0.77, -0.3); g.add(lamp);
+  cyl(0.07, 0.08, 0.02, leg, 0, 0.01, 0, lamp); const arm = cyl(0.01, 0.01, 0.45, leg, 0, 0.22, 0, lamp, 8); arm.rotation.z = 0.25;
+  const shadeM = cyl(0.03, 0.08, 0.1, mat(accent, { roughness: 0.4 }), 0.1, 0.44, 0.02, lamp); shadeM.rotation.z = 0.6;
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.03, 10, 8), new THREE.MeshStandardMaterial({ color: "#fff", emissive: "#ffdca8", emissiveIntensity: 3 })); bulb.position.set(0.12, 0.4, 0.02); lamp.add(bulb);
   return g;
 }
 
 /* ------------------------------------------------------------------ */
 /* Build the office                                                     */
 /* ------------------------------------------------------------------ */
-const walkRects = [];   // [x0, x1, z0, z1]
-const blockRects = [];
-const stops = {};       // id -> { pos, look, roomIndex }
-const roomMeta = {};    // id -> { zc, side }
+const walkRects = [], blockRects = [], stops = {}, roomMeta = {}, doors = [], screens = [];
+let lobbyClock = null, dust = null;
 
 function build() {
-  scene.background = new THREE.Color("#dcd8ea");
-  scene.fog = new THREE.Fog("#dcd8ea", 34, 80);
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  const sky = new THREE.Mesh(new THREE.SphereGeometry(150, 32, 16), new THREE.MeshBasicMaterial({ map: skyTex(), side: THREE.BackSide, fog: false }));
+  scene.add(sky);
+  scene.fog = new THREE.Fog("#d9dbe8", 45, 140);
 
-  scene.add(new THREE.HemisphereLight("#fff7ee", "#b9b4cc", 1.35));
-  const sun = new THREE.DirectionalLight("#fff1dc", 1.5);
-  sun.position.set(6, 16, 8); sun.target.position.set(0, 0, -16);
-  sun.castShadow = true; sun.shadow.mapSize.set(coarse ? 1024 : 2048, coarse ? 1024 : 2048);
-  Object.assign(sun.shadow.camera, { left: -16, right: 16, top: 34, bottom: -34, near: 1, far: 60 });
-  sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.03;
+  scene.add(new THREE.HemisphereLight("#fff8f0", "#b6b0c8", 0.3));
+  const sun = new THREE.DirectionalLight("#fff0da", 1.7);
+  sun.position.set(9, 18, 14); sun.target.position.set(0, 0, -14);
+  sun.castShadow = true; sun.shadow.mapSize.set(coarse ? 1024 : 4096, coarse ? 1024 : 4096);
+  Object.assign(sun.shadow.camera, { left: -18, right: 18, top: 36, bottom: -36, near: 1, far: 70 });
+  sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.025; sun.shadow.radius = 4;
   scene.add(sun, sun.target);
+  setLoad(0.35);
 
-  const wallM = mat("#f4f2f7", { roughness: 0.9 });
-  const trimM = mat("#3a3848", { roughness: 0.5, metalness: 0.3 });
-  const glassM = new THREE.MeshStandardMaterial({ color: "#cfe0ff", transparent: true, opacity: 0.16, roughness: 0.05, metalness: 0.1, depthWrite: false, side: THREE.DoubleSide });
-  const ceilM = new THREE.MeshLambertMaterial({ color: "#f6f4f9", emissive: "#f1eef6", emissiveIntensity: 0.75, side: THREE.DoubleSide });
-  const lightM = new THREE.MeshStandardMaterial({ color: "#ffffff", emissive: "#fff6e8", emissiveIntensity: 1.2 });
+  const wallTex = floorTex("wall"); wallTex.repeat.set(4, 1);
+  const wallM = mat("#ffffff", { map: wallTex, roughness: 0.92 });
+  const trimM = mat("#2c2a3a", { roughness: 0.4, metalness: 0.5 });
+  const glassM = new THREE.MeshPhysicalMaterial({ color: "#dfeaff", transparent: true, opacity: 0.14, roughness: 0.02, metalness: 0, reflectivity: 0.6, envMapIntensity: 1.4, depthWrite: false, side: THREE.DoubleSide });
+  const ceilTex = floorTex("ceiling"); ceilTex.repeat.set(16, 40);
+  const ceilM = new THREE.MeshLambertMaterial({ map: ceilTex, emissive: "#efedf4", emissiveIntensity: 0.35, side: THREE.DoubleSide });
+  const lightM = new THREE.MeshStandardMaterial({ color: "#ffffff", emissive: "#fff3e2", emissiveIntensity: 3.2 });
+  const baseM = mat("#3a3848", { roughness: 0.5 });
 
   // Floors
-  const oak = floorTex("oak"); oak.repeat.set(5, 4);
-  const lobbyFloor = plane(20, 16, mat("#ffffff", { map: oak, roughness: 0.55 }), 0, 0, -2); lobbyFloor.rotation.x = -Math.PI / 2; lobbyFloor.receiveShadow = true;
-  const pave = floorTex("paving"); pave.repeat.set(10, 4);
-  const outside = plane(40, 16, mat("#ffffff", { map: pave, roughness: 0.9 }), 0, -0.01, 14); outside.rotation.x = -Math.PI / 2; outside.receiveShadow = true;
-  const conc = floorTex("concrete"); conc.repeat.set(2, 16);
-  const cor = plane(4, 32, mat("#ffffff", { map: conc, roughness: 0.35 }), 0, 0, -26); cor.rotation.x = -Math.PI / 2; cor.receiveShadow = true;
+  const oak = floorTex("oak"); oak.repeat.set(4, 3.2);
+  floorPlane(20, 16, mat("#ffffff", { map: oak, roughness: 0.32, envMapIntensity: 0.7 }), 0, 0, -2);
+  const pave = floorTex("paving"); pave.repeat.set(10, 3);
+  floorPlane(60, 12, mat("#d9d6de", { map: pave, roughness: 0.85 }), 0, -0.01, 12);
+  floorPlane(60, 14, mat("#4a4756", { roughness: 0.9 }), 0, -0.02, 25);
+  floorPlane(200, 200, mat("#9fa88f", { roughness: 1 }), 0, -0.04, -20);
+  const conc = floorTex("concrete"); conc.repeat.set(1.5, 12);
+  floorPlane(4, 32, mat("#ffffff", { map: conc, roughness: 0.18, metalness: 0.05, envMapIntensity: 1.1 }), 0, 0, -26);
+  for (let z = -10.5; z > -42; z -= 1.6) box(0.04, 0.01, 0.6, mat("#bdb9c6"), 0, 0.002, z, scene, false);
 
   // Outer shell
   box(0.2, H, 48, wallM, -10.1, H / 2, -18);
   box(0.2, H, 48, wallM, 10.1, H / 2, -18);
   box(20.4, H, 0.2, wallM, 0, H / 2, -42.1);
+  box(20.4, 0.25, 48.4, mat("#e6e3ec"), 0, H + 0.125, -18, scene, false);
+  // street side outside
+  for (const x of [-14, -7, 7, 14]) { const tr = new THREE.Group(); tr.position.set(x, 0, 14); scene.add(tr); cyl(0.12, 0.16, 2.4, mat("#5b4636"), 0, 1.2, 0, tr, 10); for (let k = 0; k < 5; k++) { const c = new THREE.Mesh(new THREE.IcosahedronGeometry(0.9 + Math.random() * 0.4, 1), mat(k % 2 ? "#4f7d4a" : "#5f9157", { roughness: 0.9, flatShading: true })); c.position.set((Math.random() - .5) * 1.2, 2.8 + Math.random() * 1.2, (Math.random() - .5) * 1.2); c.castShadow = true; tr.add(c); } }
+  for (let k = 0; k < 6; k++) { const bw = 6 + Math.random() * 6, bh = 6 + Math.random() * 14; box(bw, bh, 6, mat(`hsl(230, 8%, ${62 + Math.random() * 14}%)`, { roughness: 0.9 }), -26 + k * 11, bh / 2, 38, scene, false); }
+
   // Corridor end window
-  plane(3.2, 2.2, new THREE.MeshBasicMaterial({ color: "#cfe6ff" }), 0, 1.75, -41.99);
+  plane(3.2, 2.2, new THREE.MeshBasicMaterial({ map: cityTex(3), toneMapped: false }), 0, 1.75, -42.0);
   box(3.4, 0.08, 0.1, trimM, 0, 0.62, -41.95); box(3.4, 0.08, 0.1, trimM, 0, 2.88, -41.95); box(0.06, 2.3, 0.08, trimM, 0, 1.75, -41.95);
 
-  // Front facade (glass storefront) at z = 6
+  // Front facade: glass storefront at z = 6 with sliding entrance
   for (const [x0, x1] of [[-10, -1.5], [1.5, 10]]) {
     const w = x1 - x0, cx = (x0 + x1) / 2;
     plane(w, H, glassM, cx, H / 2, 6);
-    for (let x = x0; x <= x1 + 0.01; x += w / 3) box(0.08, H, 0.12, trimM, x, H / 2, 6);
+    for (let k = 0; k <= 3; k++) box(0.08, H, 0.12, trimM, x0 + k * w / 3, H / 2, 6);
   }
   plane(3, H - 2.5, glassM, 0, 2.5 + (H - 2.5) / 2, 6);
   box(20.2, 0.1, 0.14, trimM, 0, H, 6); box(3, 0.08, 0.14, trimM, 0, 2.5, 6);
-  // Facade sign
-  const fascia = box(8, 0.9, 0.14, mat("#17152b"), 0, H + 0.45, 6.05);
+  makeSlidingDoor({ axis: "x", fixed: 6.06, a: 0, half: 1.5, height: 2.48, glassM, trimM, center: new THREE.Vector3(0, 0, 6), radius: 3.2 });
+  box(8, 0.9, 0.14, mat("#17152b"), 0, H + 0.45, 6.08);
   const fasciaTex = canvasTex(1600, 180, (g, w, h) => { g.fillStyle = "#17152b"; g.fillRect(0, 0, w, h); g.fillStyle = "#4f46e5"; g.beginPath(); g.arc(120, 90, 58, 0, 7); g.fill(); g.fillStyle = "#fff"; g.font = D(52, 800); g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("FS", 120, 93); g.textAlign = "left"; g.font = D(96, 800); g.fillText("Foysal Solutions", 210, 96); });
-  plane(7.8, 0.88, new THREE.MeshBasicMaterial({ map: fasciaTex }), 0, H + 0.45, 6.13);
-  box(20.4, 0.2, 48.4, mat("#e9e6ef"), 0, H + 0.1, -18, scene, false).receiveShadow = false;
-  // outdoor planters
-  plant(-2.6, 7.2, 1.2); plant(2.6, 7.2, 1.2);
+  plane(7.8, 0.88, new THREE.MeshStandardMaterial({ map: fasciaTex, emissive: "#ffffff", emissiveMap: fasciaTex, emissiveIntensity: 0.9 }), 0, H + 0.45, 6.16);
+  const mat1 = floorPlane(2.6, 1.4, mat("#2a2838", { roughness: 1 }), 0, 0.004, 4.9);
+  plant(-2.6, 7.2, 1.25); plant(2.6, 7.2, 1.25);
+  setLoad(0.5);
 
   // Ceilings with light panels
   const ceil = plane(20, 48, ceilM, 0, H - 0.001, -18); ceil.rotation.x = Math.PI / 2;
   for (let z = 3; z > -9; z -= 4) for (const x of [-6, 0, 6]) { const p = plane(1.6, 0.6, lightM, x, H - 0.02, z); p.rotation.x = Math.PI / 2; }
   for (let z = -12; z > -42; z -= 4) { const p = plane(0.8, 2.4, lightM, 0, H - 0.02, z); p.rotation.x = Math.PI / 2; }
+  const lobbyLight = new THREE.PointLight("#fff1e0", 18, 16, 1.4); lobbyLight.position.set(0, H - 0.5, -2); scene.add(lobbyLight);
+  const corLight = new THREE.PointLight("#fff1e0", 10, 14, 1.4); corLight.position.set(0, H - 0.5, -26); scene.add(corLight);
+
+  // Baseboards
+  for (const [w, d, x, z] of [[0.04, 48, -9.99, -18], [0.04, 48, 9.99, -18], [8, 0.04, -6, -9.88], [8, 0.04, 6, -9.88]]) box(w, 0.1, d, baseM, x, 0.05, z, scene, false);
 
   // Lobby back wall (z = -10) with corridor opening x in [-2, 2]
   box(8, H, 0.2, wallM, -6, H / 2, -10);
   box(8, H, 0.2, wallM, 6, H / 2, -10);
   box(4, H - 2.8, 0.2, wallM, 0, 2.8 + (H - 2.8) / 2, -10);
-  const brand = plane(5.2, 1.93, new THREE.MeshBasicMaterial({ map: brandTex(), transparent: true }), -6, 2.0, -9.89);
-  const dirBoard = box(2.6, 2.3, 0.06, mat("#1b1a2a"), 6, 1.75, -9.88);
-  plane(2.5, 2.2, new THREE.MeshBasicMaterial({ map: directoryTex() }), 6, 1.75, -9.84);
+  plane(5.2, 1.93, new THREE.MeshBasicMaterial({ map: brandTex(), transparent: true }), -6, 2.0, -9.89);
+  const dirBoard = rbox(2.6, 2.3, 0.06, 0.03, mat("#1b1a2a", { roughness: 0.3 }), 6, 1.75, -9.88);
+  dirBoard.rotation.x = Math.PI / 2; dirBoard.rotation.set(0, 0, 0);
+  plane(2.5, 2.2, new THREE.MeshStandardMaterial({ map: directoryTex(), emissive: "#ffffff", emissiveMap: directoryTex(), emissiveIntensity: 0.55 }), 6, 1.75, -9.84);
   clickable(dirBoard, "dir", "Directory");
-  // corridor header text above the opening
-  plane(3.6, 0.5, new THREE.MeshBasicMaterial({ map: textPanelTex([["Rooms 101 to 108", D(96, 800), "#17152b", 160]], { h: 256, bg: "#f4f2f7" }) }), 0, 3.2, -9.89);
+  plane(3.6, 0.5, new THREE.MeshBasicMaterial({ map: labelTex("Rooms 101 to 108", { h: 160 }) }), 0, 3.2, -9.89);
+  // clock
+  lobbyClock = makeClock(8.7, 2.55, -9.88);
 
   // Reception desk
-  const deskM = mat("#fbfaf7", { roughness: 0.4 });
-  box(1.1, 1.05, 3.4, deskM, 4.6, 0.525, -2.5);
-  box(1.3, 0.06, 3.6, mat("#2a2838", { roughness: 0.35 }), 4.6, 1.08, -2.5);
-  box(0.02, 0.18, 3.0, mat("#4f46e5", { emissive: "#4f46e5", emissiveIntensity: 0.4 }), 4.04, 0.3, -2.5, scene, false);
+  const deskM = mat("#fbfaf7", { roughness: 0.3 });
+  rbox(1.1, 1.05, 3.4, 0.08, deskM, 4.6, 0.525, -2.5);
+  rbox(1.3, 0.06, 3.6, 0.06, mat("#ffffff", { map: wood, roughness: 0.35 }), 4.6, 1.08, -2.5);
+  box(0.02, 0.06, 3.0, new THREE.MeshStandardMaterial({ color: "#4f46e5", emissive: "#6d64ff", emissiveIntensity: 2.2 }), 4.04, 0.12, -2.5, scene, false);
   const recSign = canvasTex(1024, 160, (g, w, h) => { g.fillStyle = "#fbfaf7"; g.fillRect(0, 0, w, h); g.fillStyle = "#17152b"; g.font = D(96, 800); g.fillText("Reception", 40, 116); });
-  plane(2.4, 0.38, new THREE.MeshBasicMaterial({ map: recSign }), 4.03, 0.72, -2.5, -Math.PI / 2);
+  plane(2.4, 0.38, new THREE.MeshBasicMaterial({ map: recSign }), 4.035, 0.72, -2.5, -Math.PI / 2);
+  const lap2 = box(0.36, 0.015, 0.26, mat("#c9c7d1", { metalness: 0.75, roughness: 0.3 }), 5.0, 1.12, -2.0); lap2.rotation.y = 0.2;
+  cyl(0.05, 0.045, 0.12, mat("#4f46e5", { roughness: 0.35 }), 5.0, 1.17, -3.4, scene, 18);
+  blob(4.6, -2.5, 2.2, 4.4, 0.35);
   blockRects.push([3.85, 5.35, -4.4, -0.6]);
-  const omi = makePerson({ shirt: "#4f46e5", skin: "#a8714a", hair: "#0f0c0a", style: "short" }, "#1f1d2b");
-  omi.position.set(5.9, 0, -2.5); omi.rotation.y = -Math.PI / 2; scene.add(omi);
-  omi.traverse(o => { if (o.isMesh) clickable(o, "reception", "Reception · Omi"); });
-  // name plate behind Omi
-  const plate = canvasTex(1024, 300, (g, w, h) => { g.fillStyle = "#4f46e5"; g.fillRect(0, 0, w, h); g.fillStyle = "#fff"; g.font = D(84, 800); g.fillText("Md Foysal Hossain Omi", 50, 140); g.font = B(44, 500); g.fillStyle = "rgba(255,255,255,.8)"; g.fillText("Founder · Digital marketer · Shopify specialist", 52, 222); });
-  plane(3.6, 1.05, new THREE.MeshBasicMaterial({ map: plate }), 9.98, 2.45, -2.5, -Math.PI / 2);
-  stops.reception = { pos: new THREE.Vector3(2.35, EYE, -2.5), look: new THREE.Vector3(5.9, 1.55, -2.5), zone: "lobby" };
+  const omi = makePerson(OMI_LOOK);
+  omi.position.set(5.75, 0, -2.5); omi.rotation.y = -Math.PI / 2; scene.add(omi);
+  omi.userData.id = "omi"; omi.userData.home = "reception";
+  blob(5.75, -2.5, 0.8, 0.8, 0.45);
+  clickable(omi, "reception", "Reception · Omi");
+  const plateT = canvasTex(1024, 300, (g, w, h) => { g.fillStyle = "#4f46e5"; g.fillRect(0, 0, w, h); g.fillStyle = "#fff"; g.font = D(84, 800); g.fillText("Md Foysal Hossain Omi", 50, 140); g.font = B(44, 500); g.fillStyle = "rgba(255,255,255,.8)"; g.fillText("Founder · Digital marketer · Shopify specialist", 52, 222); });
+  plane(3.6, 1.05, new THREE.MeshStandardMaterial({ map: plateT, emissive: "#ffffff", emissiveMap: plateT, emissiveIntensity: 0.4 }), 9.98, 2.45, -2.5, -Math.PI / 2);
+  stops.reception = { pos: new THREE.Vector3(2.35, EYE, -2.5), look: new THREE.Vector3(5.75, 1.6, -2.5), zone: "lobby", person: omi };
 
-  // Results wall on left side wall (x = -10)
-  const caseKeys = ["sunrise", "urban", "dakmatter", "winback"];
-  caseKeys.forEach((k, n) => {
+  // Results wall with spotlights
+  ["sunrise", "urban", "dakmatter", "winback"].forEach((k, n) => {
     const z = -7.2 + n * 2.6;
-    box(0.06, 1.28, 1.74, mat("#17152b"), -9.97, 1.75, z);
-    const pic = plane(1.6, 1.17, new THREE.MeshBasicMaterial({ map: caseTex(CASES[k]) }), -9.93, 1.75, z, Math.PI / 2);
+    rbox(0.06, 1.3, 1.76, 0.02, mat("#17152b", { roughness: 0.3 }), -9.97, 1.75, z).rotation.set(0, 0, 0);
+    const pic = plane(1.6, 1.17, new THREE.MeshStandardMaterial({ map: caseTex(CASES[k]), roughness: 0.4 }), -9.93, 1.75, z, Math.PI / 2);
     clickable(pic, "results", "Results Wall");
+    const spot = new THREE.SpotLight("#fff2dc", 14, 5, 0.55, 0.6, 1.5); spot.position.set(-8.6, H - 0.15, z); spot.target.position.set(-10, 1.6, z); scene.add(spot, spot.target);
+    cyl(0.06, 0.08, 0.14, trimM, -8.6, H - 0.08, z, scene, 14);
   });
-  const rwTitle = canvasTex(1024, 160, (g) => { g.fillStyle = "#f4f2f7"; g.fillRect(0, 0, 1024, 160); g.fillStyle = "#17152b"; g.font = D(100, 800); g.fillText("Results Wall", 30, 116); });
-  plane(3.2, 0.5, new THREE.MeshBasicMaterial({ map: rwTitle }), -9.95, 2.95, -3.3, Math.PI / 2);
+  plane(3.2, 0.5, new THREE.MeshBasicMaterial({ map: labelTex("Results Wall") }), -9.95, 2.95, -3.3, Math.PI / 2);
   stops.results = { pos: new THREE.Vector3(-5.6, EYE, -3.3), look: new THREE.Vector3(-10, 1.6, -3.3), zone: "lobby" };
   stops.dir = { pos: new THREE.Vector3(4.4, EYE, -6.9), look: new THREE.Vector3(6, 1.7, -10), zone: "lobby" };
 
   // Lobby lounge
-  const sofaM = mat("#4f46e5", { roughness: 0.9 });
-  box(2.6, 0.42, 0.9, sofaM, -6.2, 0.21, 3.6); box(2.6, 0.5, 0.22, sofaM, -6.2, 0.67, 4.0); box(0.22, 0.6, 0.9, sofaM, -7.4, 0.3, 3.6); box(0.22, 0.6, 0.9, sofaM, -5.0, 0.3, 3.6);
-  cyl(0.5, 0.5, 0.05, mat("#f3efe8", { roughness: 0.3 }), -6.2, 0.42, 2.4); cyl(0.05, 0.05, 0.4, trimM, -6.2, 0.2, 2.4, scene, 10);
+  const sofaM = mat("#4f46e5", { roughness: 0.95 });
+  rbox(2.6, 0.42, 0.9, 0.1, sofaM, -6.2, 0.25, 3.6); rbox(2.6, 0.55, 0.24, 0.08, sofaM, -6.2, 0.7, 4.0); rbox(0.24, 0.62, 0.9, 0.08, sofaM, -7.45, 0.33, 3.6); rbox(0.24, 0.62, 0.9, 0.08, sofaM, -4.95, 0.33, 3.6);
+  for (const x of [-6.85, -5.55]) rbox(1.15, 0.12, 0.75, 0.08, mat("#5b53ee", { roughness: 0.95 }), x, 0.52, 3.55);
+  cyl(0.5, 0.5, 0.04, mat("#ffffff", { map: wood, roughness: 0.3 }), -6.2, 0.42, 2.4); cyl(0.05, 0.05, 0.4, trimM, -6.2, 0.2, 2.4, scene, 10);
+  blob(-6.2, 3.4, 3.4, 2.4, 0.3);
   blockRects.push([-7.6, -4.8, 1.8, 4.2]);
   plant(-9.2, 5.2, 1.3); plant(9.2, 5.2, 1.3); plant(-9.2, -9.2, 1.1); plant(9.2, -9.2, 1.1); plant(-2.6, -9.3, 0.9); plant(2.6, -9.3, 0.9);
-  const rug = plane(5, 3.4, mat("#e3dff4", { roughness: 1 }), -6.2, 0.005, 2.9); rug.rotation.x = -Math.PI / 2; rug.receiveShadow = true;
+  floorPlane(5, 3.4, mat("#e3dff4", { roughness: 1 }), -6.2, 0.005, 2.9);
+  // lobby art
+  plane(1.2, 1.5, new THREE.MeshStandardMaterial({ map: artTex(4, "#4f46e5") }), 9.97, 1.8, 2.6, -Math.PI / 2);
 
-  walkRects.push([-1.3, 1.3, 5.4, 12.5], [-9.6, 9.6, -9.6, 5.7], [-1.6, 1.6, -41.6, -9.3]);
+  // dust motes
+  const dg = new THREE.BufferGeometry(), N = coarse ? 160 : 420, arr = new Float32Array(N * 3);
+  for (let k = 0; k < N; k++) { arr[k * 3] = (Math.random() - 0.5) * 18; arr[k * 3 + 1] = Math.random() * H; arr[k * 3 + 2] = -9 + Math.random() * 14; }
+  dg.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+  dust = new THREE.Points(dg, new THREE.PointsMaterial({ color: "#fff8ea", size: 0.012, transparent: true, opacity: 0.3, depthWrite: false }));
+  scene.add(dust);
 
-  // Rooms
-  ROOMS.forEach((r) => buildRoom(r, { wallM, trimM, glassM, lightM }));
+  walkRects.push([-1.3, 1.3, 5.3, 18], [-9.6, 9.6, -9.6, 5.7], [-1.6, 1.6, -41.6, -9.3]);
+  setLoad(0.65);
+  ROOMS.forEach((r) => buildRoom(r, { wallM, trimM, glassM, lightM, baseM }));
+  setLoad(0.95);
 }
 
-function buildRoom(r, { wallM, trimM, glassM, lightM }) {
+function makeClock(x, y, z) {
+  const g = new THREE.Group(); g.position.set(x, y, z); scene.add(g);
+  const face = cyl(0.32, 0.32, 0.04, mat("#fbfaf7", { roughness: 0.3 }), 0, 0, 0, g, 40); face.rotation.x = Math.PI / 2;
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.02, 8, 40), mat("#17152b", { metalness: 0.5, roughness: 0.3 })); g.add(ring);
+  for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2; box(0.015, k % 3 ? 0.04 : 0.07, 0.01, mat("#17152b"), Math.sin(a) * 0.26, Math.cos(a) * 0.26, 0.025, g, false).rotation.z = -a; }
+  const mk = (len, w, col) => { const p = new THREE.Group(); p.position.z = 0.03; g.add(p); box(w, len, 0.008, mat(col), 0, len / 2 - 0.02, 0, p, false); return p; };
+  return { h: mk(0.16, 0.025, "#17152b"), m: mk(0.24, 0.016, "#17152b"), s: mk(0.26, 0.006, "#e5484d") };
+}
+
+function makeSlidingDoor({ axis, fixed, a, half, height, glassM, trimM, center, radius }) {
+  // axis "x": panels slide along x on the plane z = fixed. axis "z": slide along z on plane x = fixed.
+  const panels = [];
+  for (const sx of [-1, 1]) {
+    const g = new THREE.Group(); scene.add(g);
+    const w = half;
+    const glass = new THREE.Mesh(new THREE.BoxGeometry(axis === "x" ? w : 0.02, height, axis === "x" ? 0.02 : w), glassM); glass.position.y = height / 2; g.add(glass);
+    const edge = axis === "x" ? [w, 0.04, 0.05] : [0.05, 0.04, w];
+    box(...edge, trimM, 0, height - 0.02, 0, g); box(...edge, trimM, 0, 0.02, 0, g);
+    const sideOff = (sx > 0 ? -1 : 1) * (w / 2 - 0.02);
+    const bar = axis === "x" ? box(0.03, 0.8, 0.06, trimM, sideOff, 1.1, 0, g) : box(0.06, 0.8, 0.03, trimM, 0, 1.1, sideOff, g);
+    panels.push({ g, sx });
+  }
+  const d = { axis, fixed, a, half, panels, center, radius, amt: 0, open: false };
+  doors.push(d); placeDoor(d); return d;
+}
+function placeDoor(d) {
+  for (const { g, sx } of d.panels) {
+    const off = sx * (d.half / 2 + d.amt * (d.half - 0.05));
+    if (d.axis === "x") g.position.set(d.a + off, 0, d.fixed); else g.position.set(d.fixed, 0, d.a + off);
+  }
+}
+
+function buildRoom(r, { wallM, trimM, glassM, lightM, baseM }) {
   const s = r.side, zc = -14 - 8 * r.i;
-  const X = (u) => s * (2 + u); // depth into room
-  const face = -s * Math.PI / 2; // plane normal pointing to corridor
+  const X = (u) => s * (2 + u);
+  const face = -s * Math.PI / 2;
   roomMeta[r.id] = { zc, side: s };
 
-  // floor
-  const carpet = floorTex(shade(r.color, 0.72)); carpet.repeat.set(3, 3);
-  const f = plane(8, 8, mat("#ffffff", { map: carpet, roughness: 1 }), X(4), 0.002, zc); f.rotation.x = -Math.PI / 2; f.receiveShadow = true;
-  // partition to next room
+  const carpet = floorTex(shade(r.color, 0.74)); carpet.repeat.set(3, 3);
+  floorPlane(8, 8, mat("#ffffff", { map: carpet, roughness: 1 }), X(4), 0.002, zc);
+  floorPlane(3.4, 2.6, mat(shade(r.color, 0.35), { roughness: 1 }), X(4.4), 0.006, zc);
   box(8, H, 0.16, wallM, X(4), H / 2, zc - 4);
-  // accent back wall
-  box(0.06, H, 7.84, mat(shade(r.color, 0.62), { roughness: 0.9 }), X(7.97), H / 2, zc, scene, false);
-  // glass front with door
+  box(8, 0.1, 0.04, baseM, X(4), 0.05, zc - 3.9, scene, false); box(8, 0.1, 0.04, baseM, X(4), 0.05, zc + 3.9, scene, false);
+  // accent back wall with two windows
+  const accentM = mat(shade(r.color, 0.6), { roughness: 0.92 });
+  box(0.06, H, 1.05, accentM, X(7.97), H / 2, zc - 3.45, scene, false);
+  box(0.06, H, 1.05, accentM, X(7.97), H / 2, zc + 3.45, scene, false);
+  box(0.06, H, 3.7, accentM, X(7.97), H / 2, zc, scene, false);
+  for (const zz of [zc - 2.4, zc + 2.4]) {
+    box(0.06, 0.6, 1.1, accentM, X(7.97), 0.3, zz, scene, false); box(0.06, 0.6, 1.1, accentM, X(7.97), H - 0.3, zz, scene, false);
+    plane(1.1, 2.4, new THREE.MeshBasicMaterial({ map: cityTex(r.no + (zz > zc ? 7 : 0)), toneMapped: false, fog: false }), X(7.995), 1.8, zz, face);
+    box(0.08, 2.44, 0.05, trimM, X(7.95), 1.8, zz - 0.55, scene, false); box(0.08, 2.44, 0.05, trimM, X(7.95), 1.8, zz + 0.55, scene, false);
+    box(0.08, 0.05, 1.12, trimM, X(7.95), 0.6, zz, scene, false); box(0.08, 0.05, 1.12, trimM, X(7.95), 3.0, zz, scene, false);
+    box(0.3, 0.04, 1.2, mat("#f3efe8", { roughness: 0.4 }), X(7.82), 0.6, zz);
+  }
+  // glass front with sliding door
   for (const [z0, z1] of [[zc - 4, zc - 0.8], [zc + 0.8, zc + 4]]) {
     plane(z1 - z0, H, glassM, X(0), H / 2, (z0 + z1) / 2, Math.PI / 2);
     box(0.1, H, 0.08, trimM, X(0), H / 2, z0); box(0.1, H, 0.08, trimM, X(0), H / 2, z1);
   }
-  plane(1.6, H - 2.4, glassM, X(0), 2.4 + (H - 2.4) / 2, zc, Math.PI / 2);
-  box(0.1, 0.08, 1.6, trimM, X(0), 2.4, zc);
-  // frosted band so the glass reads as glass
-  const band = new THREE.MeshStandardMaterial({ color: "#ffffff", transparent: true, opacity: 0.55, depthWrite: false, side: THREE.DoubleSide });
-  for (const zz of [zc - 2.4, zc + 2.4]) plane(3.2, 0.12, band, X(0) - s * 0.01, 1.2, zz, Math.PI / 2);
+  plane(1.6, H - 2.48, glassM, X(0), 2.48 + (H - 2.48) / 2, zc, Math.PI / 2);
+  box(0.1, 0.08, 1.6, trimM, X(0), 2.48, zc);
+  makeSlidingDoor({ axis: "z", fixed: X(0) - s * 0.06, a: zc, half: 0.8, height: 2.46, glassM, trimM, center: new THREE.Vector3(X(0), 0, zc), radius: 2.6 });
+  const band = new THREE.MeshStandardMaterial({ color: "#ffffff", transparent: true, opacity: 0.6, depthWrite: false, side: THREE.DoubleSide });
+  for (const zz of [zc - 2.4, zc + 2.4]) plane(3.2, 0.14, band, X(0) - s * 0.01, 1.25, zz, Math.PI / 2);
 
-  // door sign facing corridor
-  const sign = plane(2.3, 0.494, new THREE.MeshBasicMaterial({ map: signTex(r.no, r.title, r.color) }), X(0) - s * 0.06, 2.95, zc, face);
+  const sign = plane(2.3, 0.494, new THREE.MeshStandardMaterial({ map: signTex(r.no, r.title, r.color), emissive: "#ffffff", emissiveMap: signTex(r.no, r.title, r.color), emissiveIntensity: 0.35 }), X(0) - s * 0.06, 2.98, zc, face);
   clickable(sign, r.id, `Room ${r.no} · ${r.title}`);
-  // invisible door hit area
-  const door = new THREE.Mesh(new THREE.BoxGeometry(0.2, 2.4, 1.6), new THREE.MeshBasicMaterial({ visible: false }));
+  const door = new THREE.Mesh(new THREE.BoxGeometry(0.3, 2.4, 1.6), new THREE.MeshBasicMaterial({ visible: false }));
   door.position.set(X(0), 1.2, zc); scene.add(door); clickable(door, r.id, `Room ${r.no} · ${r.title}`);
 
-  // ceiling light
   for (const zz of [zc - 1.8, zc + 1.8]) { const p = plane(2.4, 0.6, lightM, X(4), H - 0.02, zz); p.rotation.x = Math.PI / 2; }
-  const pl = new THREE.PointLight("#fff1e0", coarse ? 6 : 9, 9, 1.6); pl.position.set(X(4), H - 0.4, zc); scene.add(pl);
+  const pl = new THREE.PointLight("#fff1e0", coarse ? 9 : 12, 10, 1.5); pl.position.set(X(4), H - 0.4, zc); scene.add(pl);
 
-  // wall screen on the back wall
-  box(0.08, 1.96, 3.44, mat("#111018", { roughness: 0.3 }), X(7.9), 1.85, zc);
-  const scr = plane(3.3, 1.86, new THREE.MeshBasicMaterial({ map: screenTex(r) }), X(7.85), 1.85, zc, face);
+  // animated wall screen
+  rbox(0.08, 1.96, 3.44, 0.03, mat("#111018", { roughness: 0.25, metalness: 0.4 }), X(7.9), 1.85, zc).rotation.set(0, 0, 0);
+  const tex = canvasTex(1024, 576, (g, w, h) => drawScreen(r, g, w, h, 0));
+  const scrMat = new THREE.MeshStandardMaterial({ map: tex, emissive: "#ffffff", emissiveMap: tex, emissiveIntensity: 0.85, roughness: 0.65 });
+  const scr = plane(3.3, 1.86, scrMat, X(7.8), 1.85, zc, face);
+  screens.push({ room: r, tex, last: -1 });
   clickable(scr, r.id, `Room ${r.no} · ${r.title}`);
 
   walkRects.push(
-    [Math.min(X(0.35), X(7.6)), Math.max(X(0.35), X(7.6)), zc - 3.6, zc + 3.6],
+    [Math.min(X(0.35), X(7.5)), Math.max(X(0.35), X(7.5)), zc - 3.6, zc + 3.6],
     [Math.min(X(-0.6), X(0.6)), Math.max(X(-0.6), X(0.6)), zc - 0.6, zc + 0.6]
   );
 
   if (r.id === "meet") {
-    const t = cyl(1.0, 1.0, 0.06, mat("#f3efe8", { roughness: 0.35 }), X(4.6), 0.74, zc);
-    cyl(0.08, 0.3, 0.72, trimM, X(4.6), 0.36, zc, scene, 16);
-    for (let k = 0; k < 6; k++) { const a = (k / 6) * Math.PI * 2; chair(X(4.6) + Math.cos(a) * 1.45, zc + Math.sin(a) * 1.45, -a - Math.PI / 2, "#4f46e5"); }
-    blockRects.push([Math.min(X(2.8), X(6.4)), Math.max(X(2.8), X(6.4)), zc - 1.8, zc + 1.8]);
-    const cup = cyl(0.045, 0.04, 0.1, mat("#ffffff"), X(4.2), 0.82, zc + 0.3);
+    const tbl = cyl(1.05, 1.05, 0.05, mat("#ffffff", { map: wood, roughness: 0.3 }), X(4.4), 0.75, zc, scene, 48);
+    cyl(0.08, 0.32, 0.72, trimM, X(4.4), 0.36, zc, scene, 18);
+    for (let k = 0; k < 6; k++) { const a = (k / 6) * Math.PI * 2 + 0.3; const cx = X(4.4) + Math.cos(a) * 1.5, cz = zc + Math.sin(a) * 1.5; chair(cx, cz, Math.atan2(X(4.4) - cx, zc - cz), "#4f46e5"); }
+    blob(X(4.4), zc, 3.6, 3.6, 0.3);
+    blockRects.push([Math.min(X(2.6), X(6.2)), Math.max(X(2.6), X(6.2)), zc - 1.9, zc + 1.9]);
+    cyl(0.045, 0.04, 0.1, mat("#ffffff"), X(4.0), 0.82, zc + 0.3, scene, 16);
+    box(0.32, 0.012, 0.22, mat("#17152b"), X(4.6), 0.78, zc - 0.4).rotation.y = 0.4;
     stops[r.id] = { pos: new THREE.Vector3(X(1.6), EYE, zc + 0.9), look: new THREE.Vector3(X(7.85), 1.7, zc), zone: r.id };
-    t.userData.stop = r.id; clickable(t, r.id, "Meeting Room");
+    clickable(tbl, r.id, "Meeting Room");
   } else {
-    desk(X(6.2), zc + 0.4, s > 0 ? -Math.PI / 2 : Math.PI / 2);
-    chair(X(6.95), zc + 0.4, s > 0 ? -Math.PI / 2 : Math.PI / 2);
-    blockRects.push([Math.min(X(5.6), X(7.4)), Math.max(X(5.6), X(7.4)), zc - 0.8, zc + 1.6]);
+    workDesk(X(4.7), zc, s * Math.PI / 2, r.color);
+    const ch = chair(X(5.55), zc - 0.05, face, "#2a2838");
+    blob(X(4.9), zc, 2.4, 2.6, 0.32);
+    blockRects.push([Math.min(X(4.2), X(6.0)), Math.max(X(4.2), X(6.0)), zc - 1.1, zc + 1.1]);
     const p = makePerson(r.look);
-    p.position.set(X(4.4), 0, zc - 1.0); p.rotation.y = face; scene.add(p);
-    p.userData.room = r.id;
-    p.traverse(o => { if (o.isMesh) clickable(o, r.id, `${r.role} · Room ${r.no}`); });
-    blockRects.push([Math.min(X(4.1), X(4.7)), Math.max(X(4.1), X(4.7)), zc - 1.3, zc - 0.7]);
-    stops[r.id] = { pos: new THREE.Vector3(X(1.7), EYE, zc + 0.5), look: new THREE.Vector3(X(4.4), 1.5, zc - 1.0), zone: r.id, person: p };
+    p.position.set(X(5.5), 0, zc - 0.05); p.rotation.y = face; scene.add(p);
+    p.userData.id = r.id; p.userData.home = r.id; p.userData.seated = true;
+    p.userData.pose = { ...POSE.sit }; p.userData.target = POSE.sit; p.userData.typing = true; p.userData.state = "work";
+    clickable(p, r.id, `${r.role} · Room ${r.no}`);
+    stops[r.id] = { pos: new THREE.Vector3(X(2.1), EYE, zc + 0.15), look: new THREE.Vector3(X(5.5), 1.45, zc - 0.05), zone: r.id, person: p };
+    // lounge chair and side table near the window
+    const lc = new THREE.Group(); lc.position.set(X(6.6), 0, zc + 3.0); lc.rotation.y = face + s * 0.5; scene.add(lc);
+    rbox(0.8, 0.35, 0.75, 0.12, mat(shade(r.color, 0.15), { roughness: 0.95 }), 0, 0.3, 0, lc); rbox(0.8, 0.55, 0.16, 0.06, mat(shade(r.color, 0.15), { roughness: 0.95 }), 0, 0.62, -0.32, lc);
+    blob(X(6.6), zc + 3.0, 1.2, 1.2, 0.3);
   }
-  plant(X(7.4), zc + 3.4, 1.0); plant(X(0.6), zc - 3.4, 0.8);
-  // shelf
-  box(1.8, 0.04, 0.3, mat("#f3efe8"), X(3.6), 1.6, zc + 3.82);
-  for (let k = 0; k < 6; k++) box(0.08, 0.26 + (k % 3) * 0.04, 0.22, mat(k % 2 ? r.color : "#d6d2de"), X(2.9) + s * k * 0.12, 1.75, zc + 3.82);
+  plant(X(7.2), zc - 3.3, 1.0); plant(X(0.7), zc - 3.3, 0.8);
+  // shelf with books on the partition
+  box(1.8, 0.04, 0.3, mat("#ffffff", { map: wood, roughness: 0.4 }), X(3.4), 1.6, zc + 3.82);
+  for (let k = 0; k < 9; k++) { const bh = 0.22 + (k % 3) * 0.05; const bk = box(0.06 + (k % 2) * 0.02, bh, 0.22, mat(k % 3 === 0 ? r.color : k % 3 === 1 ? "#d6d2de" : "#2a2838", { roughness: 0.7 }), X(2.75) + s * k * 0.1, 1.62 + bh / 2, zc + 3.82); if (k === 8) bk.rotation.x = 0.3; }
+  plane(1.0, 1.25, new THREE.MeshStandardMaterial({ map: artTex(r.no, r.color) }), X(3.4), 2.5, zc - 3.91, 0);
 }
 
-function shade(hex, mix) {
-  const c = new THREE.Color(hex), w = new THREE.Color("#fbfaf7");
-  return "#" + c.lerp(w, mix).getHexString();
+/* ------------------------------------------------------------------ */
+/* Audio: voices, footsteps, doors, room tone                           */
+/* ------------------------------------------------------------------ */
+const audio = { ctx: null, master: null, noise: null, tone: null };
+function initAudio() {
+  if (audio.ctx) { audio.ctx.resume && audio.ctx.resume(); return; }
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    audio.ctx = ctx; audio.master = ctx.createGain(); audio.master.gain.value = prefs.sfx ? 1 : 0; audio.master.connect(ctx.destination);
+    const len = ctx.sampleRate * 2, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+    let last = 0; for (let k = 0; k < len; k++) { const w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[k] = last * 3.5; }
+    audio.noise = buf;
+    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 260;
+    const g = ctx.createGain(); g.gain.value = 0.05; src.connect(lp).connect(g).connect(audio.master); src.start();
+    audio.tone = g;
+  } catch (_) { audio.ctx = null; }
+}
+function sfxNoise({ dur = 0.09, freq = 900, q = 0.8, gain = 0.25, sweep = 0 }) {
+  if (!audio.ctx || !prefs.sfx) return;
+  const ctx = audio.ctx, now = ctx.currentTime;
+  const src = ctx.createBufferSource(); src.buffer = audio.noise;
+  const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.setValueAtTime(freq, now); bp.Q.value = q;
+  if (sweep) bp.frequency.exponentialRampToValueAtTime(freq * sweep, now + dur);
+  const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, now); g.gain.exponentialRampToValueAtTime(gain, now + Math.min(0.02, dur / 3)); g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+  src.connect(bp).connect(g).connect(audio.master); src.start(now, Math.random()); src.stop(now + dur + 0.05);
+}
+const footstep = () => sfxNoise({ dur: 0.11, freq: 380 + Math.random() * 160, q: 1.2, gain: 0.35 });
+const doorSound = () => sfxNoise({ dur: 0.7, freq: 500, q: 0.6, gain: 0.12, sweep: 2.4 });
+function chime() {
+  if (!audio.ctx || !prefs.sfx) return;
+  const ctx = audio.ctx, now = ctx.currentTime;
+  [660, 880].forEach((f, k) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = "sine"; o.frequency.value = f; g.gain.setValueAtTime(0.0001, now + k * 0.12); g.gain.exponentialRampToValueAtTime(0.06, now + k * 0.12 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, now + k * 0.12 + 0.8); o.connect(g).connect(audio.master); o.start(now + k * 0.12); o.stop(now + k * 0.12 + 0.9); });
+}
+
+const speech = { synth: window.speechSynthesis || null, voices: [], current: null, token: 0, timer: null };
+function loadVoices() { if (speech.synth) speech.voices = speech.synth.getVoices().filter(v => /^en/i.test(v.lang)); }
+if (speech.synth) { loadVoices(); speech.synth.onvoiceschanged = loadVoices; }
+function pickVoice(kind, seed) {
+  const vs = speech.voices; if (!vs.length) return null;
+  const male = /(daniel|alex|fred|david|guy|ryan|george|james|arthur|aaron|male|thomas|oliver|rishi)/i;
+  const female = /(samantha|karen|moira|tessa|zira|aria|jenny|sonia|libby|female|serena|victoria|susan|hazel|kate|fiona|natasha|catherine|martha)/i;
+  const pool = vs.filter(v => (kind === "male" ? male : female).test(v.name));
+  const list = pool.length ? pool : vs;
+  return list[seed % list.length];
+}
+function speakerFor(id) {
+  const s = allStops().find(x => x.id === id); if (!s) return null;
+  if (s.speaker === "omi") return { name: "Omi", person: people[0], look: OMI_LOOK, seed: 0 };
+  const p = stops[id] && stops[id].person;
+  return p ? { name: s.role, person: p, look: s.look, seed: ROOMS.indexOf(s) + 1 } : null;
+}
+function stopSpeech() {
+  speech.token++;
+  if (speech.synth) try { speech.synth.cancel(); } catch (_) {}
+  clearTimeout(speech.timer);
+  for (const p of people) p.userData.talk = 0;
+  $("#caption").hidden = true;
+}
+function speak(id) {
+  stopSpeech();
+  const s = allStops().find(x => x.id === id); const who = speakerFor(id);
+  if (!s || !s.say || !who) return;
+  const token = speech.token;
+  const sentences = s.say.match(/[^.!?]+[.!?]*/g).map(x => x.trim()).filter(Boolean);
+  const u = who.person && who.person.userData;
+  let k = 0;
+  const next = () => {
+    if (token !== speech.token) return;
+    if (k >= sentences.length) { if (u) u.talk = 0; $("#caption").hidden = true; return; }
+    const line = sentences[k++];
+    if (prefs.captions) { $("#caption").innerHTML = `<b>${esc(who.name)}</b>${esc(line)}`; $("#caption").hidden = false; }
+    if (u) u.talk = 1;
+    const fallback = () => { speech.timer = setTimeout(next, Math.max(1400, line.split(" ").length * 360)); };
+    if (prefs.voice && speech.synth) {
+      try {
+        const ut = new SpeechSynthesisUtterance(line);
+        const v = pickVoice(who.look.voice, who.seed); if (v) ut.voice = v;
+        ut.lang = v ? v.lang : "en-GB";
+        ut.rate = 1.0; ut.pitch = who.look.voice === "female" ? 1.08 : 0.92;
+        let done = false;
+        const fin = () => { if (done) return; done = true; clearTimeout(speech.timer); if (token === speech.token) setTimeout(next, 160); };
+        ut.onend = fin; ut.onerror = fin;
+        speech.synth.speak(ut);
+        speech.timer = setTimeout(fin, Math.max(3000, line.length * 120));
+      } catch (_) { fallback(); }
+    } else fallback();
+  };
+  next();
 }
 
 /* ------------------------------------------------------------------ */
 /* Movement                                                             */
 /* ------------------------------------------------------------------ */
 const V = (x, z) => new THREE.Vector3(x, EYE, z);
-function zoneOf(p) {
-  if (p.z > 6.1) return "outside";
-  if (p.z > -9.8) return "lobby";
-  if (Math.abs(p.x) <= 2.05) return "corridor";
-  return "room";
-}
+function zoneOf(p) { if (p.z > 6.1) return "outside"; if (p.z > -9.8) return "lobby"; if (Math.abs(p.x) <= 2.05) return "corridor"; return "room"; }
+function findRoomAt(p) { for (const r of ROOMS) { const m = roomMeta[r.id]; if (m && Math.sign(p.x) === m.side && Math.abs(p.x) > 2.05 && Math.abs(p.z - m.zc) < 4) return r.id; } return null; }
 function planPath(id) {
-  const target = stops[id];
-  const pts = [];
-  const p = state.pos.clone();
+  const target = stops[id], pts = [], p = state.pos.clone();
   let z = zoneOf(p);
-  if (z === "outside") { pts.push(V(0, 4.2)); z = "lobby"; }
+  if (z === "outside") { if (p.z > 7.5 && Math.abs(p.x) > 0.3) pts.push(V(0, 7.5)); pts.push(V(0, 4.2)); z = "lobby"; }
   if (z === "room") {
-    const s = Math.sign(p.x), zc = Math.round((p.z + 14) / 8) * 8 - 14;
-    if (target.zone === findRoomAt(p)) { pts.push(target.pos.clone()); return pts; }
-    pts.push(V(s * 2.9, zc), V(0, zc)); z = "corridor";
+    const here = findRoomAt(p);
+    if (here && target.zone === here) { pts.push(target.pos.clone()); return pts; }
+    const m = roomMeta[here] || { side: Math.sign(p.x), zc: p.z };
+    pts.push(V(m.side * 2.9, m.zc), V(0, m.zc)); z = "corridor";
   }
   const rm = roomMeta[target.zone];
-  if (rm) {
-    if (z === "lobby") pts.push(V(0, -8.6));
-    pts.push(V(0, rm.zc), V(rm.side * 2.9, rm.zc), target.pos.clone());
-  } else {
-    if (z === "corridor") pts.push(V(0, -8.6));
-    pts.push(target.pos.clone());
-  }
+  if (rm) { if (z === "lobby") pts.push(V(0, -8.6)); pts.push(V(0, rm.zc), V(rm.side * 2.9, rm.zc), target.pos.clone()); }
+  else { if (z === "corridor") pts.push(V(0, -8.6)); pts.push(target.pos.clone()); }
   return pts;
 }
-function findRoomAt(p) {
-  for (const r of ROOMS) { const m = roomMeta[r.id]; if (Math.sign(p.x) === m.side && Math.abs(p.z - m.zc) < 4) return r.id; }
-  return null;
-}
-
 function goTo(id) {
-  hidePanel();
-  closeDir();
-  if (!renderer) { openStop(id); return; }
+  hidePanel(); closeDir(); stopSpeech();
+  if (!renderer || !stops[id]) { openStop(id); if (prefs.voice || prefs.captions) speak(id); return; }
   if (!state.entered) startTour(true);
+  if (document.pointerLockElement) document.exitPointerLock();
   const target = stops[id];
   if (reduceMotion) {
     $("#fade").classList.add("on");
-    setTimeout(() => { state.pos.copy(target.pos); faceTowards(target.look, true); arrive(id); $("#fade").classList.remove("on"); }, 360);
+    setTimeout(() => { state.pos.copy(target.pos); faceTowards(target.look, true); arrive(id); $("#fade").classList.remove("on"); }, 420);
     return;
   }
   const pts = [state.pos.clone(), ...planPath(id)].filter((v, k, a) => k === 0 || v.distanceTo(a[k - 1]) > 0.05);
   let len = 0; for (let k = 1; k < pts.length; k++) len += pts[k].distanceTo(pts[k - 1]);
-  state.path = { pts, len, d: 0, id, speed: THREE.MathUtils.clamp(len / 7, 1.6, 4.6) };
+  if (len < 0.1) { arrive(id); return; }
+  state.path = { pts, len, d: 0, id, speed: THREE.MathUtils.clamp(len / 8, 1.5, 4.4) };
 }
 function pointOnPath(path, d) {
   let acc = 0;
   for (let k = 1; k < path.pts.length; k++) {
     const seg = path.pts[k].distanceTo(path.pts[k - 1]);
-    if (acc + seg >= d) return { p: path.pts[k - 1].clone().lerp(path.pts[k], (d - acc) / seg), dir: path.pts[k].clone().sub(path.pts[k - 1]).normalize() };
+    if (acc + seg >= d) return path.pts[k - 1].clone().lerp(path.pts[k], (d - acc) / seg);
     acc += seg;
   }
-  const n = path.pts.length;
-  return { p: path.pts[n - 1].clone(), dir: path.pts[n - 1].clone().sub(path.pts[n - 2] || path.pts[n - 1]).normalize() };
+  return path.pts[path.pts.length - 1].clone();
 }
-function yawFor(dx, dz) { return Math.atan2(-dx, -dz); }
-function angLerp(a, b, t) { let d = ((b - a + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI; return a + d * t; }
+const yawFor = (dx, dz) => Math.atan2(-dx, -dz);
+function angLerp(a, b, t) { const d = Math.atan2(Math.sin(b - a), Math.cos(b - a)); return a + d * t; }
 let lookGoal = null;
 function faceTowards(v, instant) {
   const dx = v.x - state.pos.x, dz = v.z - state.pos.z, dy = v.y - EYE;
@@ -859,53 +1240,55 @@ function faceTowards(v, instant) {
   if (instant) { state.yaw = yaw; state.pitch = pitch; lookGoal = null; } else lookGoal = { yaw, pitch };
 }
 function arrive(id) {
-  state.path = null;
-  state.current = id;
+  state.path = null; state.current = id;
   if (stops[id]) faceTowards(stops[id].look, reduceMotion);
-  const pr = stops[id] && stops[id].person;
-  if (pr) pr.userData.wave = 2.4;
-  if (id === "reception") omiWave();
   if (id === "dir") { openDir(); return; }
+  const who = speakerFor(id);
+  if (who && who.person) { const u = who.person.userData; if (u.home === id || id === "reception") u.wave = 2.4; }
+  chime();
   openStop(id);
+  const wake = who && who.person && who.person.userData.seated ? 900 : 350;
+  setTimeout(() => { if (state.current === id) speak(id); }, wake);
 }
-function omiWave() { const o = people[0]; if (o) o.userData.wave = 2.4; }
-
 function startTour(silent) {
-  state.entered = true;
-  $("#intro").hidden = true;
-  $("#btn-lobby").hidden = false;
-  const h = $("#hint");
-  h.textContent = coarse ? "Drag to look around · Tap a door or a person to walk over" : "Drag to look · Click a door, screen or person · WASD to walk";
-  h.hidden = false;
+  if (state.entered) return;
+  state.entered = true; initAudio();
+  $("#intro").hidden = true; $("#btn-lobby").hidden = false; $("#btn-sound").hidden = false;
+  if (!coarse) { $("#btn-walk").hidden = false; $("#minimap").hidden = false; } else $("#joy").hidden = false;
+  setHint();
   if (!silent) goTo("reception");
+}
+function setHint() {
+  const h = $("#hint");
+  h.textContent = coarse ? "Drag to look · Joystick to walk · Tap a door or a person"
+    : document.pointerLockElement ? "Mouse to look · WASD to walk · Shift to run · E to talk · Esc to stop"
+    : "Drag to look · Click a door or person · WASD to walk · F for free walk";
+  h.hidden = false;
 }
 
 /* ------------------------------------------------------------------ */
 /* Panel                                                                */
 /* ------------------------------------------------------------------ */
 const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-function allStops() { return [...LOBBY, ...ROOMS]; }
 function openStop(id) {
-  const s = allStops().find(x => x.id === id);
-  if (!s) return;
+  const s = allStops().find(x => x.id === id); if (!s) return;
   const panel = $("#panel");
   panel.style.setProperty("--room", s.color);
   $("#p-num").textContent = typeof s.no === "number" ? `Room ${s.no}` : s.no;
   $("#p-title").textContent = s.title;
   $("#p-who").textContent = s.role;
+  $("#p-listen").hidden = !s.say;
   let html = `<p>${esc(s.intro)}</p>`;
   if (s.does && s.does.length) html += `<div><h3>What happens in this room</h3><ul class="list">${s.does.map(d => `<li>${esc(d)}</li>`).join("")}</ul></div>`;
   if (s.cases && s.cases.length) html += `<div style="display:grid;gap:10px"><h3>${s.id === "results" ? "Client work" : "Related work"}</h3>${s.cases.map(k => caseHTML(CASES[k])).join("")}</div>`;
   if (s.contact) html += contactHTML();
   if (s.extra) html += `<div class="links">${s.extra.map(([t, u]) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>`;
   if (!s.contact) html += `<div class="row"><button type="button" class="primary" data-go="meet">Talk to Omi about this</button></div>`;
-  $("#p-body").innerHTML = html;
-  $("#p-body").scrollTop = 0;
+  $("#p-body").innerHTML = html; $("#p-body").scrollTop = 0;
   const idx = ROOMS.findIndex(r => r.id === id);
   $("#p-prev").hidden = idx <= 0;
   $("#p-next").textContent = idx < 0 ? "First room →" : idx >= ROOMS.length - 1 ? "Back to lobby" : "Next room →";
-  panel.dataset.id = id;
-  panel.classList.remove("off");
+  panel.dataset.id = id; panel.classList.remove("off");
 }
 function caseHTML(c) {
   return `<div class="case"><div class="case-top"><b>${esc(c.name)}</b><span>${esc(c.place)}</span></div><p>${esc(c.text)}</p>${c.metrics ? `<div class="metrics">${c.metrics.map(([v, l]) => `<div class="metric"><b>${esc(v)}</b>${esc(l)}</div>`).join("")}</div>` : ""}</div>`;
@@ -924,27 +1307,20 @@ function contactHTML() {
 }
 function hidePanel() { $("#panel").classList.add("off"); }
 
-$("#p-close").addEventListener("click", hidePanel);
-$("#p-next").addEventListener("click", () => {
-  const idx = ROOMS.findIndex(r => r.id === $("#panel").dataset.id);
-  goTo(idx < 0 ? ROOMS[0].id : idx >= ROOMS.length - 1 ? "reception" : ROOMS[idx + 1].id);
-});
-$("#p-prev").addEventListener("click", () => {
-  const idx = ROOMS.findIndex(r => r.id === $("#panel").dataset.id);
-  if (idx > 0) goTo(ROOMS[idx - 1].id);
-});
+$("#p-close").addEventListener("click", () => { hidePanel(); stopSpeech(); });
+$("#p-listen").addEventListener("click", () => { initAudio(); speak($("#panel").dataset.id); });
+$("#p-next").addEventListener("click", () => { const idx = ROOMS.findIndex(r => r.id === $("#panel").dataset.id); goTo(idx < 0 ? ROOMS[0].id : idx >= ROOMS.length - 1 ? "reception" : ROOMS[idx + 1].id); });
+$("#p-prev").addEventListener("click", () => { const idx = ROOMS.findIndex(r => r.id === $("#panel").dataset.id); if (idx > 0) goTo(ROOMS[idx - 1].id); });
 document.addEventListener("click", (e) => {
-  const go = e.target.closest("[data-go]"); if (go) { goTo(go.dataset.go); return; }
+  const go = e.target.closest("[data-go]"); if (go) { initAudio(); goTo(go.dataset.go); return; }
   const cp = e.target.closest("[data-copy]");
   if (cp) {
-    const txt = cp.dataset.copy;
     const done = () => { cp.textContent = "Copied"; setTimeout(() => (cp.textContent = "Copy"), 1600); };
-    try { navigator.clipboard.writeText(txt).then(done, () => selectText(cp)); } catch (_) { selectText(cp); }
+    try { navigator.clipboard.writeText(cp.dataset.copy).then(done, () => selectText(cp)); } catch (_) { selectText(cp); }
   }
 });
 function selectText(btn) { const code = btn.parentElement.querySelector("code"); const r = document.createRange(); r.selectNodeContents(code); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
-
-function openDir() { $("#dir").hidden = false; $("#dir-close").focus(); }
+function openDir() { if (document.pointerLockElement) document.exitPointerLock(); $("#dir").hidden = false; $("#dir-close").focus(); }
 function closeDir() { $("#dir").hidden = true; }
 $("#btn-dir").addEventListener("click", openDir);
 $("#dir-close").addEventListener("click", closeDir);
@@ -952,34 +1328,53 @@ $("#dir").addEventListener("click", (e) => { if (e.target.id === "dir") closeDir
 $("#btn-lobby").addEventListener("click", () => goTo("reception"));
 $("#btn-enter").addEventListener("click", () => startTour(false));
 $("#btn-skip").addEventListener("click", () => { startTour(true); openDir(); });
-addEventListener("keydown", (e) => { if (e.key === "Escape") { if (!$("#dir").hidden) closeDir(); else hidePanel(); } });
+
+// settings
+const SPK_ON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>`;
+const SPK_OFF = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>`;
+function syncSettings() {
+  const on = prefs.voice || prefs.sfx;
+  const b = $("#btn-sound"); b.innerHTML = on ? SPK_ON : SPK_OFF; b.setAttribute("aria-pressed", on); b.setAttribute("aria-label", on ? "Turn sound off" : "Turn sound on");
+  for (const [id, key, onL, offL] of [["#set-voice", "voice", "On", "Off"], ["#set-sfx", "sfx", "On", "Off"], ["#set-cap", "captions", "On", "Off"], ["#set-gfx", "hd", "HD", "Fast"]]) { const el = $(id); el.textContent = prefs[key] ? onL : offL; el.setAttribute("aria-pressed", prefs[key]); }
+  if (audio.master) audio.master.gain.value = prefs.sfx ? 1 : 0;
+  if (!prefs.captions) $("#caption").hidden = true;
+  savePrefs();
+}
+$("#btn-sound").addEventListener("click", () => { const on = !(prefs.voice || prefs.sfx); prefs.voice = on; prefs.sfx = on; if (!on) stopSpeech(); initAudio(); syncSettings(); });
+$("#set-voice").addEventListener("click", () => { prefs.voice = !prefs.voice; if (!prefs.voice && speech.synth) speech.synth.cancel(); syncSettings(); });
+$("#set-sfx").addEventListener("click", () => { prefs.sfx = !prefs.sfx; initAudio(); syncSettings(); });
+$("#set-cap").addEventListener("click", () => { prefs.captions = !prefs.captions; syncSettings(); });
+$("#set-gfx").addEventListener("click", () => { prefs.hd = !prefs.hd; syncSettings(); applyQuality(); });
+syncSettings();
 
 /* ------------------------------------------------------------------ */
-/* Input: drag to look, click to go, WASD                               */
+/* Input                                                                */
 /* ------------------------------------------------------------------ */
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
 let drag = null;
 const keys = new Set();
+const joy = { x: 0, y: 0, id: null };
 function pick(cx, cy) {
   const r = canvas.getBoundingClientRect();
   ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
-  ray.setFromCamera(ndc, camera);
-  ray.far = 30;
+  ray.setFromCamera(ndc, camera); ray.far = 30;
   const hit = ray.intersectObjects(clickables, false)[0];
   return hit ? hit.object : null;
 }
 canvas.addEventListener("pointerdown", (e) => {
+  if (document.pointerLockElement) { const o = pick(innerWidth / 2, innerHeight / 2); if (o) { document.exitPointerLock(); goTo(o.userData.stop); } return; }
   drag = { x: e.clientX, y: e.clientY, yaw: state.yaw, pitch: state.pitch, moved: 0 };
   canvas.setPointerCapture(e.pointerId);
 });
 canvas.addEventListener("pointermove", (e) => {
   const tip = $("#tip");
+  if (document.pointerLockElement) return;
   if (drag) {
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
     drag.moved = Math.max(drag.moved, Math.hypot(dx, dy));
     if (drag.moved > 4) {
       canvas.classList.add("dragging");
-      const k = coarse ? 0.006 : 0.0042;
+      const k = coarse ? 0.0055 : 0.0038;
       state.yaw = drag.yaw + dx * k; state.pitch = THREE.MathUtils.clamp(drag.pitch + dy * k, -0.9, 0.7);
       lookGoal = null; tip.hidden = true;
     }
@@ -994,42 +1389,113 @@ canvas.addEventListener("pointerup", (e) => {
   canvas.classList.remove("dragging");
   const d = drag; drag = null;
   if (!d || d.moved > 6) return;
-  if (!state.entered) { startTour(false); return; }
+  if (!state.entered) { if (!$("#btn-enter").disabled) startTour(false); return; }
   const o = pick(e.clientX, e.clientY);
   if (o) goTo(o.userData.stop);
 });
 canvas.addEventListener("pointerleave", () => { $("#tip").hidden = true; });
+document.addEventListener("mousemove", (e) => {
+  if (document.pointerLockElement !== canvas) return;
+  state.yaw -= e.movementX * 0.0022; state.pitch = THREE.MathUtils.clamp(state.pitch - e.movementY * 0.0022, -1.2, 1.0);
+  lookGoal = null;
+});
+document.addEventListener("pointerlockchange", () => { $("#cross").hidden = document.pointerLockElement !== canvas; $("#btn-walk").textContent = document.pointerLockElement ? "Stop free walk" : "Free walk"; if (state.entered) setHint(); });
+function toggleFreeWalk() {
+  if (document.pointerLockElement) { document.exitPointerLock(); return; }
+  if (!state.entered) startTour(true);
+  hidePanel();
+  try { const r = canvas.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (_) {}
+}
+$("#btn-walk").addEventListener("click", toggleFreeWalk);
+// joystick
+const joyEl = $("#joy");
+joyEl.addEventListener("pointerdown", (e) => { joy.id = e.pointerId; joyEl.setPointerCapture(e.pointerId); moveJoy(e); });
+joyEl.addEventListener("pointermove", (e) => { if (joy.id === e.pointerId) moveJoy(e); });
+const endJoy = () => { joy.id = null; joy.x = joy.y = 0; joyEl.firstElementChild.style.transform = ""; };
+joyEl.addEventListener("pointerup", endJoy); joyEl.addEventListener("pointercancel", endJoy);
+function moveJoy(e) {
+  const r = joyEl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  let dx = (e.clientX - cx) / (r.width / 2), dy = (e.clientY - cy) / (r.height / 2); const m = Math.hypot(dx, dy); if (m > 1) { dx /= m; dy /= m; }
+  joy.x = dx; joy.y = dy; joyEl.firstElementChild.style.transform = `translate(${dx * 35}px, ${dy * 35}px)`;
+  state.path = null; lookGoal = null;
+}
+// keyboard
 addEventListener("keydown", (e) => {
-  if (e.target.closest && e.target.closest("button, a, input")) return;
+  if (e.target.closest && e.target.closest("input, textarea")) return;
   const k = e.key.toLowerCase();
+  if (k === "escape") { if (!$("#dir").hidden) closeDir(); else { hidePanel(); stopSpeech(); } return; }
+  if (e.target.closest && e.target.closest("button, a") && (k === " " || k === "enter")) return;
   if (["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(k)) {
     keys.add(k); state.path = null; lookGoal = null;
-    if (!state.entered) startTour(true);
-    e.preventDefault();
+    if (!state.entered && !$("#btn-enter").disabled) startTour(true);
+    e.preventDefault(); return;
   }
+  if (k === "shift") state.run = true;
+  if (!state.entered) return;
+  if (k === "f") toggleFreeWalk();
+  if (k === "e" && !$("#prompt").hidden) $("#prompt").click();
+  if (k === "m") openDir();
+  if (/^[0-8]$/.test(k)) goTo(k === "0" ? "reception" : ROOMS[+k - 1].id);
 });
-addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
-addEventListener("blur", () => keys.clear());
+addEventListener("keyup", (e) => { keys.delete(e.key.toLowerCase()); if (e.key === "Shift") state.run = false; });
+addEventListener("blur", () => { keys.clear(); state.run = false; });
+$("#prompt").addEventListener("click", () => { const id = $("#prompt").dataset.id; if (id) { if (document.pointerLockElement) document.exitPointerLock(); state.path = null; arrive(id); } });
 
 function walkable(x, z) {
-  const inside = walkRects.some(([x0, x1, z0, z1]) => x >= x0 && x <= x1 && z >= z0 && z <= z1);
-  if (!inside) return false;
+  if (!walkRects.some(([x0, x1, z0, z1]) => x >= x0 && x <= x1 && z >= z0 && z <= z1)) return false;
   return !blockRects.some(([x0, x1, z0, z1]) => x >= x0 - 0.25 && x <= x1 + 0.25 && z >= z0 - 0.25 && z <= z1 + 0.25);
 }
+
+// minimap
+const mm = $("#minimap"), mg = mm.getContext("2d");
+const MX = (x) => 150 + x * 13, MZ = (z) => 480 + (z - 8) * 9.4;
+function drawMinimap() {
+  const g = mg; g.clearRect(0, 0, 300, 500);
+  const fg = getComputedStyle(document.documentElement).getPropertyValue("--ink").trim() || "#17152b";
+  g.fillStyle = "rgba(127,120,170,.16)"; g.fillRect(MX(-10), MZ(6), 260, MZ(-10) - MZ(6));
+  g.fillRect(MX(-2), MZ(-10), MX(2) - MX(-2), MZ(-42) - MZ(-10));
+  for (const r of ROOMS) { const m = roomMeta[r.id]; if (!m) continue; const x0 = m.side < 0 ? MX(-10) : MX(2); g.fillStyle = r.color + (state.current === r.id ? "cc" : "55"); g.fillRect(x0 + 2, MZ(m.zc + 4) + 2, MX(-2) - MX(-10) - 4, MZ(m.zc - 4) - MZ(m.zc + 4) - 4); g.fillStyle = fg; g.font = "600 20px Inter, sans-serif"; g.textAlign = "center"; g.fillText(r.no, x0 + 52, MZ(m.zc) + 7); }
+  g.fillStyle = fg; g.font = "600 18px Inter, sans-serif"; g.fillText("Lobby", MX(0), MZ(-1));
+  const px = MX(state.pos.x), pz = MZ(state.pos.z);
+  g.fillStyle = "rgba(79,70,229,.25)"; g.beginPath(); g.moveTo(px, pz); g.arc(px, pz, 46, -Math.PI / 2 - state.yaw - 0.55, -Math.PI / 2 - state.yaw + 0.55); g.fill();
+  g.fillStyle = "#4f46e5"; g.beginPath(); g.arc(px, pz, 9, 0, 7); g.fill(); g.strokeStyle = "#fff"; g.lineWidth = 3; g.stroke();
+  g.textAlign = "left";
+}
+mm.addEventListener("click", (e) => {
+  const r = mm.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 300, y = (e.clientY - r.top) / r.height * 500;
+  const wx = (x - 150) / 13, wz = (y - 480) / 9.4 + 8;
+  const room = ROOMS.find(rm => { const m = roomMeta[rm.id]; return Math.sign(wx) === m.side && Math.abs(wx) > 2 && Math.abs(wz - m.zc) < 4; });
+  goTo(room ? room.id : "reception");
+});
 
 /* ------------------------------------------------------------------ */
 /* Loop                                                                 */
 /* ------------------------------------------------------------------ */
+function applyQuality() {
+  if (!renderer) return;
+  const pr = prefs.hd ? Math.min(devicePixelRatio, 2) : Math.min(devicePixelRatio, 1.25);
+  renderer.setPixelRatio(pr);
+  if (prefs.hd && !composer) {
+    const rt = new THREE.WebGLRenderTarget(innerWidth * pr, innerHeight * pr, { type: THREE.HalfFloatType, samples: 4 });
+    composer = new EffectComposer(renderer, rt);
+    composer.addPass(new RenderPass(scene, camera));
+    bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.28, 0.5, 1.35);
+    composer.addPass(bloom);
+    composer.addPass(new OutputPass());
+  }
+  resize();
+}
 function resize() {
   if (!renderer) return;
   const w = innerWidth, h = innerHeight;
   renderer.setSize(w, h, false);
   camera.aspect = w / h; camera.updateProjectionMatrix();
+  if (composer) { composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w, h); }
 }
 addEventListener("resize", resize);
 
 const clock = new THREE.Clock();
-let bob = 0, lastPanelCheck = 0, viewShift = 0;
+let bob = 0, lastStep = 0, viewShift = 0, viewShiftY = 0, mmT = 0, scrT = 0, promptT = 0;
 function tick() {
   const dt = Math.min(clock.getDelta(), 0.1), t = clock.elapsedTime;
   let moving = false;
@@ -1037,77 +1503,119 @@ function tick() {
   if (state.path) {
     const P = state.path;
     const edge = Math.min(P.d, P.len - P.d);
-    const ease = THREE.MathUtils.clamp(0.25 + edge / 1.4, 0.25, 1);
+    const ease = THREE.MathUtils.clamp(0.22 + edge / 1.5, 0.22, 1);
     P.d = Math.min(P.len, P.d + P.speed * ease * dt);
-    const cur = pointOnPath(P, P.d), ahead = pointOnPath(P, Math.min(P.len, P.d + 1.2));
-    state.pos.x = cur.p.x; state.pos.z = cur.p.z;
-    const dir = ahead.p.clone().sub(cur.p);
-    if (dir.lengthSq() > 0.0004) state.yaw = angLerp(state.yaw, yawFor(dir.x, dir.z), Math.min(1, dt * 5));
+    const cur = pointOnPath(P, P.d), ahead = pointOnPath(P, Math.min(P.len, P.d + 1.3));
+    state.pos.x = cur.x; state.pos.z = cur.z;
+    const dir = ahead.clone().sub(cur);
+    if (dir.lengthSq() > 0.0004) state.yaw = angLerp(state.yaw, yawFor(dir.x, dir.z), Math.min(1, dt * 4.5));
     state.pitch += (0 - state.pitch) * Math.min(1, dt * 3);
     moving = true;
     if (P.d >= P.len - 0.001) arrive(P.id);
-  } else if (keys.size) {
-    const f = (keys.has("w") || keys.has("arrowup") ? 1 : 0) - (keys.has("s") || keys.has("arrowdown") ? 1 : 0);
-    const sd = (keys.has("d") ? 1 : 0) - (keys.has("a") ? 1 : 0);
-    const turn = (keys.has("arrowleft") ? 1 : 0) - (keys.has("arrowright") ? 1 : 0);
-    state.yaw += turn * dt * 1.8;
-    const sp = 2.6 * dt;
-    const fx = -Math.sin(state.yaw), fz = -Math.cos(state.yaw);
-    const nx = state.pos.x + (fx * f + Math.cos(state.yaw) * sd) * sp;
-    const nz = state.pos.z + (fz * f - Math.sin(state.yaw) * sd) * sp;
-    if (walkable(nx, nz)) { state.pos.x = nx; state.pos.z = nz; }
-    else if (walkable(nx, state.pos.z)) state.pos.x = nx;
-    else if (walkable(state.pos.x, nz)) state.pos.z = nz;
-    moving = f !== 0 || sd !== 0;
-    if (moving && t - lastPanelCheck > 0.4) { lastPanelCheck = t; if (!$("#panel").classList.contains("off") && state.current && stops[state.current] && state.pos.distanceTo(stops[state.current].pos) > 3) hidePanel(); }
+  } else {
+    const f = (keys.has("w") || keys.has("arrowup") ? 1 : 0) - (keys.has("s") || keys.has("arrowdown") ? 1 : 0) - joy.y;
+    const sd = (keys.has("d") ? 1 : 0) - (keys.has("a") ? 1 : 0) + joy.x * (coarse ? 0.6 : 1);
+    const turn = (keys.has("arrowleft") ? 1 : 0) - (keys.has("arrowright") ? 1 : 0) - (coarse ? joy.x * 0.6 : 0);
+    state.yaw += turn * dt * 1.9;
+    if (Math.abs(f) > 0.05 || Math.abs(sd) > 0.05) {
+      const sp = (state.run ? 4.6 : 2.5) * dt;
+      const fx = -Math.sin(state.yaw), fz = -Math.cos(state.yaw);
+      const nx = state.pos.x + (fx * f + Math.cos(state.yaw) * sd) * sp;
+      const nz = state.pos.z + (fz * f - Math.sin(state.yaw) * sd) * sp;
+      if (walkable(nx, nz)) { state.pos.x = nx; state.pos.z = nz; }
+      else if (walkable(nx, state.pos.z)) state.pos.x = nx;
+      else if (walkable(state.pos.x, nz)) state.pos.z = nz;
+      moving = true;
+      if (!$("#panel").classList.contains("off") && state.current && stops[state.current] && state.pos.distanceTo(stops[state.current].pos) > 3) { hidePanel(); stopSpeech(); state.current = null; }
+    }
   }
   if (lookGoal && !drag) {
-    state.yaw = angLerp(state.yaw, lookGoal.yaw, Math.min(1, dt * 3.2));
-    state.pitch += (lookGoal.pitch - state.pitch) * Math.min(1, dt * 3.2);
+    state.yaw = angLerp(state.yaw, lookGoal.yaw, Math.min(1, dt * 3));
+    state.pitch += (lookGoal.pitch - state.pitch) * Math.min(1, dt * 3);
   }
+  if (!state.entered && !reduceMotion) state.yaw = Math.sin(t * 0.22) * 0.1;
 
-  if (!state.entered && !reduceMotion) { state.yaw = Math.sin(t * 0.25) * 0.12; }
-
-  bob += moving ? dt * 9 : 0;
-  camera.position.set(state.pos.x, EYE + (moving && !reduceMotion ? Math.sin(bob) * 0.022 : 0), state.pos.z);
-  camera.rotation.set(state.pitch, state.yaw, 0);
-  // Keep the person in view beside the open panel on wide screens.
-  const wantShift = !$("#panel").classList.contains("off") && innerWidth > 720 ? 205 : 0;
+  // head bob and footsteps
+  if (moving) {
+    bob += dt * (state.run ? 12 : 8.5);
+    const step = Math.floor(bob / Math.PI);
+    if (step !== lastStep) { lastStep = step; footstep(); }
+  }
+  const bobY = moving && !reduceMotion ? Math.abs(Math.sin(bob)) * 0.035 - 0.017 : 0;
+  camera.position.set(state.pos.x, EYE + bobY, state.pos.z);
+  camera.rotation.set(state.pitch, state.yaw, moving && !reduceMotion ? Math.sin(bob) * 0.004 : 0);
+  const panelOpen = !$("#panel").classList.contains("off");
+  const wantShift = panelOpen && innerWidth > 720 ? 205 : 0, wantShiftY = panelOpen && innerWidth <= 720 ? innerHeight * 0.2 : 0;
   viewShift += (wantShift - viewShift) * Math.min(1, dt * 4);
-  if (Math.abs(viewShift) > 0.5) camera.setViewOffset(innerWidth, innerHeight, viewShift, 0, innerWidth, innerHeight);
+  viewShiftY += (wantShiftY - viewShiftY) * Math.min(1, dt * 4);
+  if (Math.abs(viewShift) > 0.5 || Math.abs(viewShiftY) > 0.5) camera.setViewOffset(innerWidth, innerHeight, viewShift, viewShiftY, innerWidth, innerHeight);
   else if (camera.view && camera.view.enabled) camera.clearViewOffset();
 
-  for (const p of people) {
-    const u = p.userData;
-    if (!reduceMotion) {
-      u.torso.scale.y = 1 + Math.sin(t * 1.6 + u.phase) * 0.012;
-      u.head.rotation.y = Math.sin(t * 0.5 + u.phase) * 0.18;
-      u.armL.rotation.x = Math.sin(t * 1.1 + u.phase) * 0.04;
-    }
-    if (u.wave > 0) {
-      u.wave -= dt;
-      u.armR.rotation.z = -2.5 + Math.sin(t * 9) * 0.35;
-      u.armR.rotation.x = 0;
-    } else u.armR.rotation.z += (0.08 - u.armR.rotation.z) * Math.min(1, dt * 4);
+  // doors
+  for (const d of doors) {
+    const dist = Math.hypot(camera.position.x - d.center.x, camera.position.z - d.center.z);
+    const open = dist < d.radius;
+    if (open !== d.open) { d.open = open; if (state.entered) doorSound(); }
+    const goal = open ? 1 : 0;
+    if (Math.abs(d.amt - goal) > 0.001) { d.amt += (goal - d.amt) * Math.min(1, dt * 5); placeDoor(d); }
   }
 
-  renderer.render(scene, camera);
+  // people
+  const here = findRoomAt(state.pos);
+  for (const p of people) {
+    const u = p.userData;
+    if (u.seated) {
+      const near = here === u.home;
+      if (near && u.state === "work") { u.state = "greet"; u.target = POSE.stand; u.typing = false; }
+      else if (!near && u.state !== "work") { u.state = "work"; u.target = POSE.sit; u.typing = true; u.talk = 0; }
+    }
+    animatePerson(p, t, dt);
+  }
+
+  // clock
+  if (lobbyClock) { const now = new Date(); const sec = now.getSeconds() + now.getMilliseconds() / 1000, min = now.getMinutes() + sec / 60, hr = (now.getHours() % 12) + min / 60; lobbyClock.s.rotation.z = -sec / 60 * Math.PI * 2; lobbyClock.m.rotation.z = -min / 60 * Math.PI * 2; lobbyClock.h.rotation.z = -hr / 12 * Math.PI * 2; }
+  // dust
+  if (dust && !reduceMotion) { dust.rotation.y = Math.sin(t * 0.05) * 0.05; dust.position.y = Math.sin(t * 0.3) * 0.05; }
+  // screens: redraw the one in the current room
+  scrT += dt;
+  if (scrT > 0.12) {
+    scrT = 0;
+    for (const sc of screens) { if (here === sc.room.id || (state.path && state.path.id === sc.room.id) || sc.last < 0) { drawScreen(sc.room, sc.tex.userData.ctx, 1024, 576, t); sc.tex.needsUpdate = true; sc.last = t; } }
+  }
+  // talk prompt when walking freely
+  promptT += dt;
+  if (promptT > 0.2 && state.entered) {
+    promptT = 0;
+    let best = null, bd = 2.6;
+    if (!state.path) for (const id of ["reception", "results", ...ROOMS.map(r => r.id)]) { const st = stops[id]; const d = Math.hypot(st.pos.x - state.pos.x, st.pos.z - state.pos.z); if (d < bd && state.current !== id) { bd = d; best = id; } }
+    const pr = $("#prompt");
+    if (best) { const s = allStops().find(x => x.id === best); pr.dataset.id = best; pr.textContent = (coarse ? "Tap to talk: " : "Press E to talk: ") + (s.speaker === "omi" ? "Omi" : s.role); pr.hidden = false; }
+    else pr.hidden = true;
+  }
+  mmT += dt; if (mmT > 0.066 && !mm.hidden) { mmT = 0; drawMinimap(); }
+
+  if (composer && prefs.hd) composer.render(dt); else renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }
 
 async function boot() {
-  if (!renderer) return;
+  if (!renderer) { $("#btn-enter").disabled = false; $("#btn-enter").textContent = "Open directory"; $("#btn-enter").onclick = openDir; return; }
+  setLoad(0.15);
   try {
     await Promise.race([
       Promise.all([document.fonts.load(D(64, 800)), document.fonts.load(D(64, 700)), document.fonts.load(B(32, 500)), document.fonts.load(B(32, 600))]),
       new Promise(r => setTimeout(r, 2500)),
     ]);
   } catch (_) {}
+  await new Promise(r => setTimeout(r, 30));
   build();
-  resize();
+  applyQuality();
   camera.position.copy(state.pos);
+  renderer.compile(scene, camera);
+  setLoad(1);
+  const btn = $("#btn-enter"); btn.disabled = false; btn.textContent = "Enter the office";
   const start = location.hash.slice(1);
-  if (start && allStops().some(s => s.id === start)) { startTour(true); state.pos.copy(stops[start].pos); faceTowards(stops[start].look, true); arrive(start); }
+  if (start && stops[start]) { startTour(true); state.pos.copy(stops[start].pos); faceTowards(stops[start].look, true); arrive(start); }
   tick();
 }
 boot();
