@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tandläkarmottagning Ekersgatan 7 – tandläkare i Örebro</title>
+<meta name="description" content="Allmäntandvård och akut tandvård i Örebro med bra mottagningstider. E-tidsbokning öppet dygnet runt. Tandläkare Matti Koivuniemi.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gata: #f2f4f3;
+  --vit: #ffffff;
+  --ram: #17463a;
+  --ram-deep: #0f3329;
+  --skylt: #23899a;
+  --skylt-dark: #1a6d7b;
+  --signal: #f3b23a;
+  --black: #13201d;
+  --muted: #4c5c58;
+  --line: #d8dfdc;
+  --font: "Archivo", system-ui, sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--gata); color: var(--black); font: 400 18px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: var(--skylt-dark); }
+h1, h2, h3 { margin: 0; font-family: var(--font); font-stretch: 118%; font-weight: 700; line-height: 1.04; letter-spacing: -0.015em; color: var(--black); }
+h2 { font-size: clamp(32px, 4.2vw, 52px); }
+h3 { font-size: 21px; font-stretch: 108%; letter-spacing: 0; line-height: 1.2; }
+p { margin: 0 0 1em; }
+.wrap { width: min(1200px, 100%); margin: 0 auto; padding: 0 32px; }
+:focus-visible { outline: 3px solid var(--skylt); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ram); color: #fff; padding: 10px 16px; z-index: 100; }
+.skip:focus { left: 12px; }
+.proposal { background: var(--ram-deep); color: #c6dcd3; text-align: center; font-size: 14px; padding: 9px 16px; }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.head-row { display: flex; align-items: center; gap: 28px; height: 76px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--black); }
+.logo img { height: 50px; width: auto; border-radius: 4px; }
+.logo span { font-size: 15px; font-weight: 600; line-height: 1.2; font-stretch: 105%; }
+.logo span small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.nav { display: flex; gap: 26px; margin-left: auto; }
+.nav a { color: var(--black); text-decoration: none; font-weight: 500; font-size: 16px; position: relative; padding: 4px 0; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--skylt); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
+.nav a:hover::after { transform: scaleX(1); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: 6px; font: 600 16px/1 var(--font); font-stretch: 106%; text-decoration: none; border: 0; cursor: pointer; transition: transform .2s var(--ease), background .2s, color .2s; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-main { background: var(--skylt); color: #fff; }
+.btn-main:hover { background: var(--skylt-dark); transform: translateY(-2px); }
+.btn-line { background: transparent; color: var(--black); box-shadow: inset 0 0 0 1.5px var(--black); }
+.btn-line:hover { background: var(--black); color: #fff; transform: translateY(-2px); }
+.head-book { padding: 12px 18px; }
+.menu { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 6px; background: var(--gata); color: var(--black); cursor: pointer; }
+.menu svg { width: 22px; height: 22px; }
+
+/* Hero */
+.hero { padding: 60px 0 80px; }
+.hero-grid { display: grid; grid-template-columns: 1.02fr 1fr; gap: 56px; align-items: center; }
+.status { display: inline-flex; align-items: center; gap: 10px; background: var(--vit); border: 1px solid var(--line); border-radius: 99px; padding: 8px 16px 8px 12px; font-size: 15px; font-weight: 500; }
+.status i { width: 10px; height: 10px; border-radius: 50%; background: #9aa7a3; }
+.status.open i { background: #1f9d6c; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(31,157,108,.5); } 70%, 100% { box-shadow: 0 0 0 9px rgba(31,157,108,0); } }
+.hero h1 { font-size: clamp(40px, 5.4vw, 72px); margin: 22px 0 24px; font-stretch: 122%; }
+.hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .ln > span { display: block; animation: rise 1s var(--ease) both; }
+.hero h1 .ln:nth-child(2) > span { animation-delay: .1s; }
+.hero h1 .ln:nth-child(3) > span { animation-delay: .2s; }
+@keyframes rise { from { transform: translateY(108%); } }
+.lead { font-size: 20px; color: var(--muted); max-width: 31em; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero-media { position: relative; }
+.hero-photo { border-radius: 10px; overflow: hidden; aspect-ratio: 4 / 3.4; background: #cfd8d5; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 0%; animation: settle 1.8s var(--ease) both; }
+@keyframes settle { from { transform: scale(1.1); } }
+.akut-tag { position: absolute; left: -24px; bottom: 26px; max-width: 300px; background: var(--signal); color: var(--black); border-radius: 8px; padding: 16px 18px; box-shadow: 0 18px 30px -18px rgba(19,32,29,.6); animation: pop .9s .6s var(--ease) both; }
+.akut-tag b { display: block; font-stretch: 115%; font-size: 18px; margin-bottom: 2px; }
+.akut-tag span { font-size: 15px; line-height: 1.4; display: block; }
+@keyframes pop { from { opacity: 0; transform: translateY(14px); } }
+
+/* Facts */
+.facts { padding: 0 0 90px; }
+.facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+.fact { padding: 26px 24px 0 0; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
+.fact svg { width: 30px; height: 30px; color: var(--skylt); }
+.fact b { display: block; font-stretch: 110%; font-size: 17px; }
+.fact span { color: var(--muted); font-size: 15px; line-height: 1.45; display: block; }
+
+/* Reveal */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+/* Akut */
+.akut { background: var(--ram); color: #cfe2da; padding: 100px 0; }
+.akut-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.akut h2 { color: #fff; margin-bottom: 20px; }
+.akut h2 em { font-style: normal; color: var(--signal); }
+.akut p { color: #c2d8cf; }
+.akut ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.akut li { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 18px 20px; color: #e3efea; }
+.akut li b { display: block; color: #fff; font-stretch: 110%; }
+.akut .btn-main { background: var(--signal); color: var(--black); }
+.akut .btn-main:hover { background: #ffc85c; }
+.akut .btn-line { color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
+.akut .btn-line:hover { background: #fff; color: var(--black); }
+
+/* Quote */
+.quote { padding: 110px 0 100px; }
+.quote blockquote { margin: 0; font-size: clamp(28px, 3.8vw, 50px); font-weight: 600; font-stretch: 112%; line-height: 1.18; letter-spacing: -0.01em; max-width: 22em; }
+.quote mark { background: linear-gradient(var(--signal), var(--signal)) 0 88% / 0 .32em no-repeat; color: inherit; transition: background-size 1.2s var(--ease) .4s; }
+.quote .in mark { background-size: 100% .32em; }
+.quote p { margin-top: 26px; font-size: 19px; color: var(--muted); }
+.quote cite { font-style: normal; font-weight: 600; color: var(--black); }
+
+/* Prices */
+.prices { background: var(--vit); padding: 100px 0 110px; }
+.prices-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 36px; }
+.prices-head p { color: var(--muted); margin: 0; }
+.search { position: relative; margin-bottom: 18px; }
+.search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; color: var(--muted); pointer-events: none; }
+.search input { width: 100%; font: 500 19px/1 var(--font); padding: 19px 20px 19px 54px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--gata); color: var(--black); transition: border-color .2s, background .2s; }
+.search input:focus { outline: none; border-color: var(--skylt); background: #fff; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.chips button { font: 500 15px/1 var(--font); padding: 10px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--vit); color: var(--black); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.chips button:hover { border-color: var(--skylt); }
+.chips button[aria-pressed="true"] { background: var(--ram); border-color: var(--ram); color: #fff; }
+.count { font-size: 15px; color: var(--muted); margin-bottom: 10px; }
+.count b { color: var(--black); }
+.plist { border-top: 2px solid var(--black); border-bottom: 2px solid var(--black); max-height: 620px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.pgroup h3 { position: sticky; top: 0; z-index: 1; background: var(--vit); font-size: 15px; font-stretch: 112%; color: var(--skylt-dark); padding: 18px 0 8px; letter-spacing: .01em; border-bottom: 1px solid var(--line); }
+.prow { display: grid; grid-template-columns: 64px 1fr auto; gap: 18px; padding-right: 10px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); animation: row-in .35s var(--ease) both; }
+@keyframes row-in { from { opacity: 0; transform: translateY(6px); } }
+.prow code { font: 600 15px/1 var(--font); font-stretch: 100%; color: var(--muted); font-variant-numeric: tabular-nums; }
+.prow span { font-size: 17px; }
+.prow b { font-variant-numeric: tabular-nums; text-align: right; font-weight: 600; }
+.prow b .amt { white-space: nowrap; }
+.prow b small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.empty { padding: 26px 0; color: var(--muted); }
+.prices .note { font-size: 15px; color: var(--muted); margin-top: 18px; }
+
+/* Know */
+.know { padding: 100px 0; }
+.know-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
+.know h2 { margin-bottom: 18px; }
+.know > .wrap p { color: var(--muted); }
+.acc details { border-top: 1px solid var(--line); }
+.acc details:last-child { border-bottom: 1px solid var(--line); }
+.acc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 18px; align-items: center; padding: 20px 0; font-size: 20px; font-weight: 600; font-stretch: 108%; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary i { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--vit); border: 1px solid var(--line); position: relative; transition: transform .35s var(--ease), background .2s; }
+.acc summary i::before, .acc summary i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11px; height: 2px; background: var(--black); transform: translate(-50%, -50%); }
+.acc summary i::after { transform: translate(-50%, -50%) rotate(90deg); }
+.acc details[open] summary i { transform: rotate(45deg); background: var(--signal); border-color: var(--signal); }
+.acc .ans { padding: 0 0 22px; color: var(--muted); }
+.acc .ans p { font-size: 17px; }
+.acc details[open] .ans { animation: row-in .45s var(--ease); }
+
+/* Support */
+.support { background: var(--vit); padding: 100px 0; }
+.support h2 { margin-bottom: 40px; max-width: 16em; }
+.sup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.box { border: 1px solid var(--line); border-radius: 10px; padding: 28px; background: var(--gata); }
+.box h3 { margin-bottom: 14px; }
+.box p, .box li { color: var(--muted); font-size: 16px; }
+.box ul { list-style: none; padding: 0; margin: 0; }
+.box li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.box li:last-child { border-bottom: 0; }
+.box li b { color: var(--black); white-space: nowrap; font-weight: 600; }
+.box .big { font-size: 34px; font-weight: 700; font-stretch: 118%; color: var(--ram); line-height: 1; margin-bottom: 10px; }
+
+/* About */
+.about { padding: 100px 0; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.about-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ph { position: relative; overflow: hidden; border-radius: 10px; background: #d6dedb; aspect-ratio: 4 / 5; }
+.ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.ph:hover img { transform: scale(1.03); }
+.ph figcaption { position: absolute; left: 10px; bottom: 10px; background: rgba(255,255,255,.94); padding: 6px 10px; border-radius: 4px; font-size: 14px; font-weight: 600; }
+.about-photos .ph:last-child { margin-top: 48px; }
+.about h2 { margin-bottom: 20px; }
+.about p { color: var(--muted); }
+.creds { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 10px; }
+.creds li { display: flex; gap: 12px; align-items: start; font-size: 16px; }
+.creds svg { width: 20px; height: 20px; color: var(--skylt); flex: none; margin-top: 3px; }
+.flyg { margin-top: 28px; border-left: 4px solid var(--signal); background: var(--vit); padding: 18px 20px; border-radius: 0 8px 8px 0; font-size: 16px; }
+.flyg b { display: block; font-stretch: 110%; }
+
+/* Visit */
+.visit { background: var(--ram); color: #cfe2da; padding: 100px 0 110px; }
+.visit h2 { color: #fff; margin-bottom: 40px; }
+.visit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.vcard { background: var(--vit); color: var(--black); border-radius: 10px; padding: 30px; }
+.vcard h3 { margin-bottom: 14px; }
+.vcard p, .vcard li { font-size: 16px; color: var(--muted); }
+.hours { width: 100%; border-collapse: collapse; }
+.hours td { padding: 10px 6px; border-bottom: 1px solid var(--line); font-size: 16px; }
+.hours td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hours tr.today td { background: #e3f0ed; font-weight: 600; }
+.vlines { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 10px; }
+.vlines li { display: flex; gap: 12px; align-items: start; color: var(--black); }
+.vlines svg { width: 20px; height: 20px; color: var(--skylt); flex: none; margin-top: 3px; }
+.vlines a { color: var(--black); text-decoration: none; word-break: break-word; }
+.vlines a:hover { color: var(--skylt-dark); text-decoration: underline; }
+.rules { list-style: none; padding: 0; margin: 0; }
+.rules li { padding: 9px 0 9px 22px; border-bottom: 1px solid var(--line); position: relative; }
+.rules li:last-child { border-bottom: 0; }
+.rules li::before { content: ""; position: absolute; left: 0; top: 18px; width: 8px; height: 8px; border-radius: 2px; background: var(--signal); }
+.near { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.near div { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 20px 22px; font-size: 16px; color: #d7e7e0; }
+.near b { color: #fff; display: block; }
+
+footer { background: var(--ram-deep); color: #9fbab0; padding: 44px 0 110px; font-size: 15px; }
+.foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+footer a { color: #d7e7e0; }
+
+.callbar { display: none; }
+
+@media (max-width: 1020px) {
+  .nav, .head-book { display: none; }
+  .menu { display: inline-grid; place-items: center; }
+  .nav.open { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; background: #fff; padding: 8px 24px 24px; gap: 0; border-bottom: 1px solid var(--line); }
+  .nav.open a { padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 18px; }
+  .nav.open a::after { display: none; }
+  .hero-grid, .akut-grid, .prices-head, .know-grid, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .facts-grid { grid-template-columns: repeat(2, 1fr); }
+  .sup-grid, .visit-grid { grid-template-columns: 1fr; }
+  .akut-tag { left: 16px; }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .wrap { padding: 0 20px; }
+  .head-row { height: 68px; }
+  .logo img { height: 42px; }
+  .logo span { display: none; }
+  .nav.open { top: 68px; }
+  .hero { padding: 36px 0 60px; }
+  .lead { font-size: 18px; }
+  .cta .btn { flex: 1 1 100%; }
+  .akut-tag { left: 12px; right: 12px; bottom: 12px; max-width: none; padding: 12px 14px; }
+  .facts { padding-bottom: 64px; }
+  .facts-grid { grid-template-columns: 1fr; }
+  .fact { padding-top: 18px; }
+  .akut, .quote, .prices, .know, .support, .about, .visit { padding: 72px 0; }
+  .search input { font-size: 17px; padding: 16px 16px 16px 50px; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px 18px; padding: 0 20px 4px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips button { flex: none; }
+  .prow { grid-template-columns: 40px 1fr 92px; gap: 10px; padding-right: 4px; }
+  .prow b small { font-size: 12px; line-height: 1.3; margin-top: 2px; }
+  .hero h1 { font-size: 35px; }
+  .plist { max-height: 560px; }
+  .prow span { font-size: 16px; }
+  .about-photos .ph:last-child { margin-top: 28px; }
+  .near { grid-template-columns: 1fr; }
+  .vcard, .box { padding: 24px 20px; }
+  .callbar { display: block; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 60; }
+  .callbar .btn { width: 100%; padding: 17px; font-size: 17px; box-shadow: 0 14px 30px -10px rgba(19,32,29,.6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+  .quote mark { background-size: 100% .32em; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Hoppa till innehållet</a>
+<div class="proposal">Designförslag för Tandläkarmottagning Ekersgatan 7, samma innehåll i ny design</div>
+
+<header class="site-header">
+  <div class="wrap head-row">
+    <a class="logo" href="#top"><img src="https://i0.wp.com/tandlakareekersgatan.com/wp-content/uploads/2019/12/logo.jpg?fit=183%2C113&amp;ssl=1" alt="Tandläkarmottagning Ekersgatan 7" width="183" height="113"><span>Tandläkarmottagning Ekersgatan 7<small>Tandläkare Matti Koivuniemi, Örebro</small></span></a>
+    <nav class="nav" id="nav" aria-label="Huvudmeny">
+      <a href="#akut">Akut tandvård</a>
+      <a href="#priser">Priser</a>
+      <a href="#om-oss">Om oss</a>
+      <a href="#besok">Hitta hit</a>
+    </nav>
+    <a class="btn btn-main head-book" href="https://tandlakareekersgatan7.opusdentalonline.com/" target="_blank" rel="noopener">Tidsbokning</a>
+    <button class="menu" aria-label="Öppna meny" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="status" id="status"><i></i><span>Mottagningstider</span></p>
+        <h1><span class="ln"><span>Allmäntandvård</span></span><span class="ln"><span>och akut tandvård</span></span><span class="ln"><span>i Örebro</span></span></h1>
+        <p class="lead">Med bra mottagningstider, centralt på Väster nära Resecentrum. Det är enkelt att boka tid via e-tidsbokning dygnet runt.</p>
+        <div class="cta">
+          <a class="btn btn-main" href="https://tandlakareekersgatan7.opusdentalonline.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Boka tid online</a>
+          <a class="btn btn-line" href="tel:019122500">Ring 019-12 25 00</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-photo"><img src="https://i0.wp.com/tandlakareekersgatan.com/wp-content/uploads/2019/12/img_20180411_181356643.jpg?resize=1200%2C900&amp;ssl=1" alt="Huset på Ekersgatan 7 med klinikens skylt vid entrén i gatuplan" width="1200" height="900" fetchpriority="high"></div>
+        <div class="akut-tag"><b>Ont i en tand?</b><span>Vi har dagligen tider reserverade för akut tandvård.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Bra att veta om kliniken">
+    <div class="wrap facts-grid">
+      <div class="fact rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Boka dygnet runt</b><span>Visar e-tidsbokningen en kvälls- eller lördagstid har vi öppet.</span></div></div>
+      <div class="fact rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M10 21v-6h4v6"/></svg><div><b>Gatuplan, egen ingång</b><span>Ingen krångel med grindar, hiss eller portkod.</span></div></div>
+      <div class="fact rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21l2-4M16 21l-2-4"/></svg><div><b>Nära Resecentrum</b><span>Parkering på gatan och cykelställ utanför.</span></div></div>
+      <div class="fact rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><div><b>Kontantfri tandklinik</b><span>Ansluten till Försäkringskassan och Resurs Bank Tandläkarkonto.</span></div></div>
+    </div>
+  </section>
+
+  <section class="akut" id="akut">
+    <div class="wrap akut-grid">
+      <div class="rv">
+        <h2>Akut tandvård i Örebro, <em>varje dag</em></h2>
+        <p>I samband med akuta besvär är det viktigt att kontakta tandläkare så fort besvären uppkommer. När du kontaktar oss kommer du i kontakt med tandläkare direkt. Vi anser att endast en tandläkare kan bedöma tidsplanen för fortsatt omhändertagande.</p>
+        <div class="cta">
+          <a class="btn btn-main" href="tel:0733930684">Ring 073-393 06 84</a>
+          <a class="btn btn-line" href="https://tandlakareekersgatan7.opusdentalonline.com/" target="_blank" rel="noopener">Boka akuttid online</a>
+        </div>
+      </div>
+      <ul class="rv">
+        <li><b>Inte bara värk</b>Akut behov behöver inte enbart handla om värk och smärta. En tandfraktur inför en utlandsresa eller en trasig protes kan vara lika besvärande.</li>
+        <li><b>Dagliga akuttider</b>Vi har dagligen tider reserverade för akut tandvård, och e-tidsbokningen är alltid öppen.</li>
+        <li><b>Ta med medicinlistan</b>Ta gärna med en aktuell medicinlista, eller namnen på de mediciner du använder.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="quote" aria-label="Vår syn på tandhälsa">
+    <div class="wrap rv">
+      <blockquote>”Tandhälsan är som ett banklån. Det går att strunta i att sköta lånet, men förr eller senare får man betala tillbaka det med <mark>skyhög ränta</mark>.”</blockquote>
+      <p>När du besöker oss på årskontroller slipper du betala skyhög ränta senare.</p>
+    </div>
+  </section>
+
+  <section class="prices" id="priser">
+    <div class="wrap">
+      <div class="prices-head rv">
+        <h2>Vad kostar det?</h2>
+        <p>Vi följer Försäkringskassans referensprislista. Sök på en behandling eller en åtgärdskod. Pris för tandteknik står under priset där det ingår.</p>
+      </div>
+      <div class="rv">
+        <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Sök i prislistan</span><input type="search" id="q" placeholder="Sök, till exempel ”krona”, ”tandsten” eller ”101”" autocomplete="off"></label>
+        <div class="chips" id="chips" role="group" aria-label="Kategorier"></div>
+        <p class="count" aria-live="polite"><b id="count">0</b> åtgärder</p>
+        <div class="plist" id="plist"></div>
+        <p class="note">Priser enligt klinikens prislista, uppdaterad 2026-01-13. I samband med undersökningen får du ett kostnadsförslag för planerad behandling.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="know">
+    <div class="wrap know-grid">
+      <div class="rv">
+        <h2>Bra att veta</h2>
+        <p>Vi rekommenderar noga tandborstning morgon och kväll med fluortandkräm, och fluorsköljning dagligen i minst en minut med Dentan, Flux eller annat munsköljmedel med fluor.</p>
+        <p>Alla vuxna bör göra årskontroll med bite-wing-röntgen med 12 till 18 månaders mellanrum.</p>
+      </div>
+      <div class="acc rv">
+        <details open>
+          <summary>Varför årskontroll var 12–18 månad?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Om intervallen blir längre än 18 månader kan ett hål mellan tänderna, eller vid en fyllning, växa så stort att tanden måste rotbehandlas eller inte kan lagas mer.</p><p>Med stigande ålder tar många mediciner varje dag, till exempel mot blodtryck eller hjärt- och kärlsjukdom. Muntorrhet som biverkan ökar risken för kariesskador.</p></div>
+        </details>
+        <details>
+          <summary>Hur går en rotbehandling till?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Tandläkaren rengör insidan av tanden helt från skadad eller infekterad pulpavävnad (tandnerven) och fyller den sedan med guttaperka. Det krävs oftast minst två besök, och ett besök tar som regel 1–1,5 timmar.</p><p>Vid första besöket läggs ett medikament (kalciumhydroxid) i tanden i 7–14 dagar. Är tanden då besvärsfri rotfylls den. Kostnaden blir inte högre även om fler besök behövs.</p></div>
+        </details>
+        <details>
+          <summary>När behöver jag en bettskena?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Om du pressar eller gnisslar tänderna nattetid är en individuellt anpassad hård bettskena en fördel. Tecken är frakturer på tänderna, fyllningar som lossnar, ömma tuggmuskler på morgonen eller slitage på framtänderna.</p><p>Behandlingen tar oftast 3–4 månader om du använder skenan varje natt. Orsaken är ofta stress, med flera faktorer på en gång.</p></div>
+        </details>
+        <details>
+          <summary>Hur sköter jag min tandprotes?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Tappa vatten i handfatet innan du rengör protesen, så går den inte sönder om du tappar den. Använd ljummet vatten och tandborste utan tandkräm, gärna handdiskmedel. Aldrig diskmaskin eller maskindiskmedel.</p><p>Lossnar en protestand, spara den och ta med den. Sitter protesen sämre med tiden kan tandteknikern rebasera den så att den passar igen.</p></div>
+        </details>
+        <details>
+          <summary>Varför ska tandsten tas bort?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Tandsten i tandköttsfickorna ökar risken för tandlossning, och tandköttsinfektion ger dålig andedräkt och blödning. Vid medicinering kan tandsten behöva tas bort 2–3 gånger per år.</p><p>Vi använder både EMS-scaler och handinstrument, polerar tänderna och avslutar med fluorlack som skyddar tandhalsarna.</p></div>
+        </details>
+        <details>
+          <summary>Tandblekning med Brilliant Smile<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Stripes med 6 % väteperoxid. Förpackningen kostar 900 kronor och räcker i 14 dagar. Tandläkaren kontrollerar först att det inte finns kariesskador. Vi rekommenderar att bleka minst 7 dagar i följd, 1–2 timmar per gång.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="support" id="stod">
+    <div class="wrap">
+      <h2 class="rv">Tandvårdsstöd och avbetalning</h2>
+      <div class="sup-grid">
+        <div class="box rv">
+          <h3>Allmänt tandvårdsbidrag</h3>
+          <ul>
+            <li><span>20–29 år</span><b>600 kr/år</b></li>
+            <li><span>30–64 år</span><b>300 kr/år</b></li>
+            <li><span>65 år och äldre</span><b>600 kr/år</b></li>
+          </ul>
+          <p style="margin:12px 0 0">Nytt bidrag den 1 juli varje år, kan sparas i högst 2 år. Särskilt tandvårdsbidrag (STB) är 600 kr per halvår vid t.ex. muntorrhet av mediciner.</p>
+        </div>
+        <div class="box rv">
+          <h3>Högkostnadsskydd</h3>
+          <ul>
+            <li><span>Upp till 3 000 kr</span><b>du betalar allt</b></li>
+            <li><span>3 001–15 000 kr</span><b>du betalar 50 %</b></li>
+            <li><span>Över 15 000 kr</span><b>du betalar 15 %</b></li>
+          </ul>
+          <p style="margin:12px 0 0">Beräknas på referenspriset från TLV. Barn och unga upp till 19 år: kontakta Folktandvården Region Örebro län.</p>
+        </div>
+        <div class="box rv">
+          <h3>Tandläkarkonto, Resurs Bank</h3>
+          <p class="big">0 % ränta</p>
+          <p>Räntefri avbetalning med 300 eller 600 kronor per månad. Uppläggningsavgift 149 kr över 1 500 kr, faktureringsavgift 39 kr/mån, högsta kredit 30 000 kr.</p>
+          <p style="margin:0">Kundservice 0771-11 22 33</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="om-oss">
+    <div class="wrap about-grid">
+      <div class="about-photos rv">
+        <figure class="ph" style="margin:0"><img src="https://i0.wp.com/tandlakareekersgatan.com/wp-content/uploads/2019/12/foto-11-1.jpg?resize=740%2C883&amp;ssl=1" alt="Tandläkare Matti Koivuniemi" width="740" height="883" loading="lazy" style="object-position:50% 25%"><figcaption>Matti Koivuniemi, tandläkare</figcaption></figure>
+        <figure class="ph" style="margin:0"><img src="https://i0.wp.com/tandlakareekersgatan.com/wp-content/uploads/2019/12/img_20180706_103844588-1.jpg?resize=740%2C987&amp;ssl=1" alt="Receptionen på kliniken" width="740" height="987" loading="lazy" style="object-position:40% 70%"></figure>
+      </div>
+      <div class="rv">
+        <h2>Välkommen till oss på Ekersgatan</h2>
+        <p>Gott bemötande, erfarna tandläkare, generösa mottagningstider och rimlig prissättning är nyckelorden för vår verksamhet. Vi tar emot både nya och redan inskrivna patienter.</p>
+        <ul class="creds">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Ansluten till Försäkringskassan</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Nödvändig tandvård (N-kort, grönt kort, frikort)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>F-tandvård (F-kort, blått kort, frikort)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Tandvård som led i sjukdomsbehandling</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>Medlem i Sveriges Tandläkarförbund – TEV</li>
+        </ul>
+        <div class="flyg"><b>Godkänd Flyg &amp; Dyk-tandläkare</b>Registrerad för FM, Kustbevakning, Räddningstjänst, Polismyndighet och Tullverket. Du kan besöka oss utanför ordinarie tider; ta med tillhörande handlingar.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="besok">
+    <div class="wrap">
+      <h2 class="rv">Hitta till oss</h2>
+      <div class="visit-grid">
+        <div class="vcard rv">
+          <h3>Kontakt</h3>
+          <ul class="vlines">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Ekersgatan 7, gatuplan<br>703 42 Örebro</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span><a href="tel:019122500">019-12 25 00</a><br><a href="tel:0733930684">073-393 06 84</a></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><a href="mailto:tandlakareekersgatan@gmail.com">tandlakareekersgatan@gmail.com</a></li>
+          </ul>
+          <a class="btn btn-main" href="https://www.google.com/maps/search/?api=1&amp;query=Ekersgatan+7%2C+703+42+%C3%96rebro" target="_blank" rel="noopener">Visa på karta</a>
+        </div>
+        <div class="vcard rv">
+          <h3>Mottagningstider</h3>
+          <table class="hours" id="hours">
+            <tr data-day="1"><td>Måndag</td><td>07.30–17.30</td></tr>
+            <tr data-day="2"><td>Tisdag</td><td>07.30–17.30</td></tr>
+            <tr data-day="3"><td>Onsdag</td><td>07.30–17.30</td></tr>
+            <tr data-day="4"><td>Torsdag</td><td>07.30–17.30</td></tr>
+            <tr data-day="5"><td>Fredag</td><td>07.30–15.00</td></tr>
+            <tr data-day="6"><td>Övriga tider och lördag</td><td>Enligt överenskommelse</td></tr>
+          </table>
+          <p style="margin:14px 0 0">Visar e-tidsbokningen en ledig tid på kvällen eller en lördag går det bra att boka, vi har öppet!</p>
+        </div>
+        <div class="vcard rv">
+          <h3>Inför besöket</h3>
+          <ul class="rules">
+            <li>Kom max 10 minuter före din bokade tid, så möts inte patienter i väntrummet.</li>
+            <li>Endast en medhjälpare får följa med till besöket.</li>
+            <li>Sent återbud (mindre än 12 timmar före) och uteblivet besök debiteras med 500 kronor.</li>
+            <li>Ta gärna med en aktuell medicinlista.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="near rv">
+        <div><b>Parkering och resa</b>Kommunal parkering på gatan utanför, cykelställ, och av- och påstigning direkt vid ingången för bil, taxi och färdtjänst.</div>
+        <div><b>I närheten</b>ICA Ekershallen 100 meter bort (öppet 7–22). Apoteket Älgen på Ringgatan runt hörnet. För yrkesgrupper med lång resväg finns ett pentry för att värma mat.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© Tandläkarmottagning Ekersgatan 7 · Ekersgatan 7, 703 42 Örebro · <a href="tel:019122500">019-12 25 00</a></span>
+    <span>Designförslag, inte den officiella webbplatsen</span>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-main" href="https://tandlakareekersgatan7.opusdentalonline.com/" target="_blank" rel="noopener">Boka tid online, dygnet runt</a></div>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const menu = document.querySelector('.menu');
+  const nav = document.getElementById('nav');
+  menu.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-label', open ? 'Stäng meny' : 'Öppna meny');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }));
+
+  // Reference price list from the clinic's 12 price pages: [code, name, price, dental technician share]
+  const PRICES = [
+    ['Undersökning', [
+      ['101', 'Basundersökning och diagnostik, tandläkare', 1100],
+      ['103', 'Kompletterande eller akut undersökning, tandläkare', 445],
+      ['107', 'Omfattande kompletterande eller akut undersökning, tandläkare', 1275],
+      ['141', 'Studiemodeller för behandlingsplanering', 885, 587],
+      ['161', 'Salivsekretionsmätning', 900],
+      ['162', 'Laboratoriekostnader vid mikrobiologisk undersökning', 520]]],
+    ['Röntgen', [
+      ['121', 'Röntgenundersökning av enskild tand', 80],
+      ['123', 'Röntgenundersökning, helstatus', 1020],
+      ['127', 'Röntgenundersökning, delstatus 2–6 bilder', 235],
+      ['128', 'Röntgenundersökning, större delstatus 7 eller fler bilder', 405]]],
+    ['Förebyggande', [
+      ['201', 'Information eller instruktion vid risk för munhälsorelaterade sjukdomar eller problem', 600],
+      ['204', 'Profylaxskena, per skena', 1135, 741],
+      ['205', 'Fluorbehandling, kortare behandlingstid', 245],
+      ['206', 'Fluorbehandling', 485]]],
+    ['Tandsten', [
+      ['207', 'Borttagning av tandsten, upp till 15 minuter', 375],
+      ['208', 'Borttagning av tandsten, omfattande, upp till 40 minuter', 735],
+      ['209', 'Borttagning av tandsten, särskilt tidskrävande, över 40 minuter', 1145]]],
+    ['Sjukdomsbehandling', [
+      ['301', 'Sjukdoms- eller smärtbehandling, mindre omfattande', 450],
+      ['302', 'Sjukdoms- eller smärtbehandling', 840],
+      ['303', 'Sjukdoms- eller smärtbehandling, omfattande', 1245],
+      ['311', 'Information/instruktion vid munhälsorelaterade sjukdomar', 595],
+      ['312', 'Uppföljande information/instruktion vid munhälsorelaterade sjukdomar', 240],
+      ['321', 'Icke-operativ behandling av kariessjukdom', 600],
+      ['322', 'Stegvis excavering', 1350]]],
+    ['Tandlossning', [
+      ['341', 'Behandling av parodontal sjukdom, mindre omfattning', 735],
+      ['342', 'Behandling av parodontal sjukdom, större omfattning', 1430],
+      ['343', 'Behandling av parodontal sjukdom, särskilt tidskrävande', 2165]]],
+    ['Tanduttagning', [
+      ['401', 'Tanduttagning, en tand', 1280],
+      ['402', 'Tanduttagning när separation eller friläggning behövs, en tand', 1820],
+      ['403', 'Tanduttagning, tillkommande enkel', 510]]],
+    ['Rotbehandling', [
+      ['501', 'Rensning och rotfyllning, en rotkanal', 4105],
+      ['502', 'Rensning och rotfyllning, två rotkanaler', 4955],
+      ['503', 'Rensning och rotfyllning, tre rotkanaler', 6225],
+      ['504', 'Rensning och rotfyllning, fyra eller fler rotkanaler', 6790],
+      ['521', 'Akut trepanation och kavumextirpation', 885],
+      ['522', 'Komplicerad kanallokalisation', 890],
+      ['523', 'Stiftborttagning', 1300]]],
+    ['Bettskena', [
+      ['601', 'Bettskena i hård akrylat i överkäke, bettfysiologisk indikation', 4370, 1979],
+      ['602', 'Bettskena i hård akrylat i underkäke, bettfysiologisk indikation', 4370, 1979],
+      ['603', 'Reponeringsskena', 6695, 2504],
+      ['604', 'Mjukplastskena, laboratorieframställd, bettfysiologisk indikation', 2780, 1083]]],
+    ['Fyllning', [
+      ['701', 'Fyllning av en yta på en framtand eller hörntand', 730],
+      ['702', 'Fyllning av två ytor på en framtand eller hörntand', 1160],
+      ['703', 'Fyllning av tre eller flera ytor på en framtand eller hörntand', 1420],
+      ['704', 'Fyllning av en yta på en kindtand', 940],
+      ['705', 'Fyllning av två ytor på en kindtand', 1370],
+      ['706', 'Fyllning av tre eller flera ytor på en kindtand', 1830],
+      ['707', 'Tandkrona i plastiskt material, klinikframställd', 2075],
+      ['708', 'Stiftförankring i rotkanal vid fyllningsterapi', 550]]],
+    ['Krona och bro', [
+      ['800', 'Permanent tandstödd krona, en per käke', 6825, 2034],
+      ['801', 'Permanent tandstödd krona, flera på samma käke', 5275, 2034],
+      ['802', 'Laboratorieframställd pelare', 3880, 3655],
+      ['803', 'Klinikframställd pelare', 1810],
+      ['804', 'Hängande led i bro som ersätter den saknade tanden', 2815, 2010],
+      ['805', 'Emaljretinerad konstruktion, etsbro, per stöd', 2595, 2200],
+      ['811', 'Cementering av lossnad tandstödd konstruktion, per stöd', 635]]],
+    ['Tandprotes', [
+      ['822', 'Partiell protes för temporärt bruk, en till tre tänder', 5000, 2335],
+      ['823', 'Partiell protes för temporärt bruk, fyra eller fler tänder', 6785, 3273],
+      ['824', 'Partiell protes med metallskelett, klammerförankrad', 13620, 5374],
+      ['827', 'Hel underkäksprotes', 12510, 4982],
+      ['828', 'Hel överkäksprotes', 12510, 4982],
+      ['829', 'Immediatprotes, hel käke', 9270, 4517]]],
+    ['Proteslagning', [
+      ['831', 'Justering av avtagbar protes', 415],
+      ['832', 'Lagning av protes, tillsättning av protestand, utan avtryck', 1990, 1074],
+      ['833', 'Rebasering av protes', 3445, 1307],
+      ['834', 'Lagning av protes där avtryck krävs', 2630, 1278],
+      ['835', 'Rebasering och lagning av protes', 3975, 1601],
+      ['836', 'Komplicerad lagning av protes', 4150, 1908]]],
+    ['Tandblekning', [
+      ['–', 'Tandblekning med Brilliant Smile-stripes, förpackning för 14 dagar', 900]]]
+  ];
+  const kr = n => n.toLocaleString('sv-SE') + ' kr';
+  const chips = document.getElementById('chips');
+  const plist = document.getElementById('plist');
+  const q = document.getElementById('q');
+  const countEl = document.getElementById('count');
+  let cat = 'Alla', shownCount = 0;
+  ['Alla', ...PRICES.map(p => p[0])].forEach(name => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = name; b.setAttribute('aria-pressed', name === cat);
+    b.addEventListener('click', () => { cat = name; [...chips.children].forEach(c => c.setAttribute('aria-pressed', c === b)); render(); plist.scrollTop = 0; });
+    chips.appendChild(b);
+  });
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  function animateCount(to) {
+    const from = shownCount; shownCount = to;
+    if (reduce) { countEl.textContent = to; return; }
+    const t0 = performance.now();
+    (function step(t) {
+      const k = Math.min(1, (t - t0) / 350);
+      countEl.textContent = Math.round(from + (to - from) * k);
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  function render() {
+    const term = norm(q.value.trim());
+    let n = 0, html = '';
+    PRICES.forEach(([group, rows]) => {
+      if (cat !== 'Alla' && cat !== group) return;
+      const hits = rows.filter(r => !term || norm(r[0] + ' ' + r[1] + ' ' + group).includes(term));
+      if (!hits.length) return;
+      n += hits.length;
+      html += `<div class="pgroup"><h3>${group}</h3>` + hits.map((r, i) =>
+        `<div class="prow" style="animation-delay:${Math.min(i, 8) * 25}ms"><code>${r[0]}</code><span>${r[1]}</span><b><span class="amt">${kr(r[2])}</span>${r[3] ? `<small>varav tandteknik ${kr(r[3])}</small>` : ''}</b></div>`).join('') + '</div>';
+    });
+    plist.innerHTML = html || '<p class="empty">Ingen åtgärd matchar sökningen. Ring oss gärna på 019-12 25 00 så hjälper vi dig.</p>';
+    animateCount(n);
+  }
+  q.addEventListener('input', () => { render(); plist.scrollTop = 0; });
+  render();
+
+  // Reveal on scroll
+  const targets = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const sibs = [...el.parentElement.children].filter(c => c.classList.contains('rv'));
+      el.style.transitionDelay = (Math.max(0, sibs.indexOf(el)) % 4) * 0.08 + 's';
+      el.classList.add('in');
+      io.unobserve(el);
+    }), { rootMargin: '0px 0px -10% 0px' });
+    targets.forEach(t => io.observe(t));
+  } else targets.forEach(t => t.classList.add('in'));
+
+  // Open now and today's row, Swedish time
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Stockholm', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+    .formatToParts(new Date()).map(p => [p.type, p.value]));
+  const day = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 }[parts.weekday];
+  const now = parts.hour + ':' + parts.minute;
+  const hours = { 1: ['07:30', '17:30'], 2: ['07:30', '17:30'], 3: ['07:30', '17:30'], 4: ['07:30', '17:30'], 5: ['07:30', '15:00'] };
+  const row = document.querySelector(`#hours tr[data-day="${Math.min(day, 6)}"]`);
+  if (row) row.classList.add('today');
+  const h = hours[day];
+  const open = h && now >= h[0] && now < h[1];
+  const status = document.getElementById('status');
+  status.classList.toggle('open', !!open);
+  status.querySelector('span').textContent = open ? `Öppet nu, till ${h[1].replace(':', '.')}` : 'Stängt just nu, boka online dygnet runt';
+</script>
+</body>
+</html>
