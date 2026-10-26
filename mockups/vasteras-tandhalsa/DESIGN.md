@@ -33,3 +33,12 @@ Everything else stays quiet.
 - Chooser cards were too narrow beside a side title and wrapped. Title moved above, options get the full width.
 - A later `.wrap { padding: 0 20px }` at 520px wiped the hero's bottom padding (shorthand override). Fixed with `padding-inline`.
 - Chooser links now jump to each treatment area (#implantat, #estetisk, #allman), not one shared anchor.
+
+## v3 changes (26 Oct 2026)
+- Portrait slot: the cropped selfie of Omar looked low quality. No professional photo of him exists online,
+  and a stock person would misrepresent him, so the large image is now a clinic detail (surgical loupes,
+  Daniel Frank, Pexels license) and Omar appears as a small round avatar next to his name.
+  Recommend a real portrait session as part of the offer.
+- Contact: the Google Maps iframe showed grey in previews. Replaced by a large photo of Storbron in central
+  Västerås (Dependability, CC BY-SA 4.0, credited on the image) with a "Vägbeskrivning i Google Maps" button.
+- Added `noindex` so the proposal is never indexed by search engines.
