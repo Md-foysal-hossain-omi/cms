@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leg tandläkare Maria Sjökvist AB – tandläkare i Gävle</title>
+<meta name="description" content="Leg tandläkare Maria Sjökvist i Gävle sedan 1984. Bra förebyggande tandvård med regelbundna kontroller. Ansluten till Försäkringskassan.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --papper: #f4f6f9;
+  --vit: #ffffff;
+  --blck: #1b2a44;
+  --bla: #2f64ae;
+  --bla-dark: #24508d;
+  --is: #dce8f4;
+  --stampel: #b3412e;
+  --muted: #4c5a70;
+  --line: #d9e0ea;
+  --serif: "Newsreader", Georgia, serif;
+  --sans: "Public Sans", system-ui, sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--papper); color: var(--blck); font: 400 18px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: var(--bla); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: var(--blck); }
+h2 { font-size: clamp(36px, 4.6vw, 58px); }
+h3 { font-size: 24px; font-weight: 600; }
+p { margin: 0 0 1em; }
+.wrap { width: min(1160px, 100%); margin: 0 auto; padding: 0 32px; }
+:focus-visible { outline: 3px solid var(--bla); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--blck); color: #fff; padding: 10px 16px; z-index: 100; }
+.skip:focus { left: 12px; }
+.proposal { background: var(--blck); color: #c9d5e8; text-align: center; font-size: 14px; padding: 9px 16px; }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(244,246,249,.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+.site-header.scrolled { border-color: var(--line); }
+.head-row { display: flex; align-items: center; gap: 32px; height: 76px; }
+.mark { text-decoration: none; color: var(--blck); line-height: 1.15; }
+.mark small { display: block; font: 500 13px/1.2 var(--sans); color: var(--bla); }
+.mark strong { font: 600 22px/1.1 var(--serif); }
+.nav { display: flex; gap: 28px; margin-left: auto; }
+.nav a { color: var(--blck); text-decoration: none; font-size: 16px; font-weight: 500; background: linear-gradient(var(--bla), var(--bla)) 0 100% / 0 2px no-repeat; transition: background-size .3s var(--ease); padding-bottom: 2px; }
+.nav a:hover { background-size: 100% 2px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: 8px; font: 600 16px/1 var(--sans); text-decoration: none; border: 0; cursor: pointer; transition: transform .2s var(--ease), background .2s, color .2s; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-main { background: var(--bla); color: #fff; }
+.btn-main:hover { background: var(--bla-dark); transform: translateY(-2px); }
+.btn-line { background: transparent; color: var(--blck); box-shadow: inset 0 0 0 1.5px var(--blck); }
+.btn-line:hover { background: var(--blck); color: #fff; transform: translateY(-2px); }
+.head-book { padding: 12px 18px; }
+.menu { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 8px; background: var(--is); color: var(--blck); cursor: pointer; }
+.menu svg { width: 22px; height: 22px; }
+
+/* Hero */
+.hero { padding: 72px 0 96px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.kicker { font-size: 16px; color: var(--bla); font-weight: 600; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(40px, 4.7vw, 64px); text-wrap: balance; line-height: 1.04; margin-bottom: 26px; }
+.hero h1 .ln { display: block; overflow: hidden; padding-bottom: .08em; }
+.hero h1 .ln > span { display: block; animation: rise 1s var(--ease) both; }
+.hero h1 .ln:nth-child(2) > span { animation-delay: .1s; }
+.hero h1 .ln:nth-child(3) > span { animation-delay: .2s; }
+.hero h1 .ln:nth-child(4) > span { animation-delay: .3s; }
+@keyframes rise { from { transform: translateY(108%); } }
+.lead { font-size: 20px; color: var(--muted); max-width: 30em; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+/* Postcard */
+.card-stage { perspective: 1600px; display: grid; justify-items: center; gap: 18px; animation: drop 1.2s .25s var(--ease) both; }
+@keyframes drop { from { opacity: 0; transform: translateY(-30px) rotate(-6deg); } }
+.postcard { position: relative; width: min(520px, 100%); aspect-ratio: 3 / 2; transform-style: preserve-3d; transition: transform 1s var(--ease); transform: rotate(-2.5deg); }
+.postcard.flipped { transform: rotate(1.5deg) rotateY(180deg); }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--vit); padding: 14px; box-shadow: 0 30px 50px -28px rgba(27,42,68,.55), 0 2px 6px rgba(27,42,68,.08); }
+.front .photo { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--is); }
+.front .photo img { position: absolute; top: -1.5%; left: 50%; height: 125%; width: auto; max-width: none; transform: translateX(-50%); }
+.back { transform: rotateY(180deg); display: grid; grid-template-columns: 1fr 1px 1fr; gap: 22px; padding: 26px 26px 22px; }
+.back .rule { background: var(--line); }
+.back .msg { font: 500 21px/1.35 var(--serif); color: var(--blck); align-self: center; }
+.back .msg span { display: block; margin-top: 14px; font: 400 15px/1.5 var(--sans); color: var(--muted); }
+.addr { display: grid; align-content: space-between; }
+.stamp { justify-self: end; width: 70px; height: 84px; border: 2px dashed var(--stampel); padding: 5px; display: grid; place-items: center; text-align: center; color: var(--stampel); font: 600 11px/1.2 var(--sans); }
+.stamp b { display: block; font: 600 22px/1 var(--serif); }
+.addr ul { list-style: none; padding: 0; margin: 0; }
+.addr li { border-bottom: 1px solid var(--line); padding: 6px 0; font-size: 15px; line-height: 1.3; }
+.addr a { color: var(--blck); text-decoration: none; }
+.flip { display: inline-flex; align-items: center; gap: 8px; background: var(--vit); border: 1px solid var(--line); border-radius: 99px; padding: 10px 18px; font: 500 15px/1 var(--sans); color: var(--blck); cursor: pointer; transition: background .2s; }
+.flip:hover { background: var(--is); }
+.flip svg { width: 18px; height: 18px; transition: transform .6s var(--ease); }
+.flip[aria-pressed="true"] svg { transform: rotate(180deg); }
+
+/* Reveal */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+/* About */
+.about { background: var(--vit); padding: 110px 0; }
+.about-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 72px; align-items: start; }
+.years { font: 500 clamp(96px, 13vw, 168px)/0.9 var(--serif); color: var(--bla); letter-spacing: -0.03em; }
+.years small { display: block; font: 500 22px/1.3 var(--serif); color: var(--blck); letter-spacing: 0; margin-top: 14px; }
+.about h2 { margin-bottom: 22px; }
+.about p { color: var(--muted); }
+.miles { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; padding-top: 34px; }
+.miles::before { content: ""; position: absolute; top: 9px; left: 0; right: 0; height: 2px; background: var(--line); }
+.miles::after { content: ""; position: absolute; top: 9px; left: 0; height: 2px; width: 100%; background: var(--bla); transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--ease) .2s; }
+.miles.in::after { transform: scaleX(1); }
+.mile { position: relative; }
+.mile::before { content: ""; position: absolute; top: -32px; left: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--vit); border: 2px solid var(--line); transition: border-color .4s, background .4s; }
+.miles.in .mile::before { border-color: var(--bla); background: var(--bla); }
+.miles.in .mile:nth-child(1)::before { transition-delay: .3s; }
+.miles.in .mile:nth-child(2)::before { transition-delay: .9s; }
+.miles.in .mile:nth-child(3)::before { transition-delay: 1.5s; }
+.mile b { display: block; font: 600 30px/1 var(--serif); margin-bottom: 8px; }
+.mile span { color: var(--muted); font-size: 16px; }
+
+/* Support */
+.support { padding: 110px 0; }
+.support-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; }
+.support h2 { margin-bottom: 22px; }
+.support p { color: var(--muted); }
+.pills { display: grid; gap: 12px; }
+.pill { display: flex; gap: 18px; align-items: center; background: var(--vit); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+.pill b { font: 600 22px/1 var(--serif); color: var(--bla); min-width: 64px; }
+.pill span { font-size: 17px; }
+.fk { display: flex; align-items: center; gap: 14px; margin-top: 26px; padding: 18px 20px; background: var(--is); border-radius: 14px; font-weight: 500; }
+.fk svg { width: 28px; height: 28px; color: var(--bla); flex: none; }
+
+/* GDPR */
+.gdpr { background: var(--blck); color: #c9d5e8; padding: 110px 0; }
+.gdpr-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; align-items: start; }
+.gdpr h2 { color: #fff; margin-bottom: 22px; }
+.gdpr p { color: #b7c4da; }
+.gdpr .note { font-size: 15px; color: #8fa0bd; }
+.qa details { border-top: 1px solid rgba(255,255,255,.14); }
+.qa details:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+.qa summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; font: 500 22px/1.3 var(--serif); color: #fff; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary i { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); position: relative; transition: transform .4s var(--ease), background .3s; }
+.qa summary i::before, .qa summary i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: #fff; transform: translate(-50%, -50%); }
+.qa summary i::after { transform: translate(-50%, -50%) rotate(90deg); }
+.qa details[open] summary i { transform: rotate(45deg); background: var(--bla); border-color: var(--bla); }
+.qa summary:hover i { background: rgba(255,255,255,.1); }
+.qa .ans { padding: 0 0 22px; max-width: 40em; }
+.qa .ans p { color: #b7c4da; font-size: 17px; }
+.qa details[open] .ans { animation: open .5s var(--ease); }
+@keyframes open { from { opacity: 0; transform: translateY(-6px); } }
+
+/* Contact */
+.contact { padding: 110px 0; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.panel { background: var(--vit); border: 1px solid var(--line); border-radius: 18px; padding: 44px; }
+.panel h2 { font-size: clamp(34px, 3.8vw, 46px); margin-bottom: 18px; }
+.panel p { color: var(--muted); }
+.lines { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; gap: 14px; }
+.lines li { display: flex; gap: 14px; align-items: center; font-size: 18px; }
+.lines svg { width: 22px; height: 22px; color: var(--bla); flex: none; }
+.lines a { color: var(--blck); text-decoration: none; word-break: break-word; }
+.lines a:hover { color: var(--bla); text-decoration: underline; }
+.panel-blue { background: var(--bla); border: 0; color: #fff; }
+.panel-blue h2 { color: #fff; }
+.panel-blue p { color: #dbe6f6; }
+.panel-blue .btn-main { background: #fff; color: var(--blck); }
+.panel-blue .btn-main:hover { background: var(--is); }
+.panel-blue .btn-line { color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
+.panel-blue .btn-line:hover { background: #fff; color: var(--blck); }
+
+/* Footer */
+footer { background: var(--vit); border-top: 1px solid var(--line); padding: 56px 0 110px; font-size: 16px; color: var(--muted); }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+.foot .mark strong { font-size: 20px; }
+.members { display: flex; gap: 28px; align-items: center; }
+.members a { display: block; opacity: .9; transition: opacity .2s; }
+.members a:hover { opacity: 1; }
+.members img { height: 58px; width: auto; }
+.fine { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 14px; }
+
+.callbar { display: none; }
+
+@media (hover: hover) and (min-width: 981px) {
+  .card-stage:hover .postcard:not(.flipped) { transform: rotate(-1deg) translateY(-6px); }
+}
+@media (max-width: 980px) {
+  .nav, .head-book { display: none; }
+  .menu { display: inline-grid; place-items: center; }
+  .nav.open { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; background: var(--papper); padding: 8px 24px 24px; gap: 0; border-bottom: 1px solid var(--line); }
+  .nav.open a { padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 18px; background: none; }
+  .hero-grid, .about-grid, .support-grid, .gdpr-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .wrap { padding: 0 20px; }
+  .head-row { height: 68px; }
+  .mark strong { font-size: 19px; }
+  .nav.open { top: 68px; }
+  .hero { padding: 40px 0 72px; }
+  .lead { font-size: 18px; }
+  .cta .btn { flex: 1 1 100%; }
+  .face { padding: 10px; }
+  .back { padding: 16px 14px 14px; gap: 12px; grid-template-columns: 1fr 1px 1.1fr; }
+  .back .msg { font-size: 16px; }
+  .back .msg span { font-size: 12.5px; margin-top: 8px; }
+  .stamp { width: 52px; height: 62px; font-size: 9px; padding: 3px; }
+  .stamp b { font-size: 16px; }
+  .addr li { font-size: 12.5px; padding: 4px 0; }
+  .about, .support, .gdpr, .contact { padding: 72px 0; }
+  .miles { grid-template-columns: 1fr; gap: 28px; padding-top: 0; padding-left: 36px; margin-top: 40px; }
+  .miles::before, .miles::after { top: 0; bottom: 0; left: 8px; right: auto; width: 2px; height: auto; }
+  .miles::after { transform: scaleY(0); transform-origin: top; }
+  .miles.in::after { transform: scaleY(1); }
+  .mile::before { top: 4px; left: -36px; }
+  .panel { padding: 30px 22px; }
+  .qa summary { font-size: 19px; padding: 18px 0; }
+  .lines li { font-size: 16px; }
+  .members img { height: 48px; }
+  .callbar { display: block; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 60; }
+  .callbar .btn { width: 100%; padding: 17px; font-size: 17px; box-shadow: 0 14px 30px -10px rgba(27,42,68,.6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+  .postcard.flipped { transform: none; }
+  .postcard.flipped .front { visibility: hidden; }
+  .postcard.flipped .back { transform: none; }
+  .postcard:not(.flipped) .back { visibility: hidden; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Hoppa till innehållet</a>
+<div class="proposal">Designförslag för Leg tandläkare Maria Sjökvist AB, samma innehåll i ny design</div>
+
+<header class="site-header">
+  <div class="wrap head-row">
+    <a class="mark" href="#top"><small>Leg tandläkare</small><strong>Maria Sjökvist AB</strong></a>
+    <nav class="nav" id="nav" aria-label="Huvudmeny">
+      <a href="#om-oss">Om oss</a>
+      <a href="#tandvardsstod">Tandvårdsstöd</a>
+      <a href="#gdpr">GDPR</a>
+      <a href="#kontakt">Kontakta oss</a>
+    </nav>
+    <a class="btn btn-main head-book" href="https://mariasjokvist.opusdentalonline.com" target="_blank" rel="noopener">Boka tid</a>
+    <button class="menu" aria-label="Öppna meny" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">Leg tandläkare Maria Sjökvist, Gävle</p>
+        <h1><span class="ln"><span>Vi hjälper dig med all planering och utförande av ett vackert leende.</span></span></h1>
+        <p class="lead">Bra förebyggande tandvård med regelbundna kontroller gör att du inte behöver hamna i situationer där större ingrepp behövs.</p>
+        <div class="cta">
+          <a class="btn btn-main" href="https://mariasjokvist.opusdentalonline.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Boka tid hos oss</a>
+          <a class="btn btn-line" href="tel:026124605">Ring 026-12 46 05</a>
+        </div>
+      </div>
+      <div class="card-stage">
+        <div class="postcard" id="postcard">
+          <div class="face front">
+            <div class="photo"><img src="https://impro.usercontent.one/appid/oneComWsb/domain/mariasjokvist.se/media/mariasjokvist.se/onewebmedia/tandlakare.png?etag=%22oBTmvM2GGPoO9RoFiqokOtKSkGE%22&amp;sourceContentType=image%2Fpng" alt="Två medarbetare i vita rockar i behandlingsrummet på kliniken" width="563" height="293"></div>
+          </div>
+          <div class="face back" aria-hidden="true">
+            <p class="msg">Välkommen att kontakta oss om du vill boka tid eller har frågor.<span>Vi kallar dig till kontroll med vykort, utan personnummer.</span></p>
+            <div class="rule"></div>
+            <div class="addr">
+              <div class="stamp"><div><b>1984</b>Gävle</div></div>
+              <ul>
+                <li>Leg tandläkare Maria Sjökvist AB</li>
+                <li>Norra Rådmansgatan 8A</li>
+                <li>Gävle</li>
+                <li><a href="tel:026124605" tabindex="-1">Tel 026-12 46 05</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <button class="flip" id="flip" aria-pressed="false" aria-controls="postcard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span>Vänd vykortet</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="om-oss">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="rv">
+          <div class="years"><span id="years">42</span> år<small>i Gävle, sedan 1984</small></div>
+        </div>
+        <div class="rv">
+          <h2>Om oss</h2>
+          <p>Vi har funnits i Gävle sedan 1984. Verksamheten började på Staketgatan och ligger sedan 1992 på Norra Rådmansgatan 8A, där vi har moderna och fräscha lokaler.</p>
+          <p>Maria Sjökvist är allmäntandläkare sedan 1983 med utbildning från Karolinska Institutet Huddinge.</p>
+        </div>
+      </div>
+      <div class="miles rv" id="miles">
+        <div class="mile"><b>1983</b><span>Maria Sjökvist blir allmäntandläkare, utbildad vid Karolinska Institutet Huddinge</span></div>
+        <div class="mile"><b>1984</b><span>Mottagningen startar på Staketgatan i Gävle</span></div>
+        <div class="mile"><b>1992</b><span>Flytt till moderna och fräscha lokaler på Norra Rådmansgatan 8A</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="support" id="tandvardsstod">
+    <div class="wrap support-grid">
+      <div class="rv">
+        <h2>Vi är anslutna till Försäkringskassan</h2>
+        <p>Tandförluster är många gånger dyrbara behandlingar där Försäkringskassan hjälper till med kostnaden.</p>
+        <p>Därför är regelbundna kontroller och bra förebyggande tandvård så viktiga. De gör att du inte behöver hamna i situationer där större ingrepp behövs.</p>
+      </div>
+      <div class="rv">
+        <div class="pills">
+          <div class="pill"><b>ATB</b><span>Allmänt tandvårdsbidrag</span></div>
+          <div class="pill"><b>STB</b><span>Särskilt tandvårdsbidrag</span></div>
+          <div class="pill"><b>Skydd</b><span>Högkostnadsskydd</span></div>
+        </div>
+        <div class="fk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Viss del av tandvårdskostnaderna står Försäkringskassan för.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gdpr" id="gdpr">
+    <div class="wrap gdpr-grid">
+      <div class="rv">
+        <h2>Så hanterar vi dina personuppgifter</h2>
+        <p>Vi som vårdgivare har lagkrav som vi måste uppfylla när det gäller hantering av dina personuppgifter enligt patientdatalagen. Vi är skyldiga att föra journal som sparas i tio år efter sista anteckningen.</p>
+        <p class="note">Integritetspolicy, Gävle 2018-05-25</p>
+      </div>
+      <div class="qa rv">
+        <details open>
+          <summary>Har ni tystnadsplikt?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Ja. Vi har tystnadsplikt när det gäller din allmänna och orala tandhälsa.</p></div>
+        </details>
+        <details>
+          <summary>Vilka tar del av journalen?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Eftersom vi är anslutna till Försäkringskassan skickar vi information om de åtgärder vi gör, för ATB, STB och högkostnadsskydd. Socialstyrelsen, Polisen och nationella tandhälsoregister (Region Gävleborg när det gäller barntandvård) får också ta del av journalen utan ditt medgivande.</p><p>Våra leverantörer (tandteknikerlaboratorier) får också del av personuppgifter. De följer de lagar som finns för kontakt med oss.</p></div>
+        </details>
+        <details>
+          <summary>Kan jag säga nej till att uppgifter skickas till Försäkringskassan?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Ja, du har rätt att frånsäga dig det. Då går du också miste om både ATB, eventuellt STB och högkostnadsskydd.</p></div>
+        </details>
+        <details>
+          <summary>Vad händer med journalen om jag byter tandläkare?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Om du flyttar över till annan vårdgivare skickar vi dina journaler dit, men bara om du ger ditt medgivande.</p></div>
+        </details>
+        <details>
+          <summary>Får jag läsa min journal?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Ja, och vi ger dig gärna en kopia. Motsäger du dig något som står i journalen vänder du dig i första hand till oss. Inget raderas. Vill du ändå ta bort personuppgifter vänder du dig till IVO (Inspektionen för vård och omsorg).</p></div>
+        </details>
+        <details>
+          <summary>Hur kallar ni mig?<i aria-hidden="true"></i></summary>
+          <div class="ans"><p>Vi kallar via vykort och skriver aldrig ditt personnummer på det. När du bokar tid via webben behöver du uppge ditt namn, telefonnummer och/eller mejladress.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="wrap contact-grid">
+      <div class="panel rv">
+        <h2>Kontakta oss</h2>
+        <p>Välkommen att kontakta oss om du vill boka tid eller har frågor.</p>
+        <ul class="lines">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Norra Rådmansgatan 8A, Gävle</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:026124605">026-12 46 05</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><a href="mailto:maria.sjokvist.tdl@telia.com">maria.sjokvist.tdl@telia.com</a></li>
+        </ul>
+        <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Norra+R%C3%A5dmansgatan+8A%2C+G%C3%A4vle" target="_blank" rel="noopener">Visa på karta</a>
+      </div>
+      <div class="panel panel-blue rv">
+        <h2>Boka tid</h2>
+        <p>Boka din tid direkt på webben, eller ring oss.</p>
+        <div class="cta">
+          <a class="btn btn-main" href="https://mariasjokvist.opusdentalonline.com" target="_blank" rel="noopener">Boka tid online</a>
+          <a class="btn btn-line" href="tel:026124605">Ring 026-12 46 05</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="mark" href="#top"><small>Leg tandläkare</small><strong>Maria Sjökvist AB</strong></a>
+        <p style="margin:10px 0 0">Norra Rådmansgatan 8A, Gävle · <a href="tel:026124605">026-12 46 05</a></p>
+      </div>
+      <div class="members">
+        <a href="https://tandlakarforbundet.se" target="_blank" rel="noopener"><img src="https://impro.usercontent.one/appid/oneComWsb/domain/mariasjokvist.se/media/mariasjokvist.se/onewebmedia/sverigestlf.png?etag=%22233b-5b34efe3%22&amp;sourceContentType=image%2Fpng" alt="Sveriges Tandläkarförbund" width="137" height="140" loading="lazy"></a>
+        <a href="https://ptl.se" target="_blank" rel="noopener"><img src="https://impro.usercontent.one/appid/oneComWsb/domain/mariasjokvist.se/media/mariasjokvist.se/onewebmedia/privattandlakarna.png?etag=W%2F%22156b-5b34ef98%22&amp;sourceContentType=image%2Fpng" alt="Privattandläkarna" width="74" height="75" loading="lazy"></a>
+      </div>
+    </div>
+    <div class="fine"><span>© Leg tandläkare Maria Sjökvist AB</span><span>Designförslag, inte den officiella webbplatsen</span></div>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-main" href="https://mariasjokvist.opusdentalonline.com" target="_blank" rel="noopener">Boka tid hos oss</a></div>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const header = document.querySelector('.site-header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
+
+  const menu = document.querySelector('.menu');
+  const nav = document.getElementById('nav');
+  menu.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-label', open ? 'Stäng meny' : 'Öppna meny');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }));
+
+  // Postcard: front shows the clinic photo, back shows the address side
+  const card = document.getElementById('postcard');
+  const flip = document.getElementById('flip');
+  const front = card.querySelector('.front'), back = card.querySelector('.back');
+  flip.addEventListener('click', () => {
+    const on = card.classList.toggle('flipped');
+    flip.setAttribute('aria-pressed', on);
+    flip.querySelector('span').textContent = on ? 'Visa framsidan' : 'Vänd vykortet';
+    back.setAttribute('aria-hidden', !on);
+    front.setAttribute('aria-hidden', on);
+    back.querySelector('a').tabIndex = on ? 0 : -1;
+  });
+
+  // Years in Gävle, counted from 1984
+  const yearsEl = document.getElementById('years');
+  const years = new Date().getFullYear() - 1984;
+  yearsEl.textContent = years;
+  function countYears() {
+    if (reduce) return;
+    const t0 = performance.now();
+    (function step(t) {
+      const k = Math.min(1, (t - t0) / 1500);
+      yearsEl.textContent = Math.round(years * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  const targets = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const sibs = [...el.parentElement.children].filter(c => c.classList.contains('rv'));
+      el.style.transitionDelay = (Math.max(0, sibs.indexOf(el)) % 4) * 0.1 + 's';
+      el.classList.add('in');
+      if (el.contains(yearsEl)) countYears();
+      io.unobserve(el);
+    }), { rootMargin: '0px 0px -10% 0px' });
+    targets.forEach(t => io.observe(t));
+  } else targets.forEach(t => t.classList.add('in'));
+</script>
+</body>
+</html>
