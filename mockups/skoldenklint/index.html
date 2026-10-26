@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tandläkare Sköldenklint – Kalmar och Mönsterås</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Tandläkare Sköldenklint i Kalmar och Mönsterås. Familjeägd klinik sedan 1974. Allmäntandvård, akut tandvård, estetisk tandvård, tandreglering och implantat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kalk: #f4f3ef;
+    --vit: #ffffff;
+    --sand: #d8c9b4;
+    --sand-soft: #ebe3d7;
+    --sund: #263f49;
+    --sund-deep: #1b2f37;
+    --lov: #56704a;
+    --blak: #1c2427;
+    --blak-soft: #55615f;
+    --line: #dedbd3;
+    --max: 1240px;
+    --ease: cubic-bezier(.2, .7, .1, 1);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body { margin: 0; background: var(--kalk); color: var(--blak); font: 400 18px/1.65 "Red Hat Text", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--lov); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding-inline: 32px; }
+  h1, h2, h3 { margin: 0; font-family: "Red Hat Display", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.025em; }
+  h2 { font-size: clamp(36px, 4.4vw, 56px); line-height: 1.04; }
+  h3 { font-size: 22px; line-height: 1.25; }
+  p { margin: 0; }
+  .section { padding-block: 120px; }
+  .head { display: grid; grid-template-columns: 5fr 6fr; gap: 64px; align-items: end; margin-bottom: 56px; }
+  .head p { color: var(--blak-soft); max-width: 50ch; }
+  .proposal { background: var(--sund-deep); color: #b9c9cd; font-size: 14px; text-align: center; padding: 8px 16px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 15px 24px; font: 600 16px/1 "Red Hat Text", sans-serif; text-decoration: none; border: 0; cursor: pointer; transition: background .2s, color .2s, transform .2s var(--ease); }
+  .btn svg { flex: none; }
+  .btn-dark { background: var(--sund); color: #fff; }
+  .btn-dark:hover { background: var(--sund-deep); transform: translateY(-2px); }
+  .btn-sand { background: var(--sand); color: var(--blak); }
+  .btn-sand:hover { background: #cdbca4; transform: translateY(-2px); }
+  .btn-light { background: #fff; color: var(--blak); }
+  .btn-light:hover { background: var(--sand-soft); }
+  .site-header { position: sticky; top: 0; z-index: 30; background: rgba(244, 243, 239, .9); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  .site-header.scrolled { border-color: var(--line); }
+  .site-header .wrap { display: flex; align-items: center; gap: 36px; height: 76px; }
+  .logo { margin-right: auto; display: block; }
+  .logo img { height: 40px; width: auto; filter: invert(1) brightness(.2); }
+  .nav { display: flex; gap: 28px; font-size: 15.5px; font-weight: 500; }
+  .nav a { text-decoration: none; color: var(--blak-soft); }
+  .nav a:hover { color: var(--blak); }
+  .site-header .btn { padding: 12px 20px; font-size: 15px; }
+  .menu { display: none; background: none; border: 0; padding: 6px; cursor: pointer; color: var(--blak); }
+  .hero { padding: 40px 0 0; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 6fr 5fr; gap: 64px; align-items: center; }
+  .hero h1 { font-size: clamp(52px, 7vw, 100px); line-height: .98; letter-spacing: -0.045em; }
+  .hero h1 span { display: block; overflow: hidden; }
+  .hero h1 span i { display: block; font-style: normal; animation: rise 1s var(--ease) both; }
+  .hero h1 span + span i { animation-delay: .12s; }
+  .hero .lede { font-size: 20px; color: var(--blak-soft); max-width: 40ch; margin: 30px 0 34px; animation: fade 1s .5s both; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; animation: fade 1s .65s both; }
+  .new-patients { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 26px; padding: 8px 16px 8px 12px; border-radius: 999px; background: var(--vit); font-size: 15px; font-weight: 500; animation: fade 1s .2s both; }
+  .new-patients i { width: 8px; height: 8px; border-radius: 50%; background: var(--lov); box-shadow: 0 0 0 4px rgba(86, 112, 74, .18); }
+  .hero-media { position: relative; height: min(82vh, 760px); border-radius: 220px 220px 8px 8px; overflow: hidden; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; animation: settle 2.6s var(--ease) both; }
+  .hero-card { position: absolute; left: 22px; right: 22px; bottom: 22px; background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px); border-radius: 14px; padding: 18px 20px; display: flex; gap: 16px; align-items: center; animation: fade 1s 1s both; }
+  .hero-card img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex: none; animation: none; }
+  .hero-card p { font-size: 15.5px; line-height: 1.45; }
+  .hero-card b { display: block; font-weight: 600; }
+  @keyframes rise { from { transform: translateY(105%); } to { transform: none; } }
+  @keyframes fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes settle { from { transform: scale(1.12); } to { transform: none; } }
+  .trust { margin-top: 88px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .trust .wrap { display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; }
+  .trust .wrap > div { padding: 26px 24px 26px 0; }
+  .trust .wrap > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+  .trust strong { display: block; font: 700 22px/1.2 "Red Hat Display", sans-serif; letter-spacing: -0.02em; }
+  .trust span { display: block; font-size: 15px; line-height: 1.45; margin-top: 4px; color: var(--blak-soft); }
+  .treat-list { border-top: 1px solid var(--blak); }
+  .treat { border-bottom: 1px solid var(--line); }
+  .treat summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 5fr 6fr 40px; gap: 32px; align-items: center; padding: 26px 0; }
+  .treat summary::-webkit-details-marker { display: none; }
+  .treat summary h3 { font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -0.03em; transition: color .2s; }
+  .treat summary p { color: var(--blak-soft); font-size: 16.5px; }
+  .treat summary .plus { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--blak); position: relative; transition: background .25s, transform .35s var(--ease); }
+  .treat summary .plus::before, .treat summary .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 1.5px; background: currentColor; transform: translate(-50%, -50%); }
+  .treat summary .plus::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .35s var(--ease); }
+  .treat[open] summary .plus { background: var(--sund); color: #fff; border-color: var(--sund); }
+  .treat[open] summary .plus::after { transform: translate(-50%, -50%) rotate(0deg); }
+  .treat summary:hover h3 { color: var(--sund); }
+  .treat-body { display: grid; grid-template-columns: 5fr 6fr 40px; gap: 32px; padding: 0 0 32px; }
+  .treat-body div { grid-column: 2; display: grid; gap: 14px; color: var(--blak); font-size: 17px; animation: fade .5s var(--ease) both; }
+  .treat-body .tag { justify-self: start; font-size: 14px; font-weight: 600; color: var(--lov); }
+  .gallery { display: grid; grid-template-columns: 4fr 3fr 3fr; gap: 16px; margin-top: 72px; }
+  .gallery img { width: 100%; height: 420px; object-fit: cover; border-radius: 8px; }
+  .gallery img:first-child { border-radius: 8px 120px 8px 8px; }
+  .story { background: var(--sund); color: #fff; }
+  .story .head p { color: #b9c9cd; }
+  .story-grid { display: grid; grid-template-columns: 5fr 6fr; gap: 80px; align-items: start; }
+  .story-photo { position: sticky; top: 110px; }
+  .story-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 8px 8px 160px 8px; }
+  .story-photo p { margin-top: 14px; font-size: 15px; color: #b9c9cd; }
+  .timeline { position: relative; list-style: none; margin: 0; padding: 0 0 0 44px; }
+  .timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: rgba(255, 255, 255, .14); }
+  .timeline .progress { position: absolute; left: 7px; top: 8px; width: 2px; height: 0; background: var(--sand); }
+  .timeline li { position: relative; padding-bottom: 52px; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before { content: ""; position: absolute; left: -44px; top: 8px; width: 16px; height: 16px; border-radius: 50%; background: var(--sund); border: 2px solid rgba(255, 255, 255, .35); transition: background .4s, border-color .4s; }
+  .timeline li.lit::before { background: var(--sand); border-color: var(--sand); }
+  .timeline time { display: block; font: 700 34px/1 "Red Hat Display", sans-serif; letter-spacing: -0.03em; color: var(--sand); margin-bottom: 10px; }
+  .timeline h3 { font-size: 21px; margin-bottom: 8px; }
+  .timeline p { color: #cfdbdd; font-size: 16.5px; max-width: 52ch; }
+  .team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px 20px; }
+  .member figure { margin: 0 0 14px; border-radius: 50%; overflow: hidden; background: var(--sand-soft); aspect-ratio: 1; }
+  .member img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+  .member:hover img { transform: scale(1.04); }
+  .member { text-align: center; }
+  .member h3 { font-size: 19px; }
+  .member p { font-size: 15px; color: var(--blak-soft); }
+  .member.lead { grid-column: span 2; grid-row: span 2; }
+  .member.lead h3 { font-size: 26px; }
+  .reviews { background: var(--sand-soft); padding-block: 96px; overflow: hidden; }
+  .reviews h2 { margin-bottom: 40px; }
+  .marquee { display: flex; gap: 20px; width: max-content; animation: drift 48s linear infinite; }
+  .marquee:hover, .marquee:focus-within { animation-play-state: paused; }
+  .review { width: 420px; flex: none; margin: 0; background: var(--vit); border-radius: 14px; padding: 28px; }
+  .review .stars { color: #b8892f; letter-spacing: 2px; }
+  .review p { font: 500 19px/1.45 "Red Hat Display", sans-serif; margin: 12px 0 16px; }
+  .review span { font-size: 15px; color: var(--blak-soft); }
+  @keyframes drift { to { transform: translateX(-50%); } }
+  .loan { display: grid; grid-template-columns: 6fr 5fr; gap: 64px; align-items: center; }
+  .loan-card { background: var(--vit); border-radius: 18px; padding: 36px; }
+  .loan-card strong { display: block; font: 700 46px/1 "Red Hat Display", sans-serif; letter-spacing: -0.04em; color: var(--sund); }
+  .loan-card span { display: block; margin: 8px 0 22px; color: var(--blak-soft); }
+  .loan p + p { margin-top: 16px; color: var(--blak-soft); }
+  .visit { background: var(--vit); }
+  .visit-grid { display: grid; grid-template-columns: 6fr 5fr; gap: 72px; align-items: start; }
+  .switch { display: inline-flex; background: var(--kalk); border-radius: 999px; padding: 5px; margin-bottom: 28px; }
+  .switch button { border: 0; background: none; font: 600 16px/1 "Red Hat Text", sans-serif; color: var(--blak-soft); padding: 13px 22px; border-radius: 999px; cursor: pointer; transition: background .25s, color .25s; }
+  .switch button[aria-selected="true"] { background: var(--sund); color: #fff; }
+  .place h3 { font-size: clamp(30px, 3.4vw, 44px); letter-spacing: -0.035em; margin-bottom: 18px; }
+  .place-lines { display: grid; gap: 14px; font-size: 19px; }
+  .place-lines a { font-weight: 600; text-decoration: none; }
+  .place-lines a:hover { color: var(--sund); text-decoration: underline; }
+  .place-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .place[hidden] { display: none; }
+  .place:not([hidden]) { animation: fade .45s var(--ease) both; }
+  .status { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; padding: 8px 16px; border-radius: 999px; background: var(--kalk); font-size: 15px; font-weight: 600; }
+  .status i { width: 9px; height: 9px; border-radius: 50%; background: #9aa3a1; }
+  .status.open i { background: var(--lov); box-shadow: 0 0 0 4px rgba(86, 112, 74, .2); }
+  .hours { width: 100%; border-collapse: collapse; font-size: 18.5px; }
+  .hours td { padding: 14px 14px; border-top: 1px solid var(--line); }
+  .hours tr:last-child td { border-bottom: 1px solid var(--line); }
+  .hours td:last-child { text-align: right; font-weight: 600; }
+  .hours tr.today td { background: var(--kalk); }
+  .hours tr.today td:first-child { box-shadow: inset 3px 0 0 var(--lov); }
+  .careers { background: var(--sund-deep); color: #fff; padding-block: 72px; }
+  .careers .wrap { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .careers h2 { font-size: clamp(28px, 3vw, 40px); }
+  .careers p { color: #b9c9cd; margin-top: 8px; max-width: 60ch; }
+  .site-footer { background: var(--sund-deep); color: #8fa3a8; font-size: 14px; padding: 28px 0 36px; border-top: 1px solid rgba(255, 255, 255, .1); }
+  .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .site-footer .marks { display: flex; gap: 16px; align-items: center; }
+  .site-footer .marks img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: .75; }
+  .site-footer a { color: #cfdbdd; }
+  .mobile-call { display: none; }
+  @media (max-width: 1040px) {
+    .section { padding-block: 84px; }
+    .nav, .site-header .btn { display: none; }
+    .menu { display: block; }
+    .nav.open { display: flex; flex-direction: column; position: absolute; top: 76px; left: 0; right: 0; background: var(--kalk); padding: 12px 32px 28px; gap: 18px; font-size: 20px; border-bottom: 1px solid var(--line); }
+    .hero .wrap, .head, .story-grid, .loan, .visit-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-media { height: 480px; border-radius: 160px 160px 8px 8px; }
+    .trust .wrap { grid-template-columns: 1fr 1fr; padding-block: 8px; }
+    .trust .wrap > div, .trust .wrap > div + div { padding: 18px 12px 18px 0; border-left: 0; }
+    .treat summary, .treat-body { grid-template-columns: 1fr 40px; gap: 16px; }
+    .treat summary p { grid-column: 1; grid-row: 2; }
+    .treat summary .plus { grid-column: 2; grid-row: 1; }
+    .treat-body div { grid-column: 1; }
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .gallery img { height: 280px; }
+    .gallery img:first-child { grid-column: span 2; }
+    .story-photo { position: static; max-width: 460px; }
+    .team-grid { grid-template-columns: repeat(3, 1fr); }
+    .member.lead { grid-column: span 3; grid-row: auto; }
+    .member.lead figure { max-width: 320px; margin-inline: auto; }
+    .mobile-call { display: flex; justify-content: center; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 40; box-shadow: 0 14px 30px -10px rgba(27, 47, 55, .7); }
+    body { padding-bottom: 88px; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding-inline: 20px; }
+    .hero-media { height: 400px; }
+    .trust strong { font-size: 18px; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .member.lead { grid-column: span 2; }
+    .review { width: 300px; }
+    .gallery img { height: 200px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .timeline .progress { height: calc(100% - 16px) !important; }
+  }
+</style>
+</head>
+<body>
+<div class="proposal">Designförslag för Tandläkare Sköldenklint, samma innehåll i ny design</div>
+<header class="site-header" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Tandläkare Sköldenklint, till början"><img src="https://skoldenklint.com/wp-content/uploads/2020/04/TS_Logo_White.png" alt="Sköldenklint Tandläkare"></a>
+    <nav class="nav" id="nav" aria-label="Huvudmeny">
+      <a href="#behandlingar">Behandlingar</a>
+      <a href="#om-oss">Om oss</a>
+      <a href="#personal">Personal</a>
+      <a href="#oppettider">Öppettider</a>
+      <a href="#oppettider">Kontakt</a>
+    </nav>
+    <a class="btn btn-dark" href="#oppettider">Boka tid</a>
+    <button class="menu" type="button" aria-label="Öppna meny" aria-expanded="false" aria-controls="nav">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="new-patients"><i></i>Vi välkomnar nya patienter</p>
+        <h1><span><i>Vi vårdar</i></span><span><i>ditt leende</i></span></h1>
+        <p class="lede">Välkommen till Tandläkare Sköldenklint i Kalmar och Mönsterås. Här möts du av välutbildad personal, som ger dig en förstklassig tandvård under avslappnande och trygga former.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="tel:+4648012737">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+            Boka tid i Kalmar
+          </a>
+          <a class="btn btn-sand" href="tel:+4649942929">Boka tid i Mönsterås</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="https://skoldenklint.com/wp-content/uploads/2024/02/SKOLDENKLINT_staende_white_5-819x1024.jpg" alt="Det ljusa väntrummet hos Tandläkare Sköldenklint i Kalmar">
+        <div class="hero-card">
+          <img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_1-768x768.jpg" alt="">
+          <p><b>Mikael Sköldenklint</b>Tandläkare och verksamhetschef. Familjeföretaget har funnits sedan 1974.</p>
+        </div>
+      </div>
+    </div>
+    <div class="trust">
+      <div class="wrap">
+        <div><strong>Sedan 1974</strong><span>Familjeägd klinik i Kalmar</span></div>
+        <div><strong>Två kliniker</strong><span>Kalmar och Mönsterås</span></div>
+        <div><strong>Akuttider dagligen</strong><span>Ring så ordnar vi en tid</span></div>
+        <div><strong>Tandvårdslån</strong><span>Räntefritt upp till 12 månader</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="behandlingar">
+    <div class="wrap">
+      <div class="head">
+        <h2>Våra behandlingar</h2>
+        <p>Allt från basal allmäntandvård med profylaktiska inslag till mer avancerade estetiska eller kirurgiska behandlingar, som skalfasader, tandreglering och implantat.</p>
+      </div>
+      <div class="treat-list">
+        <details class="treat" open>
+          <summary><h3>Traditionell tandvård</h3><p>Regelbundna besök hos våra tandläkare och tandhygienister är nyckeln till god tandhälsa.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Regelbundna årliga undersökningar hos tandläkare och tandhygienist är grunden för en god tandhälsa. Vi strävar efter att behandla utifrån patientens unika behov men också att främja förebyggande tandvård.</p>
+            <p>Våra erfarna tandläkare utför alla typer av behandlingar inom allmäntandvård: förebyggande tandvård, undersökningar, lagningar, rotfyllningar, kronor och utdragningar.</p>
+            <p>Vi tar emot nya patienter, både vid akuta besvär och för regelbundna undersökningar. Vill du lista dig hos oss, bara säg till så sköter vi resten.</p>
+          </div></div>
+        </details>
+        <details class="treat">
+          <summary><h3>Akut tandvård</h3><p>Tveka inte att kontakta oss vid akuta besvär. Vi erbjuder akuttider dagligen.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Oavsett om du har problem med tandvärk, ilningar eller om du har skadat en tand eller fyllning ska du inte behöva vänta på hjälp och gå omkring och ha ont.</p>
+            <p>Ring oss omedelbart. Vi erbjuder akuttider dagligen och gör alltid allt vi kan för att ordna en tid så fort som möjligt.</p>
+          </div></div>
+        </details>
+        <details class="treat">
+          <summary><h3>Estetisk tandvård</h3><p>Tandreglering, blekning och skalfasader för att förbättra ditt leende.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Skalfasader är tunna, anpassningsbara ytskikt som placeras på framsidan av tänderna och är en effektiv metod för att täcka ojämnheter och missfärgningar.</p>
+            <p>Beroende på vilken typ av resultat du önskar hjälper våra tandläkare dig att välja det bästa alternativet. Vi kan även hjälpa dig som har behov av bettskena.</p>
+          </div></div>
+        </details>
+        <details class="treat">
+          <summary><h3>Tandreglering</h3><p>Vi rättar sneda tänder med olika typer av tandställningar, inklusive Clear Aligner.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Med hjälp av olika typer av tandställningar kan vi justera tänder som vuxit snett, sitter tätt eller påverkar bettet negativt.</p>
+            <p>Vårt främsta verktyg idag är de avtagbara, genomskinliga skenorna, till exempel Clear Aligner, ett populärt val som gett fantastiska resultat de senaste 10 åren. Boka gärna en konsultation.</p>
+          </div></div>
+        </details>
+        <details class="treat">
+          <summary><h3>Tandhygienist</h3><p>En ren mun är en frisk mun! Vi hjälper dig att vårda din mun och dina tänder, genom hela livet.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Hos våra tandhygienister ingår avlägsnande av tandsten, behandling av dålig andedräkt, hantering av ilande tandhalsar och råd om hur du förebygger karies och tandlossning.</p>
+            <p>De arbetar med modern teknik och en skonsam rengöring som kallas Airflow, och ger individuella råd anpassade efter dina behov och din livsstil.</p>
+          </div></div>
+        </details>
+        <details class="treat">
+          <summary><h3>Tandblekning</h3><p>Få ett fräschare leende med säkra blekningsmetoder för ett effektivt resultat.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Vi erbjuder trygga och skonsamma metoder, inklusive professionell hemmablekning, med vägledning och stöd genom hela processen.</p>
+            <p>Innan du börjar rekommenderar vi en undersökning, så att vi kan bedöma om blekning är en lämplig lösning för dig.</p>
+          </div></div>
+        </details>
+        <details class="treat">
+          <summary><h3>Implantat</h3><p>Ett effektivt alternativ för att ersätta förlorade tänder.</p><span class="plus" aria-hidden="true"></span></summary>
+          <div class="treat-body"><div>
+            <p>Implantatskruven består av titan och fästs i käkbenet under ett kirurgiskt ingrepp med lokalbedövning. Vi arbetar med världsledande tillverkare som Straumann.</p>
+            <p>Mikael Sköldenklint är specialiserad på implantatkirurgi. Vi börjar alltid med en djupgående undersökning av käkben, tandkött och allmän tandhälsa.</p>
+            <span class="tag">Även käkbens- och mjukvävnadsrekonstruktioner</span>
+          </div></div>
+        </details>
+      </div>
+      <div class="gallery">
+        <img src="https://skoldenklint.com/wp-content/uploads/2024/02/SKOLDENKLINT_8-1024x683.jpg" alt="Personal i korridoren på kliniken i Kalmar" loading="lazy">
+        <img src="https://skoldenklint.com/wp-content/uploads/2024/02/SKOLDENKLINT_staende_white_7-819x1024.jpg" alt="Behandlingsrum med tandläkarstol" loading="lazy">
+        <img src="https://skoldenklint.com/wp-content/uploads/2024/02/SKOLDENKLINT_6_staende-819x1024.jpg" alt="Sittplatser vid fönstret i väntrummet" loading="lazy">
+      </div>
+    </div>
+  </section>
+  <section class="section story" id="om-oss">
+    <div class="wrap">
+      <div class="head">
+        <h2>Sedan 1974</h2>
+        <p>En privat tandvårdsklinik i centrala Kalmar, uppskattad för kunskap och skicklighet, men lika mycket för hög service och personligt omhändertagande.</p>
+      </div>
+      <div class="story-grid">
+        <figure class="story-photo" style="margin:0">
+          <img src="https://skoldenklint.com/wp-content/uploads/2024/02/SKOLDENKLINT_staende_white_1-819x1024.jpg" alt="Mikael Sköldenklint vid behandlingsstolen" loading="lazy">
+          <p>Mikael Sköldenklint, tandläkare och verksamhetschef</p>
+        </figure>
+        <ol class="timeline" id="timeline">
+          <span class="progress" aria-hidden="true"></span>
+          <li><time>1974</time><h3>Mottagningen öppnar</h3><p>Torsten och Sylvia Sköldenklint öppnar mottagningen i Kalmar.</p></li>
+          <li><time>2009</time><h3>Mikael blir tandläkare</h3><p>Legitimerad tandläkare från Malmö universitet. De första tio åren arbetar han som allmäntandläkare i Stockholm, med inriktning på kirurgi och tandimplantat.</p></li>
+          <li><time>2014</time><h3>Även i Kalmar</h3><p>Mikael får kirurgiska remisser från andra tandläkare och börjar, utöver Stockholm, även arbeta i Kalmar.</p></li>
+          <li><time>2018</time><h3>Nästa generation</h3><p>Mikael flyttar med familjen till Kalmar, tar över kliniken och driver den vidare i samma anda som sina föräldrar.</p></li>
+          <li><time>Idag</time><h3>Kalmar och Mönsterås</h3><p>Fler patienter, större personalstyrka och större lokaler. Fokus på framtidens behandlingar inom estetik och kirurgi, och på den förebyggande tandvård som behövs för en friskare mun och allmänhälsa.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="personal">
+    <div class="wrap">
+      <div class="head">
+        <h2>Vi som jobbar här</h2>
+        <p>God erfarenhet och gedigen utbildning inom tandvårdens olika områden. Vi vidareutbildar oss kontinuerligt för att följa den senaste utvecklingen i kunskap och material.</p>
+      </div>
+      <div class="team-grid">
+        <article class="member lead"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_1-1024x1024.jpg" alt="Mikael Sköldenklint" loading="lazy"></figure><h3>Mikael Sköldenklint</h3><p>Tandläkare och verksamhetschef</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_6-768x768.jpg" alt="Rebecca" loading="lazy"></figure><h3>Rebecca</h3><p>Tandläkare</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_3-768x768.jpg" alt="Simon" loading="lazy"></figure><h3>Simon</h3><p>Tandläkare</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2020/12/Skoldenklint_Profile_Img_3-300x300.png" alt="Charlotta" loading="lazy"></figure><h3>Charlotta</h3><p>Tandhygienist</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_5-768x768.jpg" alt="Johanna" loading="lazy"></figure><h3>Johanna</h3><p>Tandsköterska</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_7-768x768.jpg" alt="Helena" loading="lazy"></figure><h3>Helena</h3><p>Tandsköterska</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_2-768x768.jpg" alt="Nicole" loading="lazy"></figure><h3>Nicole</h3><p>Tandsköterska</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2025/09/SKOLDENKLINT_4-768x768.jpg" alt="Therese" loading="lazy"></figure><h3>Therese</h3><p>Tandsköterska</p></article>
+        <article class="member"><figure><img src="https://skoldenklint.com/wp-content/uploads/2020/12/Skoldenklint_Profile_Img_6-300x300.png" alt="Tina" loading="lazy"></figure><h3>Tina</h3><p>Tandsköterska</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="reviews" aria-labelledby="reviews-title">
+    <div class="wrap"><h2 id="reviews-title">Vad patienterna säger</h2></div>
+    <div class="marquee" id="marquee">
+      <figure class="review"><div class="stars" aria-label="Fem av fem stjärnor">★★★★★</div><p>”Bytte till Sköldenklint för tre år sen. Jag känner mig alltid väl omhändertagen på mottagningen!”</p><span>Daniel</span></figure>
+      <figure class="review"><div class="stars" aria-label="Fem av fem stjärnor">★★★★★</div><p>”Varmt, välkomnande och väldigt bra.”</p><span>Susanna</span></figure>
+      <figure class="review"><div class="stars" aria-label="Fem av fem stjärnor">★★★★★</div><p>”Ett välkomnande och tryggt bemötande! Kunnig personal och trevliga lokaler. Rekommenderas!”</p><span>Karin</span></figure>
+      <figure class="review"><div class="stars" aria-label="Fem av fem stjärnor">★★★★★</div><p>”Väntrummet har en avslappnad miljö och personalen bemöter mig med ett leende. Besöket hos tandläkare Mikael och tandhygienist Tina känns tryggt och jag får alltid en proffsig behandling.”</p><span>Matilda</span></figure>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap loan">
+      <div>
+        <h2>Tandvårdslån</h2>
+        <p style="margin-top:24px;font-size:19px">Behöver du genomgå en omfattande tandbehandling? Oavsett om den är akut, funktionell eller estetisk kan kostnaden vara svår att finansiera på kort varsel.</p>
+        <p>Vi erbjuder tandvårdslån i samarbete med Svea Ekonomi. Det tillkommer en mindre uppläggningsavgift och aviavgift. Du kan ansöka direkt, eller så hjälper vi dig i receptionen.</p>
+      </div>
+      <div class="loan-card">
+        <strong>0 % ränta</strong>
+        <span>Låna räntefritt upp till 12 månader, eller välj att låna på längre sikt med tillhörande ränta.</span>
+        <a class="btn btn-dark" href="https://self3.svea.com/Apply/f690963a-06cb-423c-bea2-b3357811ca9d" target="_blank" rel="noopener">Ansök om tandvårdslån</a>
+      </div>
+    </div>
+  </section>
+  <section class="section visit" id="oppettider">
+    <div class="wrap visit-grid">
+      <div>
+        <h2 style="margin-bottom:28px">Välkommen till oss</h2>
+        <div class="switch" role="tablist" aria-label="Välj klinik">
+          <button type="button" role="tab" id="tab-kalmar" aria-controls="p-kalmar" aria-selected="true">Kalmar</button>
+          <button type="button" role="tab" id="tab-monsteras" aria-controls="p-monsteras" aria-selected="false">Mönsterås</button>
+        </div>
+        <div class="place" id="p-kalmar" role="tabpanel" aria-labelledby="tab-kalmar">
+          <h3>Larmgatan 34, Kalmar</h3>
+          <div class="place-lines">
+            <span>Larmgatan 34, 392 32 Kalmar</span>
+            <a href="tel:+4648012737">0480-127 37</a>
+            <a href="mailto:kalmar@skoldenklint.com">kalmar@skoldenklint.com</a>
+          </div>
+          <div class="place-actions">
+            <a class="btn btn-dark" href="tel:+4648012737">Ring och boka tid</a>
+            <a class="btn btn-sand" href="https://www.google.com/maps/search/?api=1&query=Larmgatan+34,+392+32+Kalmar" target="_blank" rel="noopener">Vägbeskrivning</a>
+          </div>
+        </div>
+        <div class="place" id="p-monsteras" role="tabpanel" aria-labelledby="tab-monsteras" hidden>
+          <h3>Murvägen 7, Mönsterås</h3>
+          <div class="place-lines">
+            <span>Murvägen 7, 383 32 Mönsterås</span>
+            <a href="tel:+4649942929">0499-42 929</a>
+            <a href="mailto:monsteras@skoldenklint.com">monsteras@skoldenklint.com</a>
+          </div>
+          <div class="place-actions">
+            <a class="btn btn-dark" href="tel:+4649942929">Ring och boka tid</a>
+            <a class="btn btn-sand" href="https://www.google.com/maps/search/?api=1&query=Murv%C3%A4gen+7,+383+32+M%C3%B6nster%C3%A5s" target="_blank" rel="noopener">Vägbeskrivning</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="status" id="status" aria-live="polite"><i></i><span>Öppettider</span></div>
+        <table class="hours" id="hours">
+          <tr data-day="1"><td>Måndag</td><td>07:30–17:00</td></tr>
+          <tr data-day="2"><td>Tisdag</td><td>07:30–17:00</td></tr>
+          <tr data-day="3"><td>Onsdag</td><td>06:30–17:00</td></tr>
+          <tr data-day="4"><td>Torsdag</td><td>07:30–17:00</td></tr>
+          <tr data-day="5"><td>Fredag</td><td>07:30–13:00</td></tr>
+          <tr data-day="6"><td>Lördag och söndag</td><td>Stängt</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="careers">
+    <div class="wrap">
+      <div>
+        <h2>Vill du bli en del av vårt team?</h2>
+        <p>Vi söker fler engagerade medarbetare till våra kliniker i Kalmar och Mönsterås: tandläkare, tandhygienister och tandsköterskor.</p>
+      </div>
+      <a class="btn btn-light" href="https://skoldenklint.com/jobba-hos-oss" target="_blank" rel="noopener">Se lediga tjänster</a>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Tandläkare Sköldenklint, <a href="mailto:info@skoldenklint.com">info@skoldenklint.com</a></span>
+    <div class="marks">
+      <img src="https://skoldenklint.com/wp-content/uploads/2020/04/fk-logo.png" alt="Ansluten till Försäkringskassan" loading="lazy">
+      <img src="https://skoldenklint.com/wp-content/uploads/2020/04/sveriges-tandlakarforbund.png" alt="Sveriges Tandläkarförbund" loading="lazy">
+    </div>
+  </div>
+</footer>
+<a class="btn btn-dark mobile-call" href="#oppettider">Ring och boka tid</a>
+<script>
+  const header = document.querySelector('.site-header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  const menu = document.querySelector('.menu');
+  const nav = document.getElementById('nav');
+  menu.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-label', open ? 'Stäng meny' : 'Öppna meny');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }));
+  const marquee = document.getElementById('marquee');
+  [...marquee.children].forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); marquee.appendChild(d); });
+  const tl = document.getElementById('timeline');
+  const bar = tl.querySelector('.progress');
+  const items = [...tl.querySelectorAll('li')];
+  function drawTimeline() {
+    const r = tl.getBoundingClientRect();
+    const mid = innerHeight * 0.6;
+    const h = Math.max(0, Math.min(r.height - 16, mid - r.top));
+    bar.style.height = h + 'px';
+    items.forEach(li => li.classList.toggle('lit', li.getBoundingClientRect().top + 16 < mid));
+  }
+  addEventListener('scroll', drawTimeline, { passive: true });
+  addEventListener('resize', drawTimeline);
+  drawTimeline();
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => {
+      const on = x === t;
+      x.setAttribute('aria-selected', on);
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+  }));
+  const hours = { 1: ['07:30', '17:00'], 2: ['07:30', '17:00'], 3: ['06:30', '17:00'], 4: ['07:30', '17:00'], 5: ['07:30', '13:00'] };
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Stockholm', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+    .formatToParts(new Date()).map(p => [p.type, p.value]));
+  const day = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 }[parts.weekday];
+  const now = parts.hour + ':' + parts.minute;
+  const row = document.querySelector(`#hours tr[data-day="${Math.min(day, 6)}"]`);
+  if (row) row.classList.add('today');
+  const h = hours[day];
+  const open = h && now >= h[0] && now < h[1];
+  const status = document.getElementById('status');
+  status.classList.toggle('open', !!open);
+  status.querySelector('span').textContent = open ? `Öppet nu, till ${h[1]}` : 'Stängt just nu';
+</script>
+</body>
+</html>
