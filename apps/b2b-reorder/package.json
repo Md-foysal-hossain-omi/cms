@@ -1,0 +1,15 @@
+{
+  "name": "reorder-radar",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Reorder Radar: finds Shopify B2B company locations that are late to reorder, per product.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.9"
+  }
+}
