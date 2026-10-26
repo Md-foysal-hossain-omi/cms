@@ -3,462 +3,501 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Västerås Tandhälsa – Tandläkare Omar Aljoudi</title>
-<meta name="description" content="Tandläkare i centrala Västerås. Implantat, estetisk tandvård och allmäntandvård. Smedjegatan 15. Ring 021-13 85 10.">
+<title>Västerås Tandhälsa – Tandläkare Omar Aljoudi, Smedjegatan 15</title>
+<meta name="description" content="Tandläkare i centrala Västerås. Implantat, estetisk tandvård och allmäntandvård hos tandläkare Omar Aljoudi. Ring 021-13 85 10.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf7f2;
-    --surface: #ffffff;
-    --ink: #14213a;
-    --ink-soft: #4a5568;
-    --muted: #7a8494;
-    --navy: #16294a;
-    --teal: #2f7f86;
-    --teal-soft: #e3f0ef;
-    --sand: #efe7da;
-    --line: #e6dfd3;
-    --radius: 18px;
-    --shadow: 0 20px 50px -24px rgba(20, 33, 58, .35);
-    --max: 1160px;
+    --ljus: #f1f4f6;
+    --papper: #ffffff;
+    --uniform: #10284a;
+    --fjord: #2b5c8a;
+    --mint: #c7e6da;
+    --mint-deep: #a9d6c5;
+    --blak: #0e1a2b;
+    --blak-soft: #44536a;
+    --line: #d9e0e6;
+    --max: 1200px;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font: 400 17px/1.65 Manrope, system-ui, sans-serif;
+    background: var(--ljus);
+    color: var(--blak);
+    font: 400 18px/1.6 "Familjen Grotesk", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  img { max-width: 100%; display: block; }
+  img { display: block; max-width: 100%; }
   a { color: inherit; }
-  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 500; letter-spacing: -.01em; line-height: 1.12; margin: 0; }
-  h2 { font-size: clamp(32px, 4.2vw, 48px); }
-  h3 { font-size: 22px; }
-  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); margin: 0 0 14px; }
-  .lead { font-size: 19px; color: var(--ink-soft); }
-  section { padding: 104px 0; }
+  :focus-visible { outline: 3px solid var(--fjord); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding-inline: 28px; }
+  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.025em; }
+  h1 { font-size: clamp(44px, 6.4vw, 84px); line-height: 0.98; letter-spacing: -0.04em; }
+  h2 { font-size: clamp(34px, 4.4vw, 54px); line-height: 1.02; letter-spacing: -0.035em; }
+  h3 { font-size: 24px; line-height: 1.2; }
+  p { margin: 0; }
+  .muted { color: var(--blak-soft); }
+  .block { padding: 120px 0; }
+  .block-head { display: grid; grid-template-columns: 5fr 6fr; gap: 48px; align-items: end; margin-bottom: 56px; }
+  .block-head p { max-width: 46ch; color: var(--blak-soft); }
 
-  /* Proposal ribbon */
-  .ribbon { background: var(--ink); color: #cfd6e3; font-size: 13px; text-align: center; padding: 7px 16px; letter-spacing: .02em; }
-  .ribbon b { color: #fff; font-weight: 600; }
-
-  /* Top bar */
-  .topbar { border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); }
-  .topbar .wrap { display: flex; gap: 28px; justify-content: flex-end; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
-  .topbar a { text-decoration: none; }
-  .topbar a:hover { color: var(--teal); }
+  .proposal { background: var(--blak); color: #c9d3e0; font-size: 14px; text-align: center; padding: 8px 16px; }
 
   /* Header */
-  header.site { position: sticky; top: 0; z-index: 20; background: rgba(250, 247, 242, .92); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
-  header.site.scrolled { border-color: var(--line); }
-  header.site .wrap { display: flex; align-items: center; justify-content: space-between; height: 78px; }
-  .brand { text-decoration: none; display: flex; align-items: center; gap: 12px; }
-  .brand-mark { width: 42px; height: 42px; border-radius: 12px; background: var(--navy); display: grid; place-items: center; }
-  .brand-name { font-family: Fraunces, serif; font-size: 21px; font-weight: 600; line-height: 1.1; }
-  .brand-sub { font-size: 13px; color: var(--muted); font-weight: 500; }
-  nav.main { display: flex; gap: 30px; font-size: 15px; font-weight: 600; }
-  nav.main a { text-decoration: none; color: var(--ink-soft); }
-  nav.main a:hover { color: var(--ink); }
-  .btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 14px 24px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform .15s, box-shadow .15s, background .15s; border: 0; cursor: pointer; }
-  .btn-primary { background: var(--navy); color: #fff; box-shadow: 0 10px 24px -12px rgba(22, 41, 74, .7); }
-  .btn-primary:hover { transform: translateY(-1px); background: #0f1f3a; }
-  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
-  .btn-ghost:hover { background: var(--ink); color: #fff; }
-  .menu-toggle { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+  .site-header { position: sticky; top: 0; z-index: 20; background: rgba(241, 244, 246, 0.9); backdrop-filter: blur(12px); }
+  .site-header .wrap { display: flex; align-items: center; gap: 40px; height: 80px; }
+  .wordmark { text-decoration: none; line-height: 1.1; margin-right: auto; }
+  .wordmark b { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+  .wordmark span { font-size: 15px; color: var(--blak-soft); }
+  .site-nav { display: flex; gap: 28px; font-size: 16px; font-weight: 500; }
+  .site-nav a { text-decoration: none; color: var(--blak-soft); }
+  .site-nav a:hover { color: var(--blak); }
+  .call { display: inline-flex; align-items: center; gap: 10px; background: var(--uniform); color: #fff; text-decoration: none; font-weight: 600; font-size: 17px; padding: 14px 22px; border-radius: 999px; white-space: nowrap; }
+  .call:hover { background: #0a1c36; }
+  .call svg { flex: none; }
+  .call-secondary { display: inline-flex; align-items: center; gap: 10px; color: var(--blak); font-weight: 600; font-size: 17px; text-decoration: none; padding: 14px 4px; border-bottom: 2px solid var(--blak); border-radius: 0; }
+  .menu-button { display: none; background: none; border: 0; padding: 8px; color: var(--blak); cursor: pointer; }
 
   /* Hero */
-  .hero { padding: 64px 0 96px; }
-  .hero .wrap { display: grid; grid-template-columns: 1.02fr 1fr; gap: 64px; align-items: center; }
-  .hero h1 { font-size: clamp(42px, 5.6vw, 70px); }
-  .hero h1 em { font-style: italic; color: var(--teal); }
-  .hero .lead { margin: 24px 0 34px; max-width: 520px; }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 40px; }
-  .tag { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
-  .hero-photo { position: relative; }
-  .hero-photo img { border-radius: 28px; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 30%; width: 100%; box-shadow: var(--shadow); }
-  .quote-card { position: absolute; left: -36px; bottom: -36px; background: var(--surface); border-radius: var(--radius); padding: 20px 24px; max-width: 290px; box-shadow: var(--shadow); }
-  .stars { color: #e0a43b; letter-spacing: 2px; font-size: 15px; }
-  .quote-card p { margin: 6px 0 0; font-family: Fraunces, serif; font-size: 18px; line-height: 1.35; }
+  .hero { padding: 56px 0 0; }
+  .hero-grid { display: grid; grid-template-columns: 7fr 4fr; gap: 56px; align-items: end; padding-bottom: 56px; }
+  .hero-copy .intro { font-size: 21px; line-height: 1.5; color: var(--blak-soft); margin: 0 0 30px; }
+  .hero-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .hero-review { display: flex; gap: 14px; align-items: center; margin-top: 30px; font-size: 16px; color: var(--blak-soft); }
+  .stars { color: #d79a22; letter-spacing: 1px; font-size: 17px; }
+  .hero-photo img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 32%; border-radius: 32px 32px 0 0; }
 
-  /* Facts strip */
-  .facts { background: var(--navy); color: #fff; padding: 0; }
+  /* Visit chooser: the one accent */
+  .chooser { background: var(--mint); }
+  .chooser .wrap { padding-top: 34px; padding-bottom: 40px; }
+  .chooser h2 { font-size: 26px; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .chooser-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .chooser a { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--papper); text-decoration: none; padding: 20px 22px; border-radius: 14px; font-weight: 600; font-size: 18px; transition: background 0.15s; }
+  .chooser a:hover { background: var(--uniform); color: #fff; }
+  .chooser a small { display: block; font-weight: 400; font-size: 14px; color: var(--blak-soft); }
+  .chooser a:hover small { color: #c9d3e0; }
+
+  /* Facts row */
+  .facts { border-bottom: 1px solid var(--line); }
   .facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
-  .fact { padding: 30px 26px; border-right: 1px solid rgba(255, 255, 255, .12); }
-  .fact:last-child { border-right: 0; }
-  .fact b { display: block; font-family: Fraunces, serif; font-weight: 500; font-size: 22px; margin-bottom: 4px; }
-  .fact span { color: #b9c3d6; font-size: 14px; }
+  .fact { padding: 34px 28px 34px 0; }
+  .fact + .fact { padding-left: 28px; border-left: 1px solid var(--line); }
+  .fact strong { display: block; font-size: 20px; font-weight: 600; letter-spacing: -0.015em; }
+  .fact span { font-size: 16px; color: var(--blak-soft); }
 
-  /* About */
-  .about .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: start; }
-  .about-text p { color: var(--ink-soft); margin: 0 0 18px; }
-  .team { display: grid; gap: 14px; margin-top: 8px; }
-  .member { display: flex; gap: 18px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
-  .avatar { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--teal-soft); color: var(--teal); display: grid; place-items: center; font-weight: 700; font-family: Fraunces, serif; font-size: 20px; }
-  .member h3 { font-size: 19px; }
-  .member .role { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 2px 0 6px; }
-  .member p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
-  .member.lead-dentist { background: var(--sand); border-color: transparent; }
-
-  /* Focus areas */
-  .focus { background: var(--surface); }
-  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 52px; }
-  .section-head .lead { max-width: 440px; margin: 0; }
-  .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .focus-card { border-radius: 22px; padding: 34px 30px 30px; background: var(--bg); border: 1px solid var(--line); display: flex; flex-direction: column; min-height: 300px; }
-  .focus-card .icon { width: 54px; height: 54px; border-radius: 16px; background: var(--teal-soft); display: grid; place-items: center; margin-bottom: auto; }
-  .focus-card h3 { font-size: 27px; margin: 40px 0 10px; }
-  .focus-card p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
-  .focus-card.photo { background: linear-gradient(180deg, rgba(20, 33, 58, 0) 30%, rgba(20, 33, 58, .82)), url("smile.jpg") center / cover; color: #fff; border: 0; }
-  .focus-card.photo .icon { background: rgba(255, 255, 255, .18); }
-  .focus-card.photo p { color: #e7ecf4; }
+  /* Dentist */
+  .dentist-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
+  .portrait { position: sticky; top: 110px; }
+  .portrait img { width: 100%; aspect-ratio: 4 / 4.6; object-fit: cover; object-position: 50% 30%; border-radius: 24px; }
+  .portrait figcaption { margin-top: 14px; font-size: 16px; color: var(--blak-soft); }
+  .portrait figcaption b { color: var(--blak); font-weight: 600; }
+  .dentist-copy h2 { margin-bottom: 30px; }
+  .dentist-copy > p { font-size: 20px; line-height: 1.55; max-width: 52ch; margin-bottom: 20px; }
+  .worked { margin: 40px 0 0; padding: 26px 0 0; border-top: 1px solid var(--line); }
+  .worked h3 { font-size: 17px; font-weight: 600; color: var(--blak-soft); letter-spacing: 0; margin-bottom: 12px; }
+  .worked ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .worked li { border: 1px solid var(--line); background: var(--papper); padding: 8px 16px; border-radius: 999px; font-size: 16px; }
+  .team { margin-top: 56px; }
+  .team h3 { margin-bottom: 8px; }
+  .person { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .person b { font-weight: 600; font-size: 20px; }
+  .person b span { display: block; font-weight: 400; font-size: 16px; color: var(--blak-soft); }
+  .person p { color: var(--blak-soft); }
 
   /* Treatments */
-  .treatments-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; margin-top: 56px; border-top: 1px solid var(--line); }
-  .treatment { display: flex; align-items: center; gap: 16px; padding: 22px 4px; border-bottom: 1px solid var(--line); font-size: 18px; font-weight: 600; }
-  .treatment .num { font-family: Fraunces, serif; color: var(--teal); font-size: 15px; width: 28px; }
+  .treatments { background: var(--papper); }
+  .areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 2px solid var(--blak); }
+  .area { padding: 30px 32px 10px 0; }
+  .area + .area { padding-left: 32px; border-left: 1px solid var(--line); }
+  .area h3 { font-size: 30px; letter-spacing: -0.03em; margin-bottom: 10px; }
+  .area > p { color: var(--blak-soft); margin-bottom: 24px; min-height: 3.2em; }
+  .area ul { list-style: none; margin: 0; padding: 0; }
+  .area li { padding: 13px 0; border-top: 1px solid var(--line); font-weight: 500; }
+  .area-photo { margin-top: 64px; display: grid; grid-template-columns: 7fr 5fr; gap: 48px; align-items: center; }
+  .area-photo img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 24px; }
+  .area-photo p { font-size: 22px; line-height: 1.45; letter-spacing: -0.01em; }
 
-  /* New patient */
-  .newpatient { background: var(--sand); }
-  .np-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; align-items: start; }
-  .steps { counter-reset: s; display: grid; gap: 14px; }
-  .step { background: var(--surface); border-radius: var(--radius); padding: 24px 26px 24px 78px; position: relative; }
-  .step::before { counter-increment: s; content: counter(s); position: absolute; left: 24px; top: 22px; width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 15px; }
-  .step h3 { font-size: 19px; margin-bottom: 6px; }
-  .step p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
-  .note { margin-top: 26px; display: flex; gap: 14px; align-items: flex-start; background: rgba(255, 255, 255, .6); border-radius: var(--radius); padding: 18px 22px; font-size: 15.5px; }
+  /* New patient: a real sequence, so numbered */
+  .steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .steps li { counter-increment: step; border-top: 2px solid var(--uniform); padding-top: 22px; }
+  .steps li::before { content: counter(step); display: block; font-size: 64px; font-weight: 600; letter-spacing: -0.05em; line-height: 1; color: var(--fjord); margin-bottom: 18px; }
+  .steps h3 { font-size: 21px; margin-bottom: 8px; }
+  .steps p { color: var(--blak-soft); font-size: 17px; }
+  .consult-note { margin-top: 48px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--papper); border-radius: 18px; padding: 24px 28px; }
+  .consult-note p { font-size: 19px; }
 
   /* Prices */
-  .prices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 52px; }
-  .price-card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 34px; }
-  .price-card h3 { margin-bottom: 8px; }
-  .price-card > p { color: var(--ink-soft); font-size: 15.5px; margin: 0 0 22px; }
-  .rows { display: grid; }
-  .row { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 15.5px; }
-  .row b { font-weight: 700; white-space: nowrap; }
-  .price-highlight { grid-column: 1 / -1; background: var(--navy); color: #fff; border-radius: 22px; padding: 34px 38px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-  .price-highlight b { font-family: Fraunces, serif; font-size: 30px; font-weight: 500; display: block; }
-  .price-highlight span { color: #b9c3d6; font-size: 15px; }
-  details { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 16px; }
-  summary { cursor: pointer; font-weight: 700; font-size: 15px; color: var(--teal); }
-  details p { color: var(--ink-soft); font-size: 15px; }
+  .prices { background: var(--uniform); color: #fff; }
+  .prices .block-head p { color: #b8c5d8; }
+  .key-numbers { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+  .key { padding: 32px 28px 32px 0; }
+  .key + .key { padding-left: 28px; border-left: 1px solid rgba(255, 255, 255, 0.2); }
+  .key strong { display: block; font-size: 44px; font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; }
+  .key span { color: #b8c5d8; }
+  .support { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; margin-top: 72px; }
+  .support h3 { font-size: 26px; margin-bottom: 14px; }
+  .support p { color: #c9d3e0; font-size: 17px; }
+  .support table { width: 100%; border-collapse: collapse; margin-top: 22px; font-size: 18px; }
+  .support td { padding: 14px 0; border-top: 1px solid rgba(255, 255, 255, 0.18); }
+  .support td:last-child { text-align: right; font-weight: 600; }
+  .scale { margin-top: 26px; }
+  .scale-bar { display: grid; grid-template-columns: 2fr 5fr 3fr; height: 64px; border-radius: 12px; overflow: hidden; }
+  .scale-bar div { display: flex; align-items: center; padding: 0 16px; font-weight: 600; font-size: 16px; }
+  .scale-bar div:nth-child(1) { background: rgba(255, 255, 255, 0.14); }
+  .scale-bar div:nth-child(2) { background: var(--fjord); }
+  .scale-bar div:nth-child(3) { background: var(--mint); color: var(--blak); }
+  .scale-labels { display: grid; grid-template-columns: 2fr 5fr 3fr; margin-top: 10px; font-size: 15px; color: #b8c5d8; }
+  .scale-labels span { padding: 0 16px; }
+  .prices details { margin-top: 26px; border-top: 1px solid rgba(255, 255, 255, 0.18); padding-top: 18px; }
+  .prices summary { cursor: pointer; font-weight: 600; }
+  .prices details p { margin-top: 12px; }
 
   /* Reviews */
-  .reviews { background: var(--navy); color: #fff; }
-  .reviews .eyebrow { color: #8fc7c7; }
-  .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
-  .review { background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); border-radius: 22px; padding: 32px; }
-  .review p { font-family: Fraunces, serif; font-size: 22px; line-height: 1.4; margin: 14px 0 0; }
+  .reviews-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; align-items: start; }
+  .review-main blockquote { margin: 40px 0 0; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.12; letter-spacing: -0.03em; font-weight: 500; }
+  .review-side blockquote { margin: 0; padding: 26px 0; border-top: 1px solid var(--line); font-size: 22px; line-height: 1.35; }
+  .review-side blockquote:last-child { border-bottom: 1px solid var(--line); }
+
+  /* FAQ */
+  .faq { background: var(--papper); }
+  .faq-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; }
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; padding: 24px 0; font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-weight: 400; font-size: 28px; line-height: 1; color: var(--fjord); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding: 0 0 24px; max-width: 60ch; color: var(--blak-soft); }
 
   /* Contact */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; margin-top: 52px; align-items: stretch; }
-  .contact-card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 36px; display: grid; gap: 26px; }
-  .contact-card h3 { font-size: 15px; font-family: Manrope, sans-serif; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
-  .contact-card p { margin: 0; }
-  .contact-card a { text-decoration: none; font-weight: 600; }
-  .contact-card a:hover { color: var(--teal); }
-  .hours .row { padding: 8px 0; border-top: 0; }
-  .map { border-radius: 22px; overflow: hidden; border: 1px solid var(--line); min-height: 380px; }
-  .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
-  .social { display: flex; gap: 10px; }
-  .social a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; }
+  .contact-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: stretch; }
+  .contact-info { display: grid; gap: 34px; align-content: start; }
+  .contact-info h3 { font-size: 17px; color: var(--blak-soft); font-weight: 600; letter-spacing: 0; margin-bottom: 6px; }
+  .contact-info p, .contact-info a { font-size: 22px; letter-spacing: -0.015em; }
+  .contact-info a { text-decoration: none; font-weight: 600; }
+  .contact-info a:hover { color: var(--fjord); }
+  .hours { width: 100%; border-collapse: collapse; font-size: 19px; }
+  .hours td { padding: 8px 0; }
+  .hours td:last-child { text-align: right; font-weight: 600; }
+  .social { display: flex; gap: 18px; font-size: 17px !important; }
+  .social a { font-size: 17px; text-decoration: underline; text-underline-offset: 4px; font-weight: 500; }
+  .map { border-radius: 24px; overflow: hidden; min-height: 460px; background: var(--line); }
+  .map iframe { display: block; width: 100%; height: 100%; min-height: 460px; border: 0; }
 
-  footer { border-top: 1px solid var(--line); padding: 32px 0 40px; font-size: 14px; color: var(--muted); }
-  footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .site-footer { border-top: 1px solid var(--line); padding: 30px 0 44px; font-size: 15px; color: var(--blak-soft); }
+  .site-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 
-  .call-bar { display: none; }
+  .mobile-call { display: none; }
 
-  @media (max-width: 960px) {
-    section { padding: 76px 0; }
-    nav.main, header.site .btn { display: none; }
-    .menu-toggle { display: block; }
-    nav.main.open { display: flex; flex-direction: column; position: absolute; top: 78px; left: 0; right: 0; background: var(--bg); padding: 18px 24px 26px; gap: 18px; border-bottom: 1px solid var(--line); font-size: 18px; }
-    .topbar { display: none; }
-    .hero { padding: 28px 0 80px; }
-    .hero .wrap, .about .wrap, .np-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
-    .hero-photo { order: -1; }
-    .quote-card { position: relative; left: auto; bottom: auto; margin: -34px 14px 0; max-width: none; padding: 16px 20px; }
-    .quote-card p { font-size: 16px; }
-    .hero .wrap { gap: 32px; }
-    .facts .wrap { grid-template-columns: 1fr 1fr; padding: 0; }
-    .fact { padding: 24px 20px; }
-    .fact b { font-size: 18px; }
-    .fact { border-bottom: 1px solid rgba(255, 255, 255, .12); }
-    .fact:nth-child(2n) { border-right: 0; }
-    .section-head { flex-direction: column; align-items: start; gap: 18px; }
-    .focus-grid, .review-grid, .prices-grid, .treatments-list { grid-template-columns: 1fr; }
-    .price-highlight { grid-template-columns: 1fr; gap: 20px; padding: 30px; }
-    .call-bar { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30; gap: 10px; }
-    .call-bar a { flex: 1; justify-content: center; }
-    body { padding-bottom: 84px; }
+  @media (max-width: 980px) {
+    .block { padding: 80px 0; }
+    .site-nav, .site-header .call { display: none; }
+    .menu-button { display: block; }
+    .site-nav.open { display: flex; flex-direction: column; position: absolute; top: 80px; left: 0; right: 0; background: var(--ljus); padding: 12px 28px 28px; gap: 18px; font-size: 20px; border-bottom: 1px solid var(--line); }
+    .hero { padding-top: 28px; }
+    .hero-grid { padding-bottom: 36px; }
+    .hero-photo img { aspect-ratio: 16 / 10; border-radius: 22px 22px 0 0; }
+    .hero-grid, .block-head, .dentist-grid, .support, .reviews-grid, .faq-grid, .contact-grid, .area-photo { grid-template-columns: 1fr; gap: 36px; }
+    .hero-review { margin-top: 24px; }
+    .chooser .wrap { grid-template-columns: 1fr; gap: 18px; }
+    .chooser-options { grid-template-columns: 1fr 1fr; }
+    .facts .wrap { grid-template-columns: 1fr 1fr; }
+    .fact { padding: 24px 16px 24px 0; }
+    .fact strong { font-size: 17px; }
+    .fact span { font-size: 15px; }
+    .fact + .fact { padding-left: 16px; }
+    .fact:nth-child(3) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+    .fact:nth-child(4) { border-top: 1px solid var(--line); }
+    .portrait { position: static; max-width: 420px; }
+    .person { grid-template-columns: 1fr; gap: 4px; }
+    .areas { grid-template-columns: 1fr; }
+    .area, .area + .area { padding: 28px 0 8px; border-left: 0; }
+    .area + .area { border-top: 1px solid var(--line); }
+    .area > p { min-height: 0; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+    .key-numbers { grid-template-columns: 1fr; }
+    .key, .key + .key { padding: 22px 0; border-left: 0; }
+    .key + .key { border-top: 1px solid rgba(255, 255, 255, 0.2); }
+    .scale-bar div { font-size: 13px; padding: 0 10px; }
+    .scale-labels { font-size: 13px; }
+    .scale-labels span { padding: 0 10px; }
+    .mobile-call { display: flex; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30; justify-content: center; box-shadow: 0 12px 30px -10px rgba(16, 40, 74, 0.6); }
+    body { padding-bottom: 90px; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding-inline: 20px; }
+    .chooser-options, .steps { grid-template-columns: 1fr; }
+    .chooser a { padding: 16px 18px; }
   }
 </style>
 </head>
 <body>
 
-<div class="ribbon"><b>Designförslag</b> för Västerås Tandhälsa · samma innehåll, ny design</div>
+<div class="proposal">Designförslag för Västerås Tandhälsa, samma innehåll i ny design</div>
 
-<div class="topbar">
+<header class="site-header" id="top">
   <div class="wrap">
-    <span>Smedjegatan 15, 722 13 Västerås</span>
-    <a href="mailto:tandhalsa@quicknet.nu">tandhalsa@quicknet.nu</a>
-    <a href="tel:+4621138510">021-13 85 10</a>
-  </div>
-</div>
-
-<header class="site" id="top">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="Västerås Tandhälsa, till startsidan">
-      <span class="brand-mark" aria-hidden="true">
-        <svg width="22" height="24" viewBox="0 0 22 24" fill="none"><path d="M11 3.2C8.6 1.4 5.9.8 3.9 2 1.4 3.5.6 7 1.6 10.8c.8 3 1.6 5.4 2.2 8.4.6 3 1.5 4.3 2.6 4.3 1.5 0 1.9-2.3 2.4-5 .4-2 1-3 2.2-3s1.8 1 2.2 3c.5 2.7.9 5 2.4 5 1.1 0 2-1.3 2.6-4.3.6-3 1.4-5.4 2.2-8.4C21.4 7 20.6 3.5 18.1 2 16.1.8 13.4 1.4 11 3.2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      </span>
-      <span>
-        <span class="brand-name">Västerås Tandhälsa</span><br>
-        <span class="brand-sub">Tandläkare Omar Aljoudi</span>
-      </span>
-    </a>
-    <nav class="main" id="nav">
-      <a href="#om-oss">Om oss</a>
+    <a class="wordmark" href="#top"><b>Västerås Tandhälsa</b><span>Tandläkare Omar Aljoudi</span></a>
+    <nav class="site-nav" id="site-nav" aria-label="Huvudmeny">
+      <a href="#tandlakaren">Om oss</a>
       <a href="#behandlingar">Behandlingar</a>
       <a href="#ny-patient">Ny patient</a>
       <a href="#priser">Priser</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
-    <a class="btn btn-primary" href="tel:+4621138510">Ring 021-13 85 10</a>
-    <button class="menu-toggle" aria-label="Meny" aria-expanded="false" onclick="const n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <a class="call" href="tel:+4621138510">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+      021-13 85 10
+    </a>
+    <button class="menu-button" type="button" aria-label="Öppna meny" aria-expanded="false" aria-controls="site-nav">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
     </button>
   </div>
 </header>
 
 <main>
   <section class="hero">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow">Tandläkare i centrala Västerås</p>
-        <h1>Trygg tandvård med passion för <em>estetik och kirurgi</em></h1>
-        <p class="lead">Implantat, estetisk tandvård och allmäntandvård hos tandläkare Omar Aljoudi och hans team på Smedjegatan 15.</p>
+    <div class="wrap hero-grid">
+      <h1>Tandvård med passion för estetik och kirurgi</h1>
+      <div class="hero-copy">
+        <p class="intro">Tandläkare Omar Aljoudi och teamet på Smedjegatan 15 i Västerås. Implantat, estetisk tandvård och allmäntandvård.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="tel:+4621138510">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          <a class="call" href="tel:+4621138510">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
             Ring och boka tid
           </a>
-          <a class="btn btn-ghost" href="#ny-patient">Ny patient</a>
+          <a class="call-secondary" href="mailto:tandhalsa@quicknet.nu">Skicka e-post</a>
         </div>
-        <div class="hero-tags">
-          <span class="tag">Implantat</span>
-          <span class="tag">Estetisk tandvård</span>
-          <span class="tag">Allmäntandvård</span>
+        <div class="hero-review">
+          <span class="stars" aria-label="Fem av fem stjärnor">★★★★★</span>
+          <span>”Västerås bästa tandläkare!”</span>
         </div>
       </div>
-      <div class="hero-photo">
-        <img src="team.jpg" alt="Tandläkare Omar Aljoudi med teamet på Västerås Tandhälsa">
-        <div class="quote-card">
-          <div class="stars" aria-label="Fem stjärnor">★★★★★</div>
-          <p>”Alltid lika trevlig personal och proffsigt bemötande. Västerås bästa tandläkare!”</p>
+    </div>
+    <div class="wrap hero-photo">
+      <img src="team.jpg" alt="Tandläkare Omar Aljoudi tillsammans med teamet på kliniken">
+    </div>
+  </section>
+
+  <section class="chooser" aria-labelledby="chooser-title">
+    <div class="wrap">
+      <h2 id="chooser-title">Vad gäller ditt besök?</h2>
+      <div class="chooser-options">
+        <a href="#implantat"><span>Implantat<small>Omars specialområde</small></span><span aria-hidden="true">↓</span></a>
+        <a href="#estetisk"><span>Estetisk tandvård<small>Fasader och blekning</small></span><span aria-hidden="true">↓</span></a>
+        <a href="#allman"><span>Allmäntandvård<small>Undersökning och lagning</small></span><span aria-hidden="true">↓</span></a>
+        <a href="#ny-patient"><span>Första besöket<small>Så går det till</small></span><span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Bra att veta">
+    <div class="wrap">
+      <div class="fact"><strong>Räntefri delbetalning</strong><span>Dela upp kostnaden utan ränta</span></div>
+      <div class="fact"><strong>Skriftligt kostnadsförslag</strong><span>Alltid före större behandling</span></div>
+      <div class="fact"><strong>Fri tandvård</strong><span>T.o.m. det år du fyller 23</span></div>
+      <div class="fact"><strong>Mitt i Västerås</strong><span>Smedjegatan 15</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="tandlakaren">
+    <div class="wrap dentist-grid">
+      <figure class="portrait" style="margin:0">
+        <img src="omar.jpg" alt="Tandläkare Omar Aljoudi">
+        <figcaption><b>Omar Aljoudi</b>, tandläkare med inriktning på implantatkirurgi och implantatprotetik</figcaption>
+      </figure>
+      <div class="dentist-copy">
+        <h2>Möt din tandläkare</h2>
+        <p>Driven av passion för estetik och kirurgi har tandläkare Omar Aljoudi under sina år på Folktandvården nischat sig inom implantatkirurgi och implantatprotetik.</p>
+        <p class="muted">Under sin tid på Folktandvården har Omar tagit emot interna remisser för visdomstandskirurgi, implantat och mer krävande estetiska fall.</p>
+        <div class="worked">
+          <h3>Omar har dessutom jobbat på Stockholms största akutmottagningar</h3>
+          <ul>
+            <li>S:t Eriks akuten</li>
+            <li>Praktikertjänst City Akuten</li>
+            <li>Fridhemsplan akuten</li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3>Teamet</h3>
+          <div class="person"><b>Eva-Lena<span>Tandsköterska</span></b><p>Lång erfarenhet inom kirurgi.</p></div>
+          <div class="person"><b>Sandra<span>Tandhygienist</span></b><p>Undersökningar, diagnostik av karies och tandlossning, och hygienistbehandlingar vid tandlossningssjukdomar.</p></div>
+          <div class="person"><b>Bettan<span>Receptionist</span></b><p>Svarar i telefon måndag till torsdag 8:00–12:00.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="facts" aria-label="Snabbfakta">
+  <section class="block treatments" id="behandlingar">
     <div class="wrap">
-      <div class="fact"><b>Räntefri delbetalning</b><span>Dela upp kostnaden utan ränta</span></div>
-      <div class="fact"><b>Skriftligt kostnadsförslag</b><span>Innan större behandlingar</span></div>
-      <div class="fact"><b>Fri tandvård</b><span>T.o.m. det år du fyller 23</span></div>
-      <div class="fact"><b>Mitt i stan</b><span>Smedjegatan 15, Västerås</span></div>
-    </div>
-  </section>
-
-  <section class="about" id="om-oss">
-    <div class="wrap">
-      <div class="about-text">
-        <p class="eyebrow">Om oss</p>
-        <h2>Erfarenhet från Folktandvården och Stockholms största akutmottagningar</h2>
-        <p style="margin-top:26px">Driven av passion för estetik och kirurgi har tandläkare Omar Aljoudi under sina år på Folktandvården nischat sig inom implantatkirurgi och implantatprotetik.</p>
-        <p>Under sin tid på Folktandvården har Omar tagit emot interna remisser för visdomstandskirurgi, implantat och mer krävande estetiska fall.</p>
-        <p>Omar har dessutom jobbat på Stockholms största akuta mottagningar, bland annat S:t Eriks akuten, Praktikertjänst City Akuten och Fridhemsplan akuten.</p>
+      <div class="block-head">
+        <h2>Behandlingar</h2>
+        <p>Från regelbundna undersökningar till implantat och estetiska behandlingar, allt på samma klinik.</p>
       </div>
-      <div class="team">
-        <div class="member lead-dentist">
-          <div class="avatar">O</div>
-          <div><h3>Omar Aljoudi</h3><div class="role">Tandläkare</div><p>Implantatkirurgi, implantatprotetik och estetisk tandvård.</p></div>
-        </div>
-        <div class="member">
-          <div class="avatar">E</div>
-          <div><h3>Eva-Lena</h3><div class="role">Tandsköterska</div><p>Lång erfarenhet inom kirurgi.</p></div>
-        </div>
-        <div class="member">
-          <div class="avatar">S</div>
-          <div><h3>Sandra</h3><div class="role">Tandhygienist</div><p>Undersökningar, diagnostik av karies och tandlossning, och hygienistbehandlingar vid tandlossningssjukdomar.</p></div>
-        </div>
-        <div class="member">
-          <div class="avatar">B</div>
-          <div><h3>Bettan</h3><div class="role">Receptionist</div><p>Svarar i telefon måndag till torsdag 8:00–12:00.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="focus" id="behandlingar">
-    <div class="wrap">
-      <div class="section-head">
-        <div><p class="eyebrow">Behandlingar</p><h2>Det vi är extra bra på</h2></div>
-        <p class="lead">Från regelbundna undersökningar till implantat och estetiska behandlingar – allt på samma klinik.</p>
-      </div>
-      <div class="focus-grid">
-        <div class="focus-card">
-          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2f7f86" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c-2-1.4-4.4-1.6-6 0-1.9 1.9-1.6 5 .3 6.6L12 14l5.7-4.4c1.9-1.6 2.2-4.7.3-6.6-1.6-1.6-4-1.4-6 0Z"/><path d="M10 14v7M14 14v7M10 17h4M10 20h4"/></svg></div>
+      <div class="areas">
+        <div class="area" id="implantat">
           <h3>Implantat</h3>
-          <p>Implantatkirurgi och implantatprotetik – Omars specialområde.</p>
+          <p>Implantatkirurgi och implantatprotetik.</p>
+          <ul><li>Implantat</li><li>Kron- och broterapi</li></ul>
         </div>
-        <div class="focus-card photo">
-          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></div>
+        <div class="area" id="estetisk">
           <h3>Estetisk tandvård</h3>
-          <p>Skalfasader, tandblekning och estetisk och kosmetisk tandvård.</p>
+          <p>För ett leende du trivs med.</p>
+          <ul><li>Skalfasader</li><li>Tandblekning</li><li>Estetisk och kosmetisk tandvård</li></ul>
         </div>
-        <div class="focus-card">
-          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2f7f86" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-4.4-7-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7 3.5C19 16.6 12 21 12 21Z"/></svg></div>
+        <div class="area" id="allman">
           <h3>Allmäntandvård</h3>
-          <p>Undersökningar, rotfyllningar, bettskenor, kron- och broterapi och barntandvård.</p>
+          <p>För hela familjen, barn som vuxna.</p>
+          <ul><li>Undersökningar</li><li>Rotfyllningar</li><li>Bettskenor</li><li>Hygienistbehandling</li><li>Barntandvård</li></ul>
         </div>
       </div>
-
-      <div class="treatments-list">
-        <div class="treatment"><span class="num">01</span>Undersökningar</div>
-        <div class="treatment"><span class="num">02</span>Implantat</div>
-        <div class="treatment"><span class="num">03</span>Skalfasader</div>
-        <div class="treatment"><span class="num">04</span>Tandblekning</div>
-        <div class="treatment"><span class="num">05</span>Rotfyllningar</div>
-        <div class="treatment"><span class="num">06</span>Bettskenor</div>
-        <div class="treatment"><span class="num">07</span>Hygienistbehandling</div>
-        <div class="treatment"><span class="num">08</span>Kron- och broterapi</div>
-        <div class="treatment"><span class="num">09</span>Barntandvård</div>
-        <div class="treatment"><span class="num">10</span>Estetisk och kosmetisk tandvård</div>
+      <div class="area-photo">
+        <img src="smile.jpg" alt="">
+        <p>Innan vi påbörjar en mer omfattande behandling får du alltid ett skriftligt kostnadsförslag, och du kan dela upp betalningen räntefritt.</p>
       </div>
     </div>
   </section>
 
-  <section class="newpatient" id="ny-patient">
-    <div class="wrap np-grid">
-      <div>
-        <p class="eyebrow">Ny patient</p>
-        <h2>Ditt första besök hos oss</h2>
-        <p class="lead" style="margin-top:22px">Vid första besöket får du en allmän orientering om din tandstatus.</p>
-        <a class="btn btn-primary" style="margin-top:14px" href="tel:+4621138510">Ring 021-13 85 10</a>
-      </div>
-      <div>
-        <div class="steps">
-          <div class="step"><h3>Inledande samtal</h3><p>Du har ett inledande samtal med tandläkaren eller tandsköterskan.</p></div>
-          <div class="step"><h3>Klinisk undersökning</h3><p>En omfattande undersökning av tänderna, tandköttet, slemhinnor och käkbenet för att diagnostisera eventuella sjukdomsprocesser.</p></div>
-          <div class="step"><h3>Röntgen</h3><p>Röntgenbilder tas med helstatus för munnen.</p></div>
-          <div class="step"><h3>Förslag och kostnad</h3><p>Du får förslag på de behandlingsformer vi kan erbjuda dig, med skriftligt kostnadsförslag. Vi erbjuder räntefri delbetalning.</p></div>
-        </div>
-        <div class="note">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2f7f86" stroke-width="2" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
-          <span>För implantatkonsultationer tillkommer en avgift på 2 500 kronor.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="prices" id="priser">
+  <section class="block" id="ny-patient">
     <div class="wrap">
-      <div class="section-head">
-        <div><p class="eyebrow">Priser</p><h2>Tydliga priser, inga överraskningar</h2></div>
-        <p class="lead">Innan vi påbörjar en mer omfattande behandling ger vi dig alltid ett kostnadsförslag.</p>
+      <div class="block-head">
+        <h2>Ditt första besök</h2>
+        <p>Vid första besöket får du en allmän orientering om din tandstatus.</p>
       </div>
-      <div class="price-highlight">
-        <div><b>Kostnadsförslag</b><span>Alltid innan större behandling</span></div>
-        <div><b>2 500 kr</b><span>Implantatkonsultation</span></div>
-        <div><b>0 % ränta</b><span>Räntefri delbetalning</span></div>
+      <ol class="steps">
+        <li><h3>Samtal</h3><p>Du har ett inledande samtal med tandläkaren eller tandsköterskan.</p></li>
+        <li><h3>Undersökning</h3><p>En omfattande klinisk undersökning av tänderna, tandköttet, slemhinnor och käkbenet.</p></li>
+        <li><h3>Röntgen</h3><p>Röntgenbilder tas med helstatus för munnen.</p></li>
+        <li><h3>Förslag</h3><p>Du får förslag på behandlingar med skriftligt kostnadsförslag.</p></li>
+      </ol>
+      <div class="consult-note">
+        <p>För implantatkonsultationer tillkommer en avgift på 2 500 kronor.</p>
+        <a class="call" href="tel:+4621138510">Ring 021-13 85 10</a>
       </div>
-      <div class="prices-grid">
-        <div class="price-card">
+    </div>
+  </section>
+
+  <section class="block prices" id="priser">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>Priser och tandvårdsstöd</h2>
+        <p>Innan vi påbörjar en mer omfattande behandling ger vi dig alltid ett kostnadsförslag.</p>
+      </div>
+      <div class="key-numbers">
+        <div class="key"><strong>2 500 kr</strong><span>Implantatkonsultation</span></div>
+        <div class="key"><strong>0 % ränta</strong><span>Räntefri delbetalning</span></div>
+        <div class="key"><strong>23 år</strong><span>Fri tandvård t.o.m. det år du fyller 23</span></div>
+      </div>
+      <div class="support">
+        <div>
           <h3>Allmänt tandvårdsbidrag</h3>
-          <p>Fri tandvård till och med det år du fyller 23. Därefter har du rätt till allmänt tandvårdsbidrag. Du får bidraget den 1 juli varje år och kan spara det i högst två år.</p>
-          <div class="rows">
-            <div class="row"><span>24–29 år</span><b>600 kr/år</b></div>
-            <div class="row"><span>29–65 år</span><b>300 kr/år</b></div>
-            <div class="row"><span>65+ år</span><b>600 kr/år</b></div>
-          </div>
+          <p>Därefter har du rätt till allmänt tandvårdsbidrag. Du får bidraget den 1 juli varje år och kan spara det i högst två år. Försäkringskassan och vårt journalsystem håller reda på hur mycket du har kvar.</p>
+          <table>
+            <tr><td>24–29 år</td><td>600 kr/år</td></tr>
+            <tr><td>29–65 år</td><td>300 kr/år</td></tr>
+            <tr><td>65+ år</td><td>600 kr/år</td></tr>
+          </table>
         </div>
-        <div class="price-card">
+        <div>
           <h3>Skydd mot höga kostnader</h3>
-          <p>Tandvårdsersättning räknas på referenspriset, grunden för det statliga tandvårdsstödet.</p>
-          <div class="rows">
-            <div class="row"><span>Upp till 3 000 kr</span><b>Betalar du själv*</b></div>
-            <div class="row"><span>3 001–15 000 kr</span><b>50 % ersättning</b></div>
-            <div class="row"><span>Över 15 000 kr</span><b>85 % ersättning</b></div>
+          <p>Ersättningen räknas på referenspriset, grunden för det statliga tandvårdsstödet. Det allmänna tandvårdsbidraget kan användas som delbetalning.</p>
+          <div class="scale" role="img" aria-label="Upp till 3 000 kronor betalar du själv. Mellan 3 001 och 15 000 kronor får du 50 procent ersättning. Över 15 000 kronor får du 85 procent ersättning.">
+            <div class="scale-bar"><div>Du betalar</div><div>50 % ersättning</div><div>85 %</div></div>
+            <div class="scale-labels"><span>0–3 000 kr</span><span>3 001–15 000 kr</span><span>Över 15 000 kr</span></div>
           </div>
           <details>
-            <summary>Om ersättningsperioden</summary>
-            <p>Högkostnadsskyddet börjar gälla när en åtgärd som ingår i skyddet registreras hos Försäkringskassan. Efter det räknas alla åtgärder under de följande tolv månaderna in i skyddet. En ersättningsperiod kan inte förlängas, men du kan själv bestämma att avsluta ersättningsperioden i förtid och börja en ny. Det kan vara en fördel inför en större behandling.</p>
-            <p>* Det allmänna tandvårdsbidraget kan användas som delbetalning. Läs mer hos Tandvårds- och läkemedelsförmånsverket (TLV).</p>
+            <summary>Så fungerar ersättningsperioden</summary>
+            <p>Högkostnadsskyddet börjar gälla när en åtgärd som ingår i skyddet registreras hos Försäkringskassan. Efter det räknas alla åtgärder under de följande tolv månaderna in i skyddet. En ersättningsperiod kan inte förlängas, men du kan själv välja att avsluta den i förtid och börja en ny. Det kan vara en fördel inför en större behandling, eftersom fler åtgärder i samma period ger högre ersättning för den överskjutande delen.</p>
+            <p>Läs mer om tandvårdsstödet hos Tandvårds- och läkemedelsförmånsverket (TLV).</p>
           </details>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="reviews">
-    <div class="wrap">
-      <p class="eyebrow">Recensioner</p>
-      <h2>Vad våra patienter säger</h2>
-      <div class="review-grid">
-        <div class="review"><div class="stars">★★★★★</div><p>”Alltid lika trevlig personal och proffsigt bemötande. Västerås bästa tandläkare!”</p></div>
-        <div class="review"><div class="stars">★★★★★</div><p>”Bra bemött, 100 % varsam, kompetent tandläkare.”</p></div>
-        <div class="review"><div class="stars">★★★★★</div><p>”Kan inte tänka mig en bättre tandläkare.”</p></div>
+  <section class="block" aria-labelledby="reviews-title">
+    <div class="wrap reviews-grid">
+      <div class="review-main">
+        <h2 id="reviews-title">Vad patienterna säger</h2>
+        <blockquote>”Alltid lika trevlig personal och proffsigt bemötande. Västerås bästa tandläkare!”</blockquote>
+      </div>
+      <div class="review-side">
+        <blockquote>”Bra bemött, 100 % varsam, kompetent tandläkare.”</blockquote>
+        <blockquote>”Kan inte tänka mig en bättre tandläkare.”</blockquote>
       </div>
     </div>
   </section>
 
-  <section class="contact" id="kontakt">
+  <section class="block faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <h2 id="faq-title">Vanliga frågor</h2>
+      <div>
+        <details><summary>Hur bokar jag en tid?</summary><p>Ring oss på 021-13 85 10. Vi svarar i telefon måndag till torsdag 8:00–12:00. Du kan också mejla tandhalsa@quicknet.nu.</p></details>
+        <details><summary>Vad kostar en implantatkonsultation?</summary><p>En implantatkonsultation kostar 2 500 kronor.</p></details>
+        <details><summary>Kan jag dela upp betalningen?</summary><p>Ja, vi erbjuder räntefri delbetalning. Innan större behandlingar får du alltid ett skriftligt kostnadsförslag.</p></details>
+        <details><summary>Vad händer vid första besöket?</summary><p>Du har ett inledande samtal, sedan görs en omfattande klinisk undersökning och röntgenbilder med helstatus. Därefter får du förslag på behandling med skriftligt kostnadsförslag.</p></details>
+        <details><summary>Behandlar ni barn?</summary><p>Ja, vi erbjuder barntandvård. Tandvården är fri till och med det år du fyller 23.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="kontakt">
     <div class="wrap">
-      <p class="eyebrow">Kontakta oss</p>
-      <h2>Välkommen till Smedjegatan 15</h2>
+      <div class="block-head">
+        <h2>Hitta till oss</h2>
+        <p>Kliniken ligger på Smedjegatan 15 i centrala Västerås.</p>
+      </div>
       <div class="contact-grid">
-        <div class="contact-card">
+        <div class="contact-info">
           <div><h3>Adress</h3><p>Smedjegatan 15<br>722 13 Västerås</p></div>
-          <div><h3>Telefon och e-post</h3><p><a href="tel:+4621138510">021-13 85 10</a><br><a href="mailto:tandhalsa@quicknet.nu">tandhalsa@quicknet.nu</a></p></div>
-          <div class="hours"><h3>Öppettider</h3>
-            <div class="row"><span>Måndag–torsdag</span><b>8:00–17:00</b></div>
-            <div class="row"><span>Fredag</span><b>8:00–12:00</b></div>
-            <div class="row"><span>Telefontider</span><b>8:00–12:00</b></div>
+          <div><h3>Telefon</h3><a href="tel:+4621138510">021-13 85 10</a></div>
+          <div><h3>E-post</h3><a href="mailto:tandhalsa@quicknet.nu">tandhalsa@quicknet.nu</a></div>
+          <div>
+            <h3>Öppettider</h3>
+            <table class="hours">
+              <tr><td>Måndag–torsdag</td><td>8:00–17:00</td></tr>
+              <tr><td>Fredag</td><td>8:00–12:00</td></tr>
+              <tr><td>Telefontider</td><td>8:00–12:00</td></tr>
+            </table>
           </div>
           <div class="social">
-            <a href="https://www.instagram.com/vasteras_tandhalsa/" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg></a>
-            <a href="https://www.facebook.com/Smedjegatan15" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.7-.6Z"/></svg></a>
+            <a href="https://www.instagram.com/vasteras_tandhalsa/">Instagram</a>
+            <a href="https://www.facebook.com/Smedjegatan15">Facebook</a>
           </div>
         </div>
         <div class="map">
-          <iframe title="Karta till Smedjegatan 15, Västerås" loading="lazy" src="https://www.google.com/maps?q=Smedjegatan+15,+722+13+V%C3%A4ster%C3%A5s&output=embed"></iframe>
+          <iframe title="Karta till Smedjegatan 15 i Västerås" loading="lazy" src="https://www.google.com/maps?q=Smedjegatan+15,+722+13+V%C3%A4ster%C3%A5s&output=embed"></iframe>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
+<footer class="site-footer">
   <div class="wrap">
-    <span>© 2026 Västerås Tandhälsa · Tandläkare Omar Aljoudi</span>
+    <span>© 2026 Västerås Tandhälsa</span>
     <a href="https://www.vasterastandhalsa.com/integritetspolicy">Integritetspolicy</a>
   </div>
 </footer>
 
-<div class="call-bar">
-  <a class="btn btn-primary" href="tel:+4621138510">Ring 021-13 85 10</a>
-</div>
+<a class="call mobile-call" href="tel:+4621138510">Ring 021-13 85 10</a>
 
 <script>
-  const header = document.querySelector('header.site');
-  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), { passive: true });
-  document.querySelectorAll('nav.main a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+  const menuButton = document.querySelector('.menu-button');
+  const nav = document.getElementById('site-nav');
+  menuButton.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', open);
+    menuButton.setAttribute('aria-label', open ? 'Stäng meny' : 'Öppna meny');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  }));
 </script>
 </body>
 </html>
