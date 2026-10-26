@@ -62,3 +62,43 @@ Date: 2026-10-26. For Foysal Solutions (Omi).
 5. **#17 Wholesale lock.** Easy, strong proof, and it pairs with Reorder Radar for B2B stores.
 
 Keep #7 and #30 for WinBack itself, so the two products never compete.
+
+## Build order, 1 to 30
+
+How I ranked: easy before medium; few strong rivals before crowded markets; your local
+edge (Bangladesh, South Asia, Gulf) first; low support load (Functions and backend apps
+before theme-heavy apps); each app reuses code or customers from the one before.
+Numbers in brackets are the idea numbers from the table above.
+
+| Order | Idea | Why here |
+|---|---|---|
+| 1 | Bangladesh courier booking [28] | Easy, only 1 real rival, your home market. Quick first reviews |
+| 2 | COD OTP / WhatsApp verification [29] | Biggest proof (947 reviews). Sell to the same BD merchants from #1 |
+| 3 | Hide payment methods [1] | Easy, pure Shopify Functions, low support |
+| 4 | Hide/rename shipping rates [2] | Same app as #3 ("Checkout Rules"), second Function |
+| 5 | PDF invoice, Bangla/Arabic [15] | The invoice app you wanted, sold to BD/Gulf merchants from #1 to #4 |
+| 6 | Order alerts to Telegram/WhatsApp/Slack [8] | Very easy, webhooks only, fits the region |
+| 7 | Wholesale lock / login to see price [17] | Easy, strong proof, new B2B stores since April 2026 |
+| 8 | B2B quick order form [18] | Pairs with #7 as a B2B bundle, then Reorder Radar |
+| 9 | Order limits min/max [3] | Reuses the Functions code from #3 and #4 |
+| 10 | Order auto-tagger [6] | Easy webhook app, proven |
+| 11 | Low-stock alerts [10] | Easy, reuses alert code from #6 |
+| 12 | Bulk discount code generator [12] | Easy, stable demand |
+| 13 | Post-purchase survey [27] | Easy checkout extension, fits your analytics skills |
+| 14 | Orders to Google Sheets [9] | Easy, but Google OAuth review adds weeks |
+| 15 | Delivery date and time slots [24] | Medium, food and bakery stores need it |
+| 16 | Customer cancel/edit order [26] | Medium, customer account extension |
+| 17 | Profit/COGS report [16] | Medium, many new rivals |
+| 18 | Bulk price editor with schedule [13] | Medium, rollback must be perfect |
+| 19 | Bulk metafield editor [14] | Medium, technical buyers |
+| 20 | Order rules: fulfill/archive/cancel [11] | Part of it is now native in Shopify |
+| 21 | Age verification popup [22] | Easy, but crowded |
+| 22 | Product labels and badges [20] | Easy, but theme bugs mean high support |
+| 23 | Gift wrap and message [21] | Easy-medium, crowded |
+| 24 | Store locator [23] | Maps API costs money |
+| 25 | Free gift auto-add [5] | Medium, one big rival with 945 reviews |
+| 26 | Volume discounts [4] | Very crowded, 5+ new apps in 2026 |
+| 27 | Pre-order [25] | Deposit payments are hard |
+| 28 | Size chart [19] | Most crowded, lowest price |
+| 29 | Customer auto-tagger [7] | Do it as a WinBack feature, not a new app |
+| 30 | Klaviyo/Mailchimp sync [30] | Do it as a WinBack feature, not a new app |
