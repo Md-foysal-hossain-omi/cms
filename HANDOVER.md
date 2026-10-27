@@ -187,3 +187,6 @@ The user also briefly considered lead generation for Bangladesh and Swedish Shop
 - Connectors available in the session: Vercel (team `best-world2`, id `team_z4QWny6TVhlgYNMRPOiIt1yZ`), Gmail, Google Drive, Shopify, Meta Ads, GitHub, WordPress.com, Windsor.ai, AdWhispr.
 - Don't send email through Gmail on the user's behalf unless they ask. They send outreach themselves.
 - Known Vercel project ids: Västerås Tandhälsa `prj_tyARCe80JesFzw9WNFoYIY4anFRG`, Sköldenklint `prj_J3mKZp5w4fP7Axz8qihk0PbzKUTt`.
+
+## Live Vercel URLs (verified 27 Oct)
+1 https://vasteras-tandhalsa-forslag.vercel.app · 2 https://tandvard-vid-svartan-forslag.vercel.app · 3 https://skoldenklint-forslag.vercel.app · 4 https://tandhalsan-eskilstuna-forslag.vercel.app · 5 https://maria-sjokvist-forslag.vercel.app · 6 https://ekersgatan-7-forslag.vercel.app · 9 https://norenius-forslag.vercel.app · 10 https://plaza-tandvard-forslag.vercel.app
