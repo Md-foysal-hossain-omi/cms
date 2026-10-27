@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tandläkarna Norenius – tandvårdsklinik vid Stora torget i Västerås</title>
+<meta name="description" content="Privat tandvårdsklinik i centrala Västerås. Två tandläkare, två tandhygienister och tre tandsköterskor. Ring 021-12 52 53.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --vit: #ffffff;
+  --is: #eaf7f9;
+  --turkos: #12a6ba;
+  --turkos-dark: #0b8496;
+  --djup: #0d2a33;
+  --linne: #f3eee6;
+  --muted: #4d6168;
+  --line: #dce8ea;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Hanken Grotesk", system-ui, sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--vit); color: var(--djup); font: 400 18px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { color: var(--turkos-dark); }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; line-height: 1.04; letter-spacing: -0.01em; color: var(--djup); }
+h2 { font-size: clamp(40px, 5vw, 64px); }
+h3 { font-family: var(--sans); font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: 0; }
+p { margin: 0 0 1em; }
+.wrap { width: min(1200px, 100%); margin: 0 auto; padding: 0 32px; }
+:focus-visible { outline: 3px solid var(--turkos); outline-offset: 3px; border-radius: 6px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--djup); color: #fff; padding: 10px 16px; z-index: 100; }
+.skip:focus { left: 12px; }
+.proposal { background: var(--djup); color: #bfdde3; text-align: center; font-size: 14px; padding: 9px 16px; }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+.site-header.scrolled { border-color: var(--line); }
+.head-row { display: flex; align-items: center; gap: 28px; height: 78px; }
+.logo img { height: 62px; width: auto; }
+.nav { display: flex; gap: 28px; margin-left: auto; }
+.nav a { color: var(--djup); text-decoration: none; font-size: 16px; font-weight: 500; position: relative; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--turkos); border-radius: 2px; transform: scaleX(0); transition: transform .3s var(--ease); }
+.nav a:hover::after { transform: scaleX(1); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: 99px; font: 600 16px/1 var(--sans); text-decoration: none; border: 0; cursor: pointer; transition: transform .2s var(--ease), background .2s, color .2s; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-main { background: var(--turkos); color: #fff; }
+.btn-main:hover { background: var(--turkos-dark); transform: translateY(-2px); }
+.btn-soft { background: var(--is); color: var(--djup); }
+.btn-soft:hover { background: #d8f0f4; transform: translateY(-2px); }
+.head-call { padding: 12px 20px; }
+.menu { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--is); color: var(--djup); cursor: pointer; }
+.menu svg { width: 22px; height: 22px; }
+
+/* Hero */
+.hero { padding: 40px 0 72px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(46px, 6vw, 84px); margin-bottom: 24px; }
+.hero h1 .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .ln > span { display: block; animation: rise 1s var(--ease) both; }
+.hero h1 .ln:nth-child(2) > span { animation-delay: .1s; }
+.hero h1 .ln:nth-child(3) > span { animation-delay: .2s; }
+.hero h1 em { font-style: italic; color: var(--turkos-dark); }
+@keyframes rise { from { transform: translateY(108%); } }
+.lead { font-size: 20px; color: var(--muted); max-width: 30em; }
+.hero-photo { position: relative; }
+.hero-photo img { width: 100%; height: auto; animation: settle 1.6s var(--ease) both; }
+@keyframes settle { from { opacity: 0; transform: scale(1.06); } }
+
+/* Phone card */
+.phone { margin-top: 30px; background: var(--is); border-radius: 22px; padding: 22px 24px; display: grid; grid-template-columns: 1fr auto; gap: 14px 20px; align-items: center; max-width: 520px; animation: card-in 1s .45s var(--ease) both; }
+@keyframes card-in { from { opacity: 0; transform: translateY(16px); } }
+.phone .state { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 18px; }
+.phone .state i { width: 11px; height: 11px; border-radius: 50%; background: #9db0b5; flex: none; }
+.phone.open .state i { background: #17a673; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(23,166,115,.5); } 70%, 100% { box-shadow: 0 0 0 10px rgba(23,166,115,0); } }
+.phone .sub { grid-column: 1; font-size: 15px; color: var(--muted); margin-top: -8px; }
+.phone .btn { grid-row: 1 / span 2; grid-column: 2; }
+.listing { margin-top: 18px; font-size: 16px; color: var(--muted); }
+.listing b { color: var(--djup); font-weight: 600; }
+
+/* Reveal */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+/* Intro band */
+.intro { background: var(--linne); padding: 100px 0; }
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.intro p { color: var(--muted); }
+.intro h2 { margin-bottom: 22px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 30px; }
+.stat { background: var(--vit); border-radius: 18px; padding: 20px; }
+.stat b { display: block; font: 400 52px/1 var(--serif); color: var(--turkos-dark); }
+.stat span { font-size: 15px; color: var(--muted); }
+.room { border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 3.2; }
+.room img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Treatments */
+.treat { padding: 110px 0; }
+.treat-grid { display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: start; }
+.treat-side { position: sticky; top: 110px; }
+.treat-side h2 { margin-bottom: 26px; }
+.spy { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.spy a { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--muted); font-size: 17px; font-weight: 500; padding: 8px 0; transition: color .25s; }
+.spy a::before { content: ""; width: 18px; height: 2px; background: var(--line); border-radius: 2px; transition: width .35s var(--ease), background .25s; }
+.spy a.on { color: var(--djup); }
+.spy a.on::before { width: 36px; background: var(--turkos); }
+.tblock { padding: 0 0 52px; margin-bottom: 52px; border-bottom: 1px solid var(--line); }
+.tblock:last-child { border-bottom: 0; margin-bottom: 0; }
+.tblock h3 { font: 400 40px/1.05 var(--serif); margin-bottom: 16px; }
+.tblock p { color: var(--muted); }
+.tblock .pull { font-size: 20px; color: var(--djup); }
+.tnote { display: inline-block; background: var(--is); border-radius: 12px; padding: 12px 16px; font-size: 16px; color: var(--djup); margin-top: 4px; }
+
+/* Akut */
+.akut { background: var(--djup); color: #c3dce1; padding: 90px 0; }
+.akut-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.akut h2 { color: #fff; }
+.akut-cards { display: grid; gap: 14px; }
+.akut-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 22px 24px; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.akut-card b { display: block; color: #fff; font-size: 18px; }
+.akut-card span { font-size: 15px; color: #a9c6cc; }
+.akut-card a { flex: none; color: var(--djup); background: #fff; text-decoration: none; font-weight: 600; padding: 12px 18px; border-radius: 99px; white-space: nowrap; transition: background .2s; }
+.akut-card a:hover { background: var(--is); }
+
+/* Clinic */
+.clinic { padding: 110px 0; }
+.clinic-head { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: end; margin-bottom: 44px; }
+.clinic-head p { color: var(--muted); margin: 0; }
+.gallery { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 14px; }
+.gallery figure { margin: 0; border-radius: 20px; overflow: hidden; position: relative; background: var(--is); }
+.gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.gallery figure:hover img { transform: scale(1.04); }
+.gallery figcaption { position: absolute; left: 12px; bottom: 12px; background: rgba(255,255,255,.94); border-radius: 99px; padding: 6px 12px; font-size: 14px; font-weight: 500; }
+.g1 { grid-row: 1 / span 2; }
+.g4 { grid-column: 2 / span 2; }
+.quality { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.q { border-top: 2px solid var(--turkos); padding-top: 18px; }
+.q h3 { margin-bottom: 8px; }
+.q p { color: var(--muted); font-size: 16px; margin: 0; }
+
+/* Team */
+.team { background: var(--vit); padding: 40px 0 110px; }
+.team h2 { text-align: center; margin-bottom: 10px; }
+.team > .wrap > p { text-align: center; color: var(--muted); margin-bottom: 46px; }
+.lineup { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; align-items: start; }
+.member { text-align: center; opacity: 0; transform: translateY(40px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.lineup.in .member { opacity: 1; transform: none; }
+.lineup.in .member:nth-child(2) { transition-delay: .08s; }
+.lineup.in .member:nth-child(3) { transition-delay: .16s; }
+.lineup.in .member:nth-child(4) { transition-delay: .24s; }
+.lineup.in .member:nth-child(5) { transition-delay: .32s; }
+.lineup.in .member:nth-child(6) { transition-delay: .40s; }
+.lineup.in .member:nth-child(7) { transition-delay: .48s; }
+.member .pic { aspect-ratio: 3 / 4; overflow: hidden; border-radius: 16px; background: #fff; }
+.member img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform: scale(1.3); transform-origin: 50% 4%; transition: transform .6s var(--ease); }
+.member:hover img { transform: scale(1.36); }
+.member b { display: block; margin-top: 12px; font-size: 16px; line-height: 1.25; }
+.member span { font-size: 14px; color: var(--muted); }
+
+/* Contact */
+.contact { background: var(--is); padding: 100px 0 110px; }
+.contact h2 { margin-bottom: 36px; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.ccard { background: var(--vit); border-radius: 22px; padding: 30px; }
+.ccard h3 { margin-bottom: 14px; }
+.ccard p { color: var(--muted); font-size: 16px; }
+.hours { width: 100%; border-collapse: collapse; }
+.hours td { padding: 9px 4px; border-bottom: 1px solid var(--line); font-size: 16px; }
+.hours td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hours tr.today td { font-weight: 600; color: var(--turkos-dark); }
+.cl { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 12px; }
+.cl li { display: flex; gap: 12px; align-items: start; }
+.cl svg { width: 20px; height: 20px; color: var(--turkos); flex: none; margin-top: 3px; }
+.cl a { color: var(--djup); text-decoration: none; }
+.cl a:hover { color: var(--turkos-dark); text-decoration: underline; }
+
+footer { background: var(--djup); color: #a9c6cc; padding: 48px 0 110px; font-size: 15px; }
+.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+footer b { color: #fff; display: block; margin-bottom: 6px; }
+footer a { color: #dff1f4; }
+.fine { margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; font-size: 14px; }
+
+.callbar { display: none; }
+
+@media (max-width: 1020px) {
+  .nav, .head-call { display: none; }
+  .menu { display: inline-grid; place-items: center; }
+  .nav.open { display: flex; flex-direction: column; position: absolute; top: 78px; left: 0; right: 0; background: #fff; padding: 8px 24px 24px; gap: 0; border-bottom: 1px solid var(--line); }
+  .nav.open a { padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 18px; }
+  .nav.open a::after { display: none; }
+  .hero-grid, .intro-grid, .akut-grid, .clinic-head, .treat-grid { grid-template-columns: 1fr; gap: 36px; }
+  .treat-side { position: static; }
+  .spy { display: none; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .lineup { grid-template-columns: repeat(4, 1fr); row-gap: 26px; }
+  .foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .wrap { padding: 0 20px; }
+  .head-row { height: 70px; }
+  .logo img { height: 52px; }
+  .nav.open { top: 70px; }
+  .hero { padding: 24px 0 56px; }
+  .hero h1 { font-size: 46px; }
+  .lead { font-size: 18px; }
+  .phone { grid-template-columns: 1fr; padding: 20px; }
+  .phone .btn { grid-row: auto; grid-column: 1; width: 100%; }
+  .phone .sub { margin-top: -6px; }
+  .intro, .treat, .clinic, .contact { padding: 72px 0; }
+  .akut { padding: 72px 0; }
+  .stats { gap: 8px; }
+  .stat { padding: 14px; }
+  .stat b { font-size: 40px; }
+  .stat span { font-size: 13px; }
+  .tblock h3 { font-size: 34px; }
+  .tblock { padding-bottom: 36px; margin-bottom: 36px; }
+  .akut-card { flex-direction: column; align-items: start; }
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 160px 160px; }
+  .g1 { grid-row: auto; grid-column: 1 / span 2; }
+  .g4 { grid-column: 1 / span 2; }
+  .quality { grid-template-columns: 1fr; }
+  .lineup { grid-template-columns: repeat(2, 1fr); gap: 14px; row-gap: 22px; }
+  .contact-grid, .foot { grid-template-columns: 1fr; }
+  .ccard { padding: 24px 20px; }
+  .callbar { display: block; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 60; }
+  .callbar .btn { width: 100%; padding: 17px; font-size: 17px; box-shadow: 0 14px 30px -10px rgba(13,42,51,.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv, .member { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Hoppa till innehållet</a>
+<div class="proposal">Designförslag för Tandläkarna Norenius, samma innehåll i ny design</div>
+
+<header class="site-header">
+  <div class="wrap head-row">
+    <a class="logo" href="#top" aria-label="Tandläkarna Norenius, till startsidan"><img src="https://www.norenius.se/files/norenius-logo.png" alt="Tandläkarna Norenius" width="200" height="200"></a>
+    <nav class="nav" id="nav" aria-label="Huvudmeny">
+      <a href="#behandlingar">Behandlingar</a>
+      <a href="#akut">Akuta besvär</a>
+      <a href="#kliniken">Kliniken</a>
+      <a href="#personal">Personal</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="btn btn-main head-call" href="tel:021125253"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>021-12 52 53</a>
+    <button class="menu" aria-label="Öppna meny" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <h1><span class="ln"><span>Välkommen till</span></span><span class="ln"><span>vår klinik vid</span></span><span class="ln"><span><em>Stora torget</em> i Västerås</span></span></h1>
+        <p class="lead">Vi är en privat tandvårdsklinik i centrala Västerås. Två tandläkare, två tandhygienister och tre tandsköterskor arbetar tillsammans för att ge dig bästa möjliga tandvård.</p>
+        <div class="phone" id="phone">
+          <div class="state"><i></i><span id="phoneState">Telefontid</span></div>
+          <div class="sub" id="phoneSub">Ring oss för att boka tid</div>
+          <a class="btn btn-main" href="tel:021125253"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>021-12 52 53</a>
+        </div>
+        <p class="listing">Från och med det år du fyller <b>20</b> är du varmt välkommen att lista dig hos oss.</p>
+      </div>
+      <div class="hero-photo"><img src="https://www.norenius.se/files/69A7046-1024x1024.jpg" alt="Hela teamet på Tandläkarna Norenius i turkosa kläder" width="1024" height="1024" fetchpriority="high"></div>
+    </div>
+  </section>
+
+  <section class="intro">
+    <div class="wrap intro-grid">
+      <div class="room rv"><img src="https://www.norenius.se/files/vantrum-1024x768.jpg" alt="Väntrummet med soffor och fåtöljer" width="1024" height="768" loading="lazy"></div>
+      <div class="rv">
+        <h2>En trygg tandvårdspartner i Västerås</h2>
+        <p>Vi har ett bra samarbete med tandtekniker och specialistkliniker inom tandvårdens alla specialistområden. Det gör att vi kan erbjuda allt från undersökningar till tandblekning, tandborttagning, implantat och Invisalign.</p>
+        <p>Vi fokuserar inte bara på att behandla symptom, utan på långsiktiga lösningar och förebyggande vård.</p>
+        <div class="stats">
+          <div class="stat"><b>2</b><span>tandläkare</span></div>
+          <div class="stat"><b>2</b><span>tandhygienister</span></div>
+          <div class="stat"><b>3</b><span>tandsköterskor</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="treat" id="behandlingar">
+    <div class="wrap treat-grid">
+      <div class="treat-side rv">
+        <h2>Ett urval av våra behandlingar</h2>
+        <ul class="spy" id="spy">
+          <li><a href="#t-unders">Undersökning</a></li>
+          <li><a href="#t-hyg">Tandhygienist</a></li>
+          <li><a href="#t-lag">Lagningar</a></li>
+          <li><a href="#t-rot">Rotfyllningar</a></li>
+          <li><a href="#t-krona">Kronor och broar</a></li>
+          <li><a href="#t-imp">Implantat</a></li>
+          <li><a href="#t-bort">Tandborttagning</a></li>
+          <li><a href="#t-blek">Blekning</a></li>
+          <li><a href="#t-inv">Invisalign</a></li>
+        </ul>
+      </div>
+      <div>
+        <article class="tblock rv" id="t-unders">
+          <h3>Undersökning</h3>
+          <p class="pull">Först går vi igenom en allmän hälsodeklaration och hör hur det känns med dina tänder och käkar.</p>
+          <p>Vanligtvis undersöker vi sedan dina tänder både kliniskt och med röntgen, och tar bort beläggningar och tandsten. Har du önskemål eller frågor passar det utmärkt att ta upp dem vid undersökningen.</p>
+        </article>
+        <article class="tblock rv" id="t-hyg">
+          <h3>Tandhygienist</h3>
+          <p class="pull">Hos tandhygienisten tas all tandsten och alla beläggningar bort, och en del missfärgningar.</p>
+          <p>Du får också information om hur du tar hand om dina tänder på bästa sätt. Behandlingen är en viktig del i att förebygga karies och tandlossning, och i behandlingen av tandlossning.</p>
+        </article>
+        <article class="tblock rv" id="t-lag">
+          <h3>Lagningar</h3>
+          <p class="pull">Vid karies tar vi bort den sjuka delen av tanden och ersätter den med en tandfärgad compositfyllning.</p>
+          <p>Det är inte alltid möjligt om en alltför stor del av tanden gått förlorad. Har kariesangreppet inte gått igenom emaljen behöver tanden inte lagas, då behandlar vi med fluor, god munhygien och en bra kost.</p>
+        </article>
+        <article class="tblock rv" id="t-rot">
+          <h3>Rotfyllningar</h3>
+          <p class="pull">En tand med inflammation eller infektion kan ofta räddas genom att kronans och rotens insida rengörs.</p>
+          <p>Nerven tas bort och rotkanalen spolas ren från bakterier. Behandlingen tar normalt 2–3 gånger och är i de allra flesta fall <strong>inte</strong> smärtsam, till skillnad mot vad många tror. Efteråt får tanden en compositfyllning eller krona, ibland med ett stift i roten.</p>
+        </article>
+        <article class="tblock rv" id="t-krona">
+          <h3>Kronor och broar</h3>
+          <p class="pull">När en stor del av en tand saknas ger en krona ofta bäst prognos.</p>
+          <p>Kronan är av metall och porslin eller bara porslin, och utformas efter dina funktionella och estetiska önskemål. Vid första besöket prepareras tanden och du får en provisorisk krona. Vid andra besöket kontrollerar vi passform och estetik och cementerar kronan. En bro är flera sammankopplade kronor som ersätter en eller flera saknade tänder.</p>
+        </article>
+        <article class="tblock rv" id="t-imp">
+          <h3>Implantat</h3>
+          <p class="pull">En titanskruv i käken ersätter den förlorade tandens rot.</p>
+          <p>Det bör ha gått minst 3 månader sedan tanden togs bort, även om direktinstallation ibland är möjlig. Implantatet läker sedan fast i käkbenet under cirka 8–12 veckor innan du får en ny tandkrona på det.</p>
+        </article>
+        <article class="tblock rv" id="t-bort">
+          <h3>Tandborttagning</h3>
+          <p class="pull">Vi bedövar tanden och vickar sedan loss den. En tand med flera rötter kan behöva delas.</p>
+          <p>Undvik mat, dryck och sköljning i 2 timmar efteråt. Värken lindras oftast med receptfria läkemedel. Lätt blödning upp till ett dygn är vanligt; bit då på en fuktad kompress i 20 minuter. Svullnaden är som störst efter 2–3 dagar och avtar inom en vecka.</p>
+          <span class="tnote">Vid större besvär efteråt, ring oss på kliniken.</span>
+        </article>
+        <article class="tblock rv" id="t-blek">
+          <h3>Blekning</h3>
+          <p class="pull">Vi bleker med skräddarsydda skenor som du använder hemma, eller inifrån om tanden är rotfylld.</p>
+          <p>Först gör vi en fullständig undersökning och du behöver vara minst 18 år. Blekning med lampa på kliniken ger ingen ytterligare effekt, därför använder vi inte den metoden. Ilningar kan förekomma, men jämfört med andra alternativ är det en mycket skonsam metod.</p>
+        </article>
+        <article class="tblock rv" id="t-inv">
+          <h3>Invisalign</h3>
+          <p class="pull">Nästan osynlig tandreglering med genomskinliga aligners som du kan ta av och på.</p>
+          <p>Med 3D-bildbehandling gör tandläkaren en behandlingsplan, och en serie aligners flyttar tänderna gradvis. Det är lätt att borsta tänderna under behandlingen. Kontakta oss om du vill veta mer.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="akut" id="akut">
+    <div class="wrap akut-grid">
+      <div class="rv">
+        <h2>Akuta besvär</h2>
+        <p style="margin-top:18px">Har du ont eller har något hänt med en tand? Kontakta oss så tidigt som möjligt under dagen.</p>
+      </div>
+      <div class="akut-cards rv">
+        <div class="akut-card"><div><b>Vardagar</b><span>Ring kliniken så tidigt som möjligt</span></div><a href="tel:021125253">021-12 52 53</a></div>
+        <div class="akut-card"><div><b>Helgdagar</b><span>Folktandvårdens helgjour, kl 10–12</span></div><a href="tel:021174967">021-17 49 67</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="clinic" id="kliniken">
+    <div class="wrap">
+      <div class="clinic-head rv">
+        <h2>Kliniken och utrustningen</h2>
+        <p>Större delen av kliniken är utrustad med högkvalitativa tandläkarstolar från Stern Weber. Vi använder endast digital röntgen, som ger låg stråldos och bilder du kan se direkt på våra datorer.</p>
+      </div>
+      <div class="gallery rv">
+        <figure class="g1"><img src="https://www.norenius.se/files/20220324_131122-1024x768.jpg" alt="Väntrummet med vit soffa och kakelgolv" width="1024" height="768" loading="lazy"><figcaption>Väntrummet</figcaption></figure>
+        <figure><img src="https://www.norenius.se/files/PShemsida_s-1024x683.jpg" alt="Behandling med digital röntgenbild på skärmen" width="1024" height="683" loading="lazy" style="object-position:40% 40%"><figcaption>Digital röntgen</figcaption></figure>
+        <figure><img src="https://www.norenius.se/files/OPGhemsida_s.jpg" alt="Panoramaröntgen" width="600" height="880" loading="lazy" style="object-position:50% 30%"><figcaption>Panoramaröntgen</figcaption></figure>
+        <figure class="g4"><img src="https://www.norenius.se/files/vantrum-1024x768.jpg" alt="Väntrummet med soffor vid fönstret" width="1024" height="768" loading="lazy" style="object-position:50% 60%"></figure>
+      </div>
+      <div class="quality">
+        <div class="q rv"><h3>Panoramaröntgen</h3><p>Tar bilder av hela käkarna, ett viktigt hjälpmedel vid undersökning och planering.</p></div>
+        <div class="q rv"><h3>Kvalitetsarbete med Qdent</h3><p>Ett kvalitetssäkringssystem anpassat för tandvården, med stöd för allt kvalitetsarbete som krävs.</p></div>
+        <div class="q rv"><h3>Medlemmar i Privattandläkarna och TEV</h3><p>Du får tillgång till Privattandvårdsupplysningen, förtroendenämnden och Privattandläkarnas trygghetspaket.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team" id="personal">
+    <div class="wrap">
+      <h2 class="rv">Vi som jobbar här</h2>
+      <p class="rv">Ett familjärt team som tar sig tid att lyssna på dig.</p>
+      <div class="lineup" id="lineup">
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A7189-768x1034.jpg" alt="David Norenius" width="768" height="1034" loading="lazy"></div><b>David Norenius</b><span>Tandläkare</span></div>
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A7140-768x971.jpg" alt="Sandra Norenius Sundqvist" width="768" height="971" loading="lazy"></div><b>Sandra Norenius Sundqvist</b><span>Tandläkare</span></div>
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A7105-768x1048.jpg" alt="Angelica Lundqvist" width="768" height="1048" loading="lazy"></div><b>Angelica Lundqvist</b><span>Tandhygienist</span></div>
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A7084-768x1050.jpg" alt="Malin Lindell" width="768" height="1050" loading="lazy"></div><b>Malin Lindell</b><span>Tandhygienist</span></div>
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A7162-768x993.jpg" alt="Johanna Andersson" width="768" height="993" loading="lazy"></div><b>Johanna Andersson</b><span>Tandsköterska</span></div>
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A7125-768x1049.jpg" alt="Annika Skoglöv" width="768" height="1049" loading="lazy"></div><b>Annika Skoglöv</b><span>Tandsköterska</span></div>
+        <div class="member"><div class="pic"><img src="https://www.norenius.se/files/69A9984-768x972.jpg" alt="Anette Hedberg" width="768" height="972" loading="lazy"></div><b>Anette Hedberg</b><span>Tandsköterska</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="wrap">
+      <h2 class="rv">Kontakt</h2>
+      <div class="contact-grid">
+        <div class="ccard rv">
+          <h3>Hitta hit</h3>
+          <ul class="cl">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Smedjegatan 15<br>722 13 Västerås</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:021125253">021-12 52 53</a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><a href="https://www.facebook.com/norenius/" target="_blank" rel="noopener">Facebook</a></li>
+          </ul>
+          <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=Smedjegatan+15%2C+722+13+V%C3%A4ster%C3%A5s" target="_blank" rel="noopener">Visa på karta</a>
+        </div>
+        <div class="ccard rv">
+          <h3>Öppettider</h3>
+          <table class="hours" id="open">
+            <tr data-day="1"><td>Måndag</td><td>07.00–18.00</td></tr>
+            <tr data-day="2"><td>Tisdag</td><td>07.30–18.00</td></tr>
+            <tr data-day="3"><td>Onsdag</td><td>07.00–15.00</td></tr>
+            <tr data-day="4"><td>Torsdag</td><td>07.30–16.00</td></tr>
+            <tr data-day="5"><td>Fredag</td><td>07.00–15.00</td></tr>
+          </table>
+        </div>
+        <div class="ccard rv">
+          <h3>Telefontid</h3>
+          <table class="hours" id="tel">
+            <tr data-day="1"><td>Måndag</td><td>07.30–15.00</td></tr>
+            <tr data-day="2"><td>Tisdag</td><td>07.30–16.00</td></tr>
+            <tr data-day="3"><td>Onsdag</td><td>07.30–15.00</td></tr>
+            <tr data-day="4"><td>Torsdag</td><td>07.30–16.00</td></tr>
+            <tr data-day="5"><td>Fredag</td><td>07.30–12.00</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><b>Tandläkarna Norenius</b>Vi är en privat tandvårdsklinik i centrala Västerås. Medlemmar i Privattandläkarna och TEV.</div>
+      <div><b>Ägare</b>Göran Norenius AB, 556313-7495<br>Sandra Norenius AB, 559271-3043</div>
+      <div><b>Kontakt</b>Smedjegatan 15, 722 13 Västerås<br><a href="tel:021125253">021-12 52 53</a></div>
+    </div>
+    <div class="fine"><span>© Göran Norenius AB</span><span>Designförslag, inte den officiella webbplatsen</span></div>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-main" href="tel:021125253">Ring 021-12 52 53</a></div>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const header = document.querySelector('.site-header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  const menu = document.querySelector('.menu');
+  const nav = document.getElementById('nav');
+  menu.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-label', open ? 'Stäng meny' : 'Öppna meny');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }));
+
+  // Reveal on scroll; the team line-up rises member by member
+  const targets = document.querySelectorAll('.rv, #lineup');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }), { rootMargin: '0px 0px -10% 0px' });
+    targets.forEach(t => io.observe(t));
+  } else targets.forEach(t => t.classList.add('in'));
+
+  // Scroll-spy for the treatment list
+  const links = [...document.querySelectorAll('#spy a')];
+  const blocks = links.map(a => document.querySelector(a.getAttribute('href')));
+  function spy() {
+    const mid = 170;
+    let cur = 0;
+    blocks.forEach((b, i) => { if (b.getBoundingClientRect().top < mid) cur = i; });
+    links.forEach((a, i) => a.classList.toggle('on', i === cur));
+  }
+  addEventListener('scroll', spy, { passive: true });
+  spy();
+
+  // Phone line status in Swedish time, from the clinic's telefontider
+  const TEL = { 1: ['07:30', '15:00'], 2: ['07:30', '16:00'], 3: ['07:30', '15:00'], 4: ['07:30', '16:00'], 5: ['07:30', '12:00'] };
+  const DAYS = ['', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag', 'söndag'];
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Stockholm', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+    .formatToParts(new Date()).map(p => [p.type, p.value]));
+  const day = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 }[parts.weekday];
+  const now = parts.hour + ':' + parts.minute;
+  const dot = t => t.replace(':', '.');
+  const card = document.getElementById('phone');
+  const state = document.getElementById('phoneState');
+  const sub = document.getElementById('phoneSub');
+  const today = TEL[day];
+  if (today && now >= today[0] && now < today[1]) {
+    card.classList.add('open');
+    state.textContent = `Telefonen är öppen nu, till ${dot(today[1])}`;
+    sub.textContent = 'Ring och boka tid direkt';
+  } else {
+    let next, label;
+    if (today && now < today[0]) { next = today; label = 'i dag'; }
+    else {
+      for (let k = 1; k <= 7; k++) {
+        const d = ((day - 1 + k) % 7) + 1;
+        if (TEL[d]) { next = TEL[d]; label = k === 1 ? 'i morgon' : 'på ' + DAYS[d]; break; }
+      }
+    }
+    state.textContent = 'Telefonen är stängd just nu';
+    sub.textContent = `Vi svarar igen ${label} kl ${dot(next[0])}`;
+  }
+  ['open', 'tel'].forEach(id => {
+    const r = document.querySelector(`#${id} tr[data-day="${day}"]`);
+    if (r) r.classList.add('today');
+  });
+</script>
+</body>
+</html>
