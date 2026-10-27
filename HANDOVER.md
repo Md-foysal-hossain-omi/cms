@@ -75,11 +75,20 @@ The memorable element per site:
 - #5: a 3D-flipping postcard; the clinic really calls patients in by postcard.
 - #6: a searchable price list with all 69 reference-price codes, collected from 12 separate pages.
 
-Leads 7–10 (not started): Lars-Göran Jonson (Sundsvall), Amaliakliniken (Halmstad), Norenius HB (Västerås), Plaza Tandvård AB (Borås). Details are in the leads file.
+Leads 7–10 (worked 27 Oct):
+
+| # | Clinic | Status |
+|---|---|---|
+| 7 | Lars-Göran Jonson, Sundsvall | **Dropped**: Praktikertjänst AB |
+| 8 | Amaliakliniken, Halmstad | **Dropped**: Praktikertjänst AB (site on ptj.se) |
+| 9 | Tandläkarna Norenius HB, Västerås | Built and checked: `mockups/norenius/`, kit `outreach/09-norenius/` ("Sandra?", phone first: no email on their site). Memorable: live "Telefonen är öppen nu" card. Planned URL norenius-forslag.vercel.app. **NOT deployed** |
+| 10 | Plaza Tandvård AB, Borås | Built and checked: `mockups/plaza-tandvard/`, kit `outreach/10-plaza-tandvard/` ("Andreas?"). Memorable: Invisalign level comparer + 10-tandvården year check. Weakest lead (agency site). Planned URL plaza-tandvard-forslag.vercel.app. **NOT deployed** |
+
+Always check the company form **before** designing (Praktikertjänst = skip, enskild firma = phone first).
 
 ### Immediate next steps
 
-1. **Deploy #4, #5, #6.** Vercel's MCP connection lost team access after a session restart. Every call returns 403 "Trying to access resource under scope best-world2".
+1. **Deploy #4, #5, #6, #9 and #10.** Vercel's MCP connection lost team access after a session restart. Every call returns 403 "Trying to access resource under scope best-world2".
    - Fix: call `mcp__Vercel__authorize_team_access` with teamId `team_z4QWny6TVhlgYNMRPOiIt1yZ`. Give the user the link it returns; they must approve it in a browser, and it expires in 10 minutes. Then retry.
    - The last link given was `https://vercel.com/sso/session-requests/UZv9avF5zD6da5P-VsDOrBPeidD5csPd`. It has probably expired, so make a new one.
 2. Deploy method (gitSource deploys fail because the Vercel GitHub app has no repo access):

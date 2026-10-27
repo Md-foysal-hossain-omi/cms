@@ -37,3 +37,5 @@ Keep only one SPF record. Two `v=spf1` records break SPF.
 | 4 Tigran Capital AB (Tandhälsan) | Email | AB |
 | 5 Leg tandläkare Maria Sjökvist AB | Email | AB |
 | 6 Tandläkarmottagning Ekersgatan 7 | **Phone first**, email only after a yes, else letter | Enskild firma (private person under Swedish marketing rules) |
+| 9 Tandläkarna Norenius HB | **Phone first** to get an email address (none on the site), or Facebook message | HB owned by two ABs, so email is fine once you have an address |
+| 10 Plaza Tandvård AB | Email (andreas.storvik@ or info@) | AB. Weakest lead: agency-built site, pitch Invisalign conversion |

@@ -36,6 +36,8 @@ opticians, solo law firms, accounting firms (varden.se covers the health ones).
 | 9 | Tandläkarna Norenius HB — [norenius.se](https://www.norenius.se) | Västerås | Norenius partners (2 dentists) | 021-12 52 53 | Dated template, 8-item uppercase menu, no online booking | B |
 | 10 | Plaza Tandvård AB — [plazatandvard.se](https://www.plazatandvard.se) | Borås | Malin Wagner and Andreas Storvik | 033-12 66 30, info@plazatandvard.se | Grey low-contrast hero, text hard to read, © 2021 | B |
 
+**Update 27 Oct 2026:** #7 Lars-Göran Jonson and #8 Amaliakliniken are **dropped**: both run under Praktikertjänst AB (org.nr 556077-2419; Amaliakliniken's site is on ptj.se). #6 Ekersgatan is an enskild firma (phone first). #9 Norenius is a HB owned by two AB companies; #10 Plaza Tandvård is an AB.
+
 Reserve: Hörntanden Örebro (the 1177.se link points to a 404 page) is a Praktikertjänst clinic (email @ptj.se), so skip.
 
 Västerås has 4 of the 10. One good local result there can be shown to the others.
