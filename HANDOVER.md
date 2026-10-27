@@ -1,6 +1,6 @@
 # Handover: Foysal Solutions, lead generation and Shopify apps
 
-Last updated: 2026-10-27. Written for the next AI assistant (or person) taking over this work.
+Last updated: 2026-10-27 (second update: lead 6 company form, SPF check). Written for the next AI assistant (or person) taking over this work.
 Read this first, then the files it points to. Everything named here is committed in this repo
 (`md-foysal-hossain-omi/cms`, branch `claude/pensive-ritchie-83vc1b`).
 
@@ -57,7 +57,7 @@ Read this first, then the files it points to. Everything named here is committed
 | 3 | Tandläkare Sköldenklint AB, Kalmar + Mönsterås | Mikael Sköldenklint ("Mikael?") | AB (Hitta) | `mockups/skoldenklint/` | https://skoldenklint-forslag.vercel.app | Live and re-verified, kit ready |
 | 4 | Tandhälsan i Eskilstuna (Tigran Capital AB) | David Karapetjan ("David?") | AB (own Företagsfakta page) | `mockups/tandhalsan-eskilstuna/` | planned: tandhalsan-eskilstuna-forslag.vercel.app | **Built and checked. NOT deployed** |
 | 5 | Leg tandläkare Maria Sjökvist AB, Gävle | Maria Sjökvist ("Maria?") | AB (name on site) | `mockups/maria-sjokvist/` | planned: maria-sjokvist-forslag.vercel.app | **Built and checked. NOT deployed** |
-| 6 | Tandläkarmottagning Ekersgatan 7, Örebro | Matti Koivuniemi ("Matti?") | **Unknown**, maybe enskild firma | `mockups/ekersgatan-7/` | planned: ekersgatan-7-forslag.vercel.app | **Built and checked. NOT deployed** |
+| 6 | Tandläkarmottagning Ekersgatan 7, Örebro | Matti Koivuniemi ("Matti?") | **Enskild firma** (org.nr 641102-XXXX, "Innehavare"): phone first, no cold email | `mockups/ekersgatan-7/` | planned: ekersgatan-7-forslag.vercel.app | **Built and checked. NOT deployed** |
 
 Outreach kits: `research/leads/outreach/01-…` to `06-…`. Each `email.md` contains:
 - the Swedish email
@@ -90,7 +90,7 @@ Leads 7–10 (not started): Lars-Göran Jonson (Sundsvall), Amaliakliniken (Halm
    - If Vercel gives a different URL than planned, update `email.md` and `followups.md` for that lead.
 3. After the deploys, regenerate each `fore-efter-mobil.jpg` from the **live** URL. The current ones were made from the local file, which looks the same.
 4. Report to the user in Bengali: all links, subjects, notes.
-5. **Lead #6:** before emailing, check the company form on allabolag.se or ratsit.se ("Koivuniemi"). If it's an enskild firma, call or send a letter. The script and letter text are in its `email.md`.
+5. **Lead #6** is an enskild firma (confirmed 27 Oct via allabolag/bolagsfakta). Phone first, email only after a yes, otherwise the letter. Everything is in its `email.md`.
 
 ---
 
@@ -101,7 +101,7 @@ Leads 7–10 (not started): Lars-Göran Jonson (Sundsvall), Amaliakliniken (Halm
   - Cloudflare MX
   - Brevo DKIM (CNAMEs `brevo1` / `brevo2`)
   - DMARC `p=none` with rua to Brevo
-  - SPF covers Cloudflare only. Brevo still needs adding (`include:spf.brevo.com`). Verify before the first send.
+  - SPF (checked 27 Oct): `v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all`. Brevo is still missing; the exact new record is in `research/leads/outreach/SENDING-SETUP.md`.
 - Advice already given:
   - Test on mail-tester.com and only send at 9/10 or higher.
   - Send 2–3 cold emails a day at first.
@@ -153,7 +153,7 @@ Leads 7–10 (not started): Lars-Göran Jonson (Sundsvall), Amaliakliniken (Halm
 - `check-th.js`, `check-ms.js`, `check-ek.js`: site-specific checks for #4, #5 and #6.
 - `elshot.js URL prefix width sel...`: screenshots of single elements.
 - `livecap.js URL prefix`: viewport screenshots (`prefix-d.png`, `prefix-m.png`).
-- `kit.py old.png new.png out.jpg '#hex'`: builds the before/after image. The old-site mobile screenshots were in the session scratchpad and are gone; recapture with `livecap.js https://<old-site> shots/<host>`.
+- `kit.py old.png new.png out.jpg '#hex'`: builds the before/after image. Old-site screenshots for all 10 leads are in `research/leads/screens/<host>-m.png` (mobile) and `-d.png` (desktop).
 
 ---
 
